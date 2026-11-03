@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261103T1100-atomic-endpoints.json")
+DEFAULT_SNAPSHOT = Path(__file__).with_name("progress-snapshot-20261103T1220-atomic-basis.json")
 BLUE = "#2468ac"
 GREEN = "#158477"
 ORANGE = "#cf7b25"
@@ -105,8 +105,8 @@ def _diagnostics(ax, data):
     _panel(
         ax,
         "B",
-        "What still limits reliability?",
-        "Each sensitivity divided by its own declared tolerance",
+        data.get("diagnostic_title", "What still limits reliability?"),
+        data.get("diagnostic_subtitle", "Each sensitivity divided by its own declared tolerance"),
     )
     rows = data["diagnostic_gate_ratios"]
     values = np.asarray([row["value"] for row in rows])
@@ -138,8 +138,12 @@ def _diagnostics(ax, data):
         label = f"{value:.2g}×"
         ax.text(value * 1.5, i, label, va="center", fontsize=9, color=INK)
     ax.set_xscale("log")
-    ax.set_xlim(1e-7, 30)
-    ax.set_xticks([1e-6, 1e-4, 1e-2, 1, 10], ["10⁻⁶", "10⁻⁴", "10⁻²", "1", "10"])
+    ax.set_xlim(*data.get("diagnostic_xlim", (1e-7, 30)))
+    ax.set_xticks(
+        data.get("diagnostic_xticks", [1e-6, 1e-4, 1e-2, 1, 10]),
+        data.get("diagnostic_xticklabels", ["10⁻⁶", "10⁻⁴", "10⁻²", "1", "10"]),
+    )
+    ax.minorticks_off()
     ax.invert_yaxis()
     ax.set_xlabel("Sensitivity / tolerance   (log scale; ≤1 passes)")
     _note(
@@ -1150,7 +1154,9 @@ def render(snapshot: Path, output: Path) -> None:
     panels = (
         _anchor_candidates if "anchor_candidates" in data else _resonances,
         (
-            _ensemble_frame_subspaces
+            _diagnostics
+            if data.get("atomic_basis_diagnostics")
+            else _ensemble_frame_subspaces
             if "ensemble_frame_subspaces" in data
             else _radial_accuracy
             if "radial_accuracy" in data
@@ -1250,7 +1256,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=ROOT / "docs/physics/figures/co-progress-20261103T1100-atomic-endpoints",
+        default=ROOT / "docs/physics/figures/co-progress-20261103T1220-atomic-basis",
     )
     args = parser.parse_args()
     render(args.snapshot, args.output)

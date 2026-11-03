@@ -1,4 +1,4 @@
-# CO atomic energy references and first endpoint pilot
+# CO atomic energy references and finite-basis endpoint controls
 
 ## Purpose and present status
 
@@ -17,11 +17,30 @@ No supported bound-state continuation or practical matching radius follows from
 atomic sums alone. Original source/protocol inputs and their earlier missing-
 result status remain preserved in the executed capsule.
 
-The first endpoint pilot targets four free atoms in **aug-cc-pVQZ**, matching one
+**Completed matched5Z control:** [public reconstruction](../../projects/ukrmol_co/qualification-evidence/atomic-5z-endpoints/README.md)
+supplies5Z EAs O1.426606459/C1.240999940eV. Same calculation-source bytes,atomic
+states,one frozen1s and ROHF-reference UCCSD(T),without further UHF optimization.
+All original exits0;114.673835s owner/11.883816GiB/four cores. The original
+zero-quantum AST-control failure is preserved separately;the corrected release
+requires exact source-byte equality and passes eight actual-image controls before
+science. No numerical/physical gate changed.
+
+The predeclared **finite-basis**10meV EA and20meV atom-to-fixed-molecular-reference
+offset diagnostics reject insensitivity: O EA changes23.533750meV (C5.950705meV),
+and C+O/C+O-/C-+O offsets change52.916179/29.382428/46.965473meV. References
+are each basis's molecular energy atR=2.1323,not optimized minima or nuclear
+levels;these offsets are **not De,D0 or initial-v DA thresholds**. Small relative
+well-shape errors do not qualify absolute atomic alignment. Two bases give no
+CBS bound;stop endpoint-convergence inference,no6Z/automatic extrapolation.
+Next select a neutral/correlation/reference treatment with a demonstrated route
+to molecular fragment consistency;absolute accuracy and correlated L2 remain open.
+
+The first endpoint pilot targeted four free atoms in **aug-cc-pVQZ**, matching one
 existing molecular basis. It does not repeat the neutral well grid and does not
 claim that restricted molecular CCSD(T) dissociates correctly. A second basis is
-conditional on the first actual endpoint/EA results, not an automatic ladder.
-This note fixes the protocol; no atom execution is released until implementation,
+conditional on the first actual endpoint/EA results, not an automatic ladder;
+the user-selected matched5Z control above completes that bounded comparison.
+This note fixes the protocol; no new atom execution is released until implementation,
 state checks, exact source/image/input pins, tests and a durable costed owner are
 frozen and pushed.
 

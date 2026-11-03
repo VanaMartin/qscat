@@ -2,6 +2,25 @@
 
 ## Decision now
 
+**3November12:20UTC—[matched5Z endpoints reconstruct;basis-insensitivity rejects](qualification-evidence/atomic-5z-endpoints/README.md).**
+All original exits0,114.673835s/11.883816GiB/four physical cores. EAs
+O1.426606459/C1.240999940eV;O basis shift23.533750meV exceeds10meV.
+Atom-to-own-fixed-molecular-reference offset shifts52.916179/29.382428/46.965473meV
+all exceed20meV. Not De,D0,CBS or an absolute-accuracy pass. Preserve the
+[original zero-quantum AST-control stop](qualification-evidence/atomic-5z-launch-stop/README.md)
+separately from the corrected exact-source-byte release;no gate relaxation or
+successful quantum repeat. Both atomic jobs finish before first600s periodic
+check;immediate terminal observations retained,no active job/monitor.
+
+**Stop endpoint basis-insensitivity/production inference.** Redirect to one
+at-most60minute saved neutral/correlation/reference decision,zero quantum calls:
+choose one spin-consistent dissociation treatment or declared hybrid/literature
+reference with overlap/fragment checks and costed small diagnostics,or state the
+blocker. No6Z,automatic extrapolation,new dense grid,augmented inner/pole,fit/sweep
+or114-holdout action. New science needs a separately frozen tested release.
+
+### Earlier3November atomic endpoint milestone
+
 **3November11:00UTC—[four finite-method atomic endpoints now independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).**
 C/O/O-/C- aug-QZ totals and free-fragment sums are supplied; EAs1.403073/1.235049eV,
 correct ordering but absolute accuracy unresolved. Original exits0,17.913795s/

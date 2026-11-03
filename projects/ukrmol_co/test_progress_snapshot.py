@@ -316,3 +316,61 @@ def test_completed_atomic_pilot_fills_finite_endpoints_not_absolute_accuracy():
         live["full_sweep_released"] is False
         and live["route_holdout_s_matrices_still_unanalyzed"] == 114
     )
+
+
+def test_matched_five_z_success_does_not_qualify_basis_insensitivity_or_dissociation():
+    snapshot = _snapshot_data(DEFAULT_SNAPSHOT)
+    live = snapshot["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["atomic_5z_verification"]).read_text())
+    assert result["finite_method_endpoint_reconstruction_verdict"] is True
+    assert result["original_exits"] == [0] * 8
+    assert result["original_atom_profile_exits"] == [0] * 4
+    assert result["qz_predecessor_independently_replayed"] is True
+    assert result["calculation_source_byte_identical_to_qz"] is True
+    assert result["actual_image_preflight_exit"] == 0
+    assert result["ea_basis_change_ev"]["O"] > 0.01
+    assert result["ea_basis_change_ev"]["C"] < 0.01
+    assert all(
+        v > 0.02 for v in result["atomic_to_fixed_reference_offset_basis_change_ev"].values()
+    )
+    for key in [
+        "ea_basis_diagnostic_passed",
+        "reference_offset_basis_diagnostic_passed",
+        "finite_basis_diagnostic_passed",
+        "complete_basis_convergence_qualified",
+        "atomic_absolute_accuracy_qualified",
+        "molecular_dissociation_qualified",
+        "reference_offset_is_dissociation_depth",
+    ]:
+        assert result[key] is False
+    assert live["atomic_finite_basis_diagnostic_passed"] is False
+    assert live["atomic_automatic_larger_basis"] is False
+    assert live["active_numerical_job"] is None and live["active_monitor"] is False
+    ratios = snapshot["diagnostic_gate_ratios"]
+    changes = [
+        *result["ea_basis_change_ev"].values(),
+        *result["atomic_to_fixed_reference_offset_basis_change_ev"].values(),
+    ]
+    assert [r["value"] for r in ratios] == pytest.approx(
+        [v / budget for v, budget in zip(changes, [0.01, 0.01, 0.02, 0.02, 0.02], strict=True)],
+        abs=1e-12,
+        rel=0,
+    )
+    assert [r["passed"] for r in ratios] == [False, True, False, False, False]
+
+
+def test_original_atomic_startup_failure_is_not_requalified_by_corrected_success():
+    live = _snapshot_data(DEFAULT_SNAPSHOT)["live_status"]
+    result = json.loads(DEFAULT_SNAPSHOT.with_name(live["atomic_5z_stop_verification"]).read_text())
+    assert result["original_startup_stop_reconstructed"] is True
+    assert result["original_exits"] == [1, 2, 2, 2, 2, 2]
+    assert result["original_scientific_exit"] is None
+    assert result["finite_method_endpoint_reconstruction_verdict"] is None
+    assert (
+        result["original_stop_requalified"] is live["atomic_5z_startup_stop_requalified"] is False
+    )
+    assert result["new_integral_calls"] == result["new_scf_calls"] == result["new_cc_calls"] == 0
+    historical = _snapshot_data(
+        DEFAULT_SNAPSHOT.with_name("progress-snapshot-20261103T1100-atomic-endpoints.json")
+    )["live_status"]
+    assert "atomic_5z_verification" not in historical

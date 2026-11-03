@@ -43,7 +43,46 @@ evidence delta, remaining uncertainty, disposition and next deliverable. Report
 goal-level progress to the user first; link technical evidence separately.
 The checkpoint itself does not authorize an expensive calculation.
 
-### Current goal checkpoint —3 November,11:00UTC: missing finite atomic endpoints supplied
+### Current goal checkpoint —3 November,12:20UTC: finite atomic basis diagnostics reject
+
+**Goal/physical decision:** a common atomic/neutral zero for dissociation-qualified
+curves and a held-out-tested2-D potential. One user-selected matched5Z counterpart
+tests whether QZ endpoints and their molecular alignment are basis-insensitive;
+it is not a CBS ladder or a molecular/scattering calculation.
+
+**Reuse/minimum/bounds:** original qualified QZ and all molecular data reused;
+only four5Z atoms,identical calculation-source bytes,states/core/ROHF-reference
+UCCSD(T) and gates. Four physical Sadaharu cores/unchanged16GiB;science114.268448s,
+owner114.673835s,CPU302.461764s/kernel peak11.883816GiB. Conditional1–5minute
+forecast contains measured duration;no speedup inference. All original exits0,
+no OOM/timeout. Narrow release repair stayed within1hour implementation cap.
+600s active checks plus immediate terminal observations;completion before first
+periodic check,no active campaign job/monitor.
+
+**Evidence delta:** [public independent reconstruction](qualification-evidence/atomic-5z-endpoints/README.md)
+replays48 raw files/21 original Git sources/12 prerequisites/573 samples and QZ.
+5Z EAs O1.426606459/C1.240999940eV;QZ-to5Z changes+23.533750/+5.950705meV.
+O exceeds the predeclared10meV diagnostic. Matching-basis atom-to-fixed-molecular
+reference offsets shift C+O+52.916179,C+O-+29.382428,C-+O+46.965473meV;
+all exceed20meV. These are fixedR=2.1323 offsets,not De/D0/initial-v thresholds.
+The earlier [zero-atom startup failure](qualification-evidence/atomic-5z-launch-stop/README.md)
+retains controls1/outer exits2. Separate source-compatibility release fixes only
+Python3.11/3.12 AST serialization dependence using stronger source-byte equality;
+all eight actual-image controls pass before science. Original failure is not
+requalified,no successful atom repeated,no numerical/physical budget relaxed.
+
+**Disposition: stop basis-insensitivity and production inference;redirect to one
+neutral/correlation/reference-treatment decision.** Both finite datasets remain
+qualified,not absolute atomic accuracy,CBS or molecular size-consistency.
+At most60minutes saved evidence/source work,zero new quantum calls: select a
+spin-consistent dissociation treatment or declared hybrid/literature reference,
+with overlap/fragment checks and one costed small diagnostic set,or record why
+selection is blocked. Review at that decision/before any new quantum release.
+No6Z,automatic extrapolation,new dense neutral grid,augmented inner/pole,fit/sweep
+or114-holdout analysis. Bound continuation,resonance identity and production model
+remain missing;all prior failures and equilibrium/nine/new50/2048 protections stand.
+
+### Earlier goal checkpoint —3 November,11:00UTC: missing finite atomic endpoints supplied
 
 **Goal/decision link:** close the atomic-reference gap before selecting a neutral
 dissociation treatment or more scattering work. User authorizes automatic

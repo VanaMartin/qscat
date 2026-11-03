@@ -1,0 +1,17 @@
+{
+  "artifacts":{
+    "atomic_basis_comparison.py":{"bytes":3038,"sha256":"946af2a2a89dfb3a66353f4f7de0077683e89144dbd70600c6222d0819c0db3b"},
+    "collection.json":{"bytes":7042,"sha256":"d87da0b215a31ce869758871fa3f1722f13a79bbdad36c330a4864e7dcdb2619"},
+    "evidence.tar.gz":{"bytes":1419829,"sha256":"3a2521b4b8d12b6c4a816cfb51e15917f5dafbfce1777ddbeb5a1626cfe5498d"},
+    "manifest.json":{"bytes":312,"sha256":"243f52d8a722d19a7ad4bc20294b0886e092ab2dcb4f5329a6f33a9b0f8078b0"},
+    "reading.json":{"bytes":6745,"sha256":"34ae793f7fe95b579fa1792fd50ca619bb4ce9497b36f4a616f760a37cf650b6"},
+    "result-summary.json":{"bytes":5585,"sha256":"c6dfbff5f328b71cbde25ca25f196098473842af278b4dea276e5b6230a456ef"},
+    "test_atomic_basis_comparison.py":{"bytes":2475,"sha256":"b9067a9341414ac989799894f042bac9a2392648468be12a3f2052c07a5b5756"},
+    "units.py":{"bytes":797,"sha256":"780c3f1b2869b0a0ff669fcaffe1304e04ec7f479fc34f58c5b3d9e412e6075f"},
+    "verify_atomic_5z.py":{"bytes":6669,"sha256":"069780197051999f8938fdf4f65dcd3bbae364ef5b41213ae1064d697394891a"},
+    "verify_atomic_references.py":{"bytes":9636,"sha256":"b6d7b6a54097b267db2cb175524b7d7519f96e20f13a823e9dd8b452eeb1c13d"},
+    "verify_stretched_properties.py":{"bytes":12610,"sha256":"853bf28ad3603e7a7c737fc7675a2704852be68a93b9b41a7b0bac18b0a30315"}
+  },
+  "git_sha":"29c92809fc831de29c01e815ea6a791a320f8cb0",
+  "url_prefix":"https://data.qscat.org/co-atomic-5z-endpoints-20261103/"
+}

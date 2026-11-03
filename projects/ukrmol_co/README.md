@@ -852,7 +852,16 @@ See the [completed capture](progress-a2-target-preflight-20261014T1319.json),
 
 ## Progress overview — 3 November 2026
 
-**11:00UTC:** [four calculated atomic endpoints independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).
+**12:20UTC:** [matched5Z atoms complete;finite-basis insensitivity rejects](qualification-evidence/atomic-5z-endpoints/README.md).
+All original exits0,114.673835s/11.883816GiB/four physical cores. O EA shifts
+23.533750meV against10meV;matching-basis atom-to-fixed-molecular-reference offset
+shifts52.916179/29.382428/46.965473meV against20meV. These are not De/D0 or
+initial-v thresholds. Preserve the [original zero-quantum startup failure](qualification-evidence/atomic-5z-launch-stop/README.md)
+separately from the corrected source-byte-equality release. No absolute-accuracy,
+CBS,dissociation or production pass. Next one bounded neutral/correlation/reference
+decision;no6Z,automatic extrapolation or scattering successor. No active job/monitor.
+
+**Earlier11:00UTC:** [four calculated atomic endpoints independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).
 We now have C/O/O-/C- aug-QZ totals and fragment sums. EAs O1.403073/C1.235049eV
 give correct ordering,not an absolute-accuracy or molecular-dissociation pass.
 17.913795s/1.943348GiB/four cores/all original exits0. The requested5–15minute
@@ -900,10 +909,14 @@ physical cores/8GiB; independent actual result/cost required before preparation.
 Production fitting remains stopped; the target-correspondence result below does
 not waive the measured pole sensitivity or unproved N+1 resonance identity.
 
-![Four finite-method atomic endpoints now exist;absolute reference accuracy and molecular dissociation remain open](../../docs/physics/figures/co-progress-20261103T1100-atomic-endpoints.png)
+![Matched5Z atomic endpoints complete;EA and fixed-reference offset basis diagnostics reject insensitivity](../../docs/physics/figures/co-progress-20261103T1220-atomic-basis.png)
 
-[Vector figure](../../docs/physics/figures/co-progress-20261103T1100-atomic-endpoints.svg) ·
-[Atomic-endpoint snapshot](progress-snapshot-20261103T1100-atomic-endpoints.json) ·
+[Vector figure](../../docs/physics/figures/co-progress-20261103T1220-atomic-basis.svg) ·
+[Atomic-basis snapshot](progress-snapshot-20261103T1220-atomic-basis.json) ·
+[Independent5Z evidence](qualification-evidence/atomic-5z-endpoints/README.md) ·
+[Preserved startup stop](qualification-evidence/atomic-5z-launch-stop/README.md) ·
+[Previous QZ figure](../../docs/physics/figures/co-progress-20261103T1100-atomic-endpoints.svg) ·
+[Previous QZ snapshot](progress-snapshot-20261103T1100-atomic-endpoints.json) ·
 [Independent atomic evidence](qualification-evidence/atomic-qz-endpoints/README.md) ·
 [Previous reference-plan figure](../../docs/physics/figures/co-progress-20261103T0940-reference-plan.svg) ·
 [Active-plan snapshot](progress-snapshot-20261103T0940-reference-plan.json) ·

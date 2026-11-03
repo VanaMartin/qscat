@@ -88,7 +88,36 @@ motivation and newly unlocked steps remain visible.
 
 ## Live qualification handoff
 
-### Current: four atomic endpoints independently reconstructed —3 November,11:00UTC
+### Current: matched5Z completes;finite-basis diagnostics reject —3 November,12:20UTC
+
+[Independent5Z evidence](qualification-evidence/atomic-5z-endpoints/README.md):
+all original exits0,science114.268448s/owner114.673835s/CPU302.461764s,
+11.883816GiB/four physical cores,unchanged16GiB allocation. Eleven fresh public
+payloads reconstruct48 raw files/21 original Git sources/12 prerequisites/573
+samples and original QZ. 5Z EAs O1.426606459/C1.240999940eV;basis shifts
++23.533750/+5.950705meV. O rejects10meV,C passes. Matching-basis atom-to-fixed
+R=2.1323 molecular-reference offset shifts+52.916179/+29.382428/+46.965473meV
+for C+O/C+O-/C-+O all reject20meV;not De,D0 or initial-v DA thresholds.
+
+[Original startup failure](qualification-evidence/atomic-5z-launch-stop/README.md)
+is preserved:controls1/outer exits2,zero integral/SCF/CC calls,owner0.386853s.
+Separate`e5f8e74` release corrects version-dependent AST metadata hashing to
+exact calculation-source bytes;all eight controls pass in actual image before
+science. No successful atom repeated,no physical/numerical gate relaxed.
+Both atomic runs complete before first600s periodic check;immediate terminal
+observations retained. **No active campaign quantum job/monitor remains.**
+
+**Disposition/one next deliverable:** stop endpoint basis-insensitivity/production
+inference;one at-most60minute saved neutral/correlation/reference-treatment
+decision,zero new quantum calls. Select one spin-consistent dissociation treatment
+or declared hybrid/literature reference with overlap/fragment checks and a costed
+small diagnostic set,or record the selection blocker. No6Z,automatic extrapolation,
+new dense neutral grid,augmented inner/pole,fit/sweep or114-holdout action. User
+automatic continuation and600s active checks stand;new science still requires
+its tested/frozen release. Preserve both finite atomic datasets,original null
+inputs,all failures and equilibrium/nine/new50/2048 boundaries.
+
+### Earlier: four atomic endpoints independently reconstructed —3 November,11:00UTC
 
 User requests automatic continuation with status checks every5–15minutes.
 For active allocations,target600s checks plus immediate terminal observation;

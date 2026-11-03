@@ -1,0 +1,19 @@
+{
+  "finished_utc":"2026-11-03T12:01:12.205302+00:00",
+  "source_commit":"875e3785496df4f81eda7cd61bd7ccf70cf85569",
+  "archive_sha256":"69a94cd4509aa530dac03a89e50399cdc9497ba0e2dc6bd3533f2bc391763085",
+  "original_startup_stop_reconstructed":true,
+  "fresh_public_payloads_verified":11,
+  "archived_files_verified":14,
+  "executed_git_sources_verified":19,
+  "original_exits":[1,2,2,2,2,2],
+  "original_scientific_exit":null,
+  "new_integral_calls":0,
+  "new_scf_calls":0,
+  "new_cc_calls":0,
+  "original_stop_requalified":false,
+  "finite_method_endpoint_reconstruction_verdict":null,
+  "owner_wall_seconds":0.3868531489861198,
+  "route_holdout_s_matrices_analyzed":0,
+  "full_sweep_released":false
+}

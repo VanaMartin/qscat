@@ -17,8 +17,9 @@ thermal CO DA near10eV, where other resonance families contribute.
 **Current verdict:** useful local data and calculated atomic endpoints, not a
 dissociation-qualified potential.
 The correlated neutral segment is1.9–2.5bohr only; molecular3/4bohr restricted
-references failed stability before CCSD(T). The first four-atom aug-QZ pilot now
-supplies independently reconstructed finite-method sums; absolute EA accuracy,
+references failed stability before CCSD(T). Aug-QZ and matched5Z pilots now
+supply independently reconstructed finite-method sums, but their predeclared
+basis-insensitivity diagnostics reject. Absolute EA accuracy,
 a consistent resonance curve,bound continuation and production model remain
 unqualified. Qualified stretched DZ/TZ poles differ103.370meV/44.172meV in position/
 full width. Aug-TZ preparation is preserved but its inner/pole work is paused.
@@ -67,7 +68,9 @@ Packages1 and2 are independent and may be interleaved without delaying the atomi
 pilot behind a publisher-access problem. A second atomic basis is conditional on
 the first actual result: estimate the endpoint/EA basis effect only if needed;
 do not launch a QZ/5Z/CBS ladder in advance. The four-atom pilot alone does **not**
-certify molecular dissociation or absolute EA accuracy.
+certify molecular dissociation or absolute EA accuracy. The user-selected matched5Z
+counterpart is now complete; its rejected diagnostics stop this basis branch.
+No6Z or automatic CBS extrapolation follows.
 
 ## Energy and state contract
 
@@ -122,25 +125,40 @@ claim about threshold-crossing/high-energy DA follows.
 | User direction and work order | Approved; recorded here | Follow this queue instead of the old inner-export successor |
 | Reference specification | Complete; [protocol](../../docs/physics/co-atomic-energy-references.md) and [unset ledger](atomic-asymptote-inputs-20261103.json) | Freeze source/tests/owner before quantum execution |
 | Open-shell runtime | [Source-only inspection passes](atomic-runtime-preflight-20261103.json);PySCF2.11 conversion supported,external ROHF stability unavailable | Use supported internal checks;external status must remain unavailable,not passed |
-| Actual atomic sums | [Four aug-QZ finite-method endpoints independently reconstructed](qualification-evidence/atomic-qz-endpoints/README.md),17.914s/1.943GiB | One bounded basis/reference-convention decision;no automatic second basis |
+| Actual atomic sums | [QZ and matched5Z endpoints independently reconstructed](qualification-evidence/atomic-5z-endpoints/README.md);5Z114.674s/11.884GiB | Preserve both finite datasets;no absolute-accuracy or dissociation claim |
+| Atomic finite-basis diagnostics | O EA+23.534meV exceeds10meV;all fixed-reference offset shifts exceed20meV | Reject insensitivity;no6Z/extrapolation;return to neutral/correlation/reference decision |
 | Neutral QZ/5Z well data | Reuse; no dense rerun | Read existing records for shape/spectroscopic diagnostics |
 | Dora2020 numerical supplement | One acquisition pass reached human-verification page; [receipt](literature-reference-acquisition-20261103.json) | No bypass/digitized precision benchmark; proceed with independent atomic work |
 | Neutral stretched reference | Restricted approach stopped | Select spin-consistent correlation/dissociation strategy, not an SCF retry |
 | Augmented scattering | Paused; no inner/pole result | Reopen only after the physical-model decision needs it |
 | Potential/DA/production release | Not ready | Complete reference, curve and independent validation gates |
 
-**Completed continuation:** four atoms execute under their separate frozen release;
-all original exits0,public raw-log/source/resource reconstruction passes. Computed
-EAs O1.403073/C1.235049eV have correct ordering but differ from rounded external
-context by approximately58/27meV; reference-convention/correlation/basis accuracy
-remains unresolved. Completion occurs before the first600s periodic check; the
-immediate terminal observation is17.907s after start.
+**Completed continuation —3November12:09:56UTC:** matched5Z atoms complete from
+separately frozen source`e5f8e74`;all original exits0. Science114.268448s,
+owner114.673835s,CPU302.461764s/11.883816GiB/four physical cores. Public reader
+reconstructs48 raw files/21 executed Git sources/573 samples and original QZ data.
+5Z EAs O1.426606459/C1.240999940eV change by+23.533750/+5.950705meV.
+O rejects10meV;C passes. Matching-basis atom-to-fixedR=2.1323 molecular-reference
+offsets shift+52.916179/+29.382428/+46.965473meV for C+O/C+O-/C-+O:
+all reject20meV. These offsets are not De,D0 or initial-v DA thresholds.
 
-**Immediate next deliverable:** at most30minutes saved evidence/source review to
-decide whether one matched5Z endpoint control is needed to isolate basis sensitivity
-and connect the existing5Z molecular zero. Reconcile spin-free/ground-J conventions
-before scoring precise EA errors. No second basis or molecular/scattering job
-follows automatically; any selected quantum control needs a new exact freeze.
+The [original startup stop](qualification-evidence/atomic-5z-launch-stop/README.md)
+remains separate:controls1/outer exits2,zero integral/SCF/CC calls. A separately
+frozen exact-source-byte equality control replaces Python-version-dependent AST
+metadata hashing;all eight controls pass in the actual image before science.
+No quantum calculation repeated and no physical/numerical gate changed.
+Both finite atomic jobs complete before their first600s periodic check;
+immediate terminal observations are retained.
+
+**Disposition: stop endpoint basis-insensitivity/production inference;redirect
+to the neutral/correlation/reference choice.** Immediate next deliverable is one
+at-most60minute saved-evidence/source method-selection cycle (packages2–3),zero
+new quantum calls: choose one spin-consistent dissociation treatment or explicitly
+declared hybrid/literature reference,with overlap/fragment checks and a costed
+small diagnostic set. Reconcile spin-free/ground-J conventions before precise EA
+scoring. If evidence cannot select a treatment,record the blocker rather than
+start a basis ladder. No6Z,CBS extrapolation,new neutral grid or scattering job
+follows automatically;any selected quantum control needs a new exact freeze.
 No active campaign job/monitor remains. Continue the approved research without
 repeated preference questions,but do not waive scientific stops.
 

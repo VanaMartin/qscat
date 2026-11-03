@@ -1,0 +1,6 @@
+{
+  "git_sha": "29c92809fc831de29c01e815ea6a791a320f8cb0",
+  "experiment": "co-atomic-5z-endpoints-20261103",
+  "executed_source_commit": "e5f8e74e3323cba2986ac407f17d6691857f8a7e",
+  "scope": "Matched5Z finite endpoints and rejected finite-basis sensitivity diagnostics;not absolute accuracy or dissociation"
+}

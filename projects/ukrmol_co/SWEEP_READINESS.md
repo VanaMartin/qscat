@@ -6,7 +6,17 @@ with held-out scattering validation. **A production sweep is not yet released.**
 The anchor campaign is R=1.9/2.1323/2.5 bohr. A wider geometry range needs its own
 electronic,continuity and neutral-reference qualification.
 
-**3November11:00UTC—[four calculated atomic endpoints independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).**
+**3November12:20UTC—[matched5Z finite endpoints pass;basis diagnostics reject](qualification-evidence/atomic-5z-endpoints/README.md).**
+114.673835s/11.883816GiB/four cores/all original exits0. O EA basis shift
+23.533750meV exceeds10meV;fixed-reference offset shifts52.916179/29.382428/
+46.965473meV all exceed20meV. Not De/D0 or initial-v thresholds;no CBS/absolute
+accuracy/molecular-dissociation pass. Preserve the separate zero-quantum startup
+failure and corrected source-byte-equality release. Stop basis-insensitivity/
+production inference;next one bounded saved neutral/correlation/reference decision,
+not6Z,automatic extrapolation or more scattering. No active job/monitor;600s
+checks plus immediate terminal observations retained. All114 holdouts untouched.
+
+**Earlier3November11:00UTC—[four calculated atomic endpoints independently reconstruct](qualification-evidence/atomic-qz-endpoints/README.md).**
 The finite-method atomic-sum gap is filled:EAs O1.403073/C1.235049eV,correct
 channel ordering. Absolute EA accuracy,molecular dissociation and a consistent
 resonance curve remain unqualified. All original exits0,17.913795s/1.943348GiB/
