@@ -15,19 +15,25 @@ import numpy as np
 from qscat.units import hartree_to_ev
 
 from projects.ukrmol_co.compressed_five_view import SELECTED_PROPERTY_IDS, load_compressed_five
+from projects.ukrmol_co.local_pole_inputs import load_boundary_model
 from projects.ukrmol_co.native_full_reconstruction import _model_from_interface, load_model
 from projects.ukrmol_co.pole_reference import pole_difference
 from projects.ukrmol_co.saved_matrices import read_interface
 
 
 def load_pole_model(source, contract):
-    """Dispatch the explicitly qualified finite model views at the compressed anchor."""
+    """Dispatch explicit finite views; local stretched views never open a K grid."""
     source = Path(source)
     case = contract["case"]
     if "/".join(source.parts[-3:]) != case:
         raise ValueError("Case and source directory differ")
     if case in ["compressed/nine/B1", "compressed/nine/B2"]:
         return load_model(source)
+    if (
+        case in ["stretched/nine/B1", "stretched/nine/B2"]
+        and contract.get("model_view") == "local-cas11-nine-2048-v1"
+    ):
+        return load_boundary_model(source)
     if (
         case == "compressed/cas12/B1"
         and contract.get("model_view") == "compressed-cas12-native40-v1"
@@ -137,10 +143,16 @@ def require_real_guard(root, contract):
     if hashlib.sha256(payload).hexdigest() != expected:
         raise ValueError("Five-model real guard digest differs")
     data = json.loads(payload)
+    indices = (
+        [16, 20]
+        if contract.get("model_view") == "local-cas11-nine-2048-v1"
+        and contract["case"] in ["stretched/nine/B1", "stretched/nine/B2"]
+        else [60, 80]
+    )
     if (
         data.get("case") != contract["case"]
         or data.get("scientific_exit") != 0
-        or [row.get("index") for row in data.get("real_rows", [])] != [60, 80]
+        or [row.get("index") for row in data.get("real_rows", [])] != indices
     ):
         raise ValueError("Real guard does not cover the declared five-model development case")
     budgets = contract["real_guard_budgets"]

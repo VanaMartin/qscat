@@ -119,7 +119,8 @@ def run(root, output, contract):
             if digest(root / name) != want:
                 raise ValueError(f"Changed prerequisite: {name}")
         manifest = json.loads((raw / "input-manifest.json").read_text())
-        if len(manifest) != 123:
+        local_view = contract.get("model_view") == "local-cas11-nine-2048-v1"
+        if len(manifest) != (4 if local_view else 123):
             raise ValueError("Changed original input inventory")
         for name, want in manifest.items():
             if digest(raw / name) != want:
@@ -183,7 +184,13 @@ def run(root, output, contract):
             save()
             if result.returncode:
                 raise ValueError("Controls failed before CO pole use")
-        if contract["case"] in ["compressed/five/B1", "compressed/five/B2", "compressed/cas12/B1"]:
+        if contract["case"] in [
+            "compressed/five/B1",
+            "compressed/five/B2",
+            "compressed/cas12/B1",
+            "stretched/nine/B1",
+            "stretched/nine/B2",
+        ]:
             require_real_guard(root, contract)
         model = load_pole_model(raw / contract["case"], contract)
         rng = np.random.default_rng(contract["projection_seed"])
