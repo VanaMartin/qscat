@@ -39,6 +39,9 @@ def test_exact_pinned_map_reuse_and_no_nearest_point_substitution():
         }
         sign, logabs = np.linalg.slogdet((1 - 1j) * np.eye(298))
         prior = dict(
+            case="interior/nine/B1",
+            reference_energy_rydberg=0.4,
+            image_id="synthetic-runtime",
             path=str(source),
             z_hartree=row["z_hartree"],
             setting=row["setting"],
@@ -50,6 +53,9 @@ def test_exact_pinned_map_reuse_and_no_nearest_point_substitution():
             log_abs_det_m=float(logabs),
         )
         c = dict(
+            case="interior/nine/B1",
+            reference_energy_rydberg=0.4,
+            image="synthetic-runtime",
             raw_directory="raw",
             input_sha256={"raw/input-manifest.json": model_pin, str(source): digest(source)},
             reused_evaluations=[prior],
@@ -62,7 +68,8 @@ def test_exact_pinned_map_reuse_and_no_nearest_point_substitution():
         )
         assert reuse_evaluation(dict(row, kind="contour"), c, output, -112) is None
         assert reuse_evaluation(dict(row, amplitudes=True), c, output, -112) is None
-        for change in ["map", "model", "method", "diagnostics"]:
+        assert reuse_evaluation(row, dict(c, case="interior/nine/B2"), output, -112) is None
+        for change in ["map", "model", "method", "diagnostics", "reference", "image"]:
             altered = dict(prior)
             pins = dict(c["input_sha256"])
             if change == "map":
@@ -71,8 +78,12 @@ def test_exact_pinned_map_reuse_and_no_nearest_point_substitution():
                 altered["input_manifest_sha256"] = "0" * 64
             elif change == "method":
                 altered["method_sha256"] = dict(methods, **{"outgoing_map.py": "0" * 64})
-            else:
+            elif change == "diagnostics":
                 altered["det_phase"] = 1
+            elif change == "reference":
+                altered["reference_energy_rydberg"] = 0.5
+            else:
+                altered["image_id"] = "different-runtime"
             with unittest.TestCase().assertRaises(ValueError):
                 reuse_evaluation(
                     row, dict(c, input_sha256=pins, reused_evaluations=[altered]), output, -112

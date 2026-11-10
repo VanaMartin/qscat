@@ -107,7 +107,8 @@ control module also runs in the frozen runtime before any CO root use.
 
 A new application may supply explicit `reused_evaluations` for already captured
 root maps. Reuse requires the exact same complex energy, numerical setting,
-amplitude mode, pinned four-native-file inventory, outgoing-map and surface-map
+amplitude mode, sector/case, sheet reference, image, pinned four-native-file
+inventory, outgoing-map and surface-map
 source bytes, total energy and complete finite298-channel arrays. The capture's
 own byte digest must be an input pin. No nearest-energy or cross-frame reuse is
 allowed; mismatched declared metadata rejects instead of silently recomputing.

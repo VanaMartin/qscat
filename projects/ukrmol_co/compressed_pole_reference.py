@@ -44,7 +44,8 @@ def reuse_evaluation(row, contract, output, ground):
         return None
     for prior in contract.get("reused_evaluations", []):
         if (
-            prior["z_hartree"] != row["z_hartree"]
+            prior["case"] != contract["case"]
+            or prior["z_hartree"] != row["z_hartree"]
             or prior["setting"] != row["setting"]
             or prior["amplitudes"] is not False
         ):
@@ -57,6 +58,8 @@ def reuse_evaluation(row, contract, output, ground):
             or pins.get(str(source)) != digest(source)
             or not pins.get(manifest)
             or prior["input_manifest_sha256"] != pins[manifest]
+            or prior["reference_energy_rydberg"] != contract["reference_energy_rydberg"]
+            or prior["image_id"] != contract["image"]
             or set(prior["method_sha256"]) != {"outgoing_map.py", "native_boundary.py"}
         ):
             raise ValueError("Unpinned or different-frame saved root map")
