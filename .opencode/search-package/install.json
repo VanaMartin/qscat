@@ -1,0 +1,9 @@
+{
+  "format": "repo-search-install-v1",
+  "layout": "package",
+  "visibility": "shared",
+  "files": {
+    ".opencode/search-package/profiles.json": "1f917da152b150717c3c735ae1a8ad2c2839308454587ab300c06c00d0d14abf",
+    ".opencode/search-package/runtime.json": "6e85569a580c120002d296d035e0ce45a92205a54da64e8358b1c256f4781967"
+  }
+}

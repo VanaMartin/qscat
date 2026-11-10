@@ -1,0 +1,131 @@
+{
+  "format": "repo-search-profiles-v1",
+  "embedding": {
+    "registry": "sentence-transformers",
+    "model": "all-MiniLM-L6-v2",
+    "device": "cpu",
+    "dimensions": 384,
+    "chunk_target_tokens": 160,
+    "chunk_max_tokens": 220,
+    "total_input_max_tokens": 256,
+    "overlap_tokens": 24
+  },
+  "corpora": {
+    "repository": {
+      "enabled": true,
+      "server": "lancedb",
+      "description": "Owned code, tests, durable docs and configuration",
+      "parser": "source",
+      "include": [
+        "src/**",
+        "libs/**",
+        "apps/**",
+        "services/**",
+        "scripts/**",
+        "tools/**",
+        "tests/**",
+        "native/**",
+        "docs/**",
+        "docker/**",
+        ".github/**",
+        "*.py",
+        "*.md",
+        "*.toml",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.jsonc",
+        "Dockerfile"
+      ],
+      "exclude": [
+        ".git/**",
+        ".venv/**",
+        "**/.venv/**",
+        "**/__pycache__/**",
+        "**/target/**",
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/build/**",
+        ".opencode/search/**",
+        ".opencode/search-local/**",
+        ".opencode/search-package/**",
+        ".claude/worktrees/**",
+        ".worktrees/**",
+        "docs/_build/**",
+        "docs/literature/**",
+        "docs/references/**",
+        "reference/**",
+        "literature/**",
+        "kb/**",
+        "tests/fixtures/**",
+        "uv.lock",
+        "Cargo.lock",
+        "package-lock.json"
+      ],
+      "extensions": [
+        ".py",
+        ".rs",
+        ".md",
+        ".mdx",
+        ".rst",
+        ".toml",
+        ".yaml",
+        ".yml",
+        ".json",
+        ".jsonc",
+        ".sh",
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".c",
+        ".h",
+        ".cpp",
+        ".hpp"
+      ],
+      "extensionless_files": [
+        "Dockerfile",
+        "docker/Dockerfile",
+        "docker/*.Dockerfile"
+      ]
+    },
+    "articles": {
+      "enabled": false,
+      "server": "lancedb-articles",
+      "description": "Literature notes with explicit Source and Pagination declarations",
+      "parser": "reference_note",
+      "include": [
+        "reference/literature/**",
+        "docs/literature/**",
+        "literature/**"
+      ],
+      "exclude": [
+        "**/README.md"
+      ],
+      "extensions": [
+        ".md"
+      ]
+    },
+    "references": {
+      "enabled": false,
+      "server": "lancedb-references",
+      "description": "General Markdown reference material and repository knowledge base",
+      "parser": "source",
+      "source_kind": "reference",
+      "include": [
+        "kb/**",
+        "docs/references/**",
+        "reference/notes/**"
+      ],
+      "exclude": [
+        "**/README.md"
+      ],
+      "extensions": [
+        ".md",
+        ".mdx",
+        ".rst",
+        ".txt"
+      ]
+    }
+  }
+}

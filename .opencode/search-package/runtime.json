@@ -1,0 +1,6 @@
+{
+  "remote": "origin",
+  "branch": "main",
+  "profile": ".opencode/search-package/profiles.json",
+  "policy_source": "upstream"
+}
