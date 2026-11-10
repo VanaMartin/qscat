@@ -227,6 +227,8 @@ def main() -> None:
     parser.add_argument(
         "--qc-only", action="store_true", help="Run state-averaged QC checks before UKRmol"
     )
+    parser.add_argument("--reuse-qc-manifest", type=Path, help="Replay a pinned accepted QC bundle")
+    parser.add_argument("--reuse-qc-sha256", help="SHA256 of the QC reuse manifest")
     parser.add_argument("--sa-singlet-roots", type=int, nargs=4, default=[5, 5, 5, 5])
     parser.add_argument("--sa-triplet-roots", type=int, nargs=4, default=[5, 5, 5, 5])
     parser.add_argument("--target-memory-mb", type=int, default=8000)
@@ -414,6 +416,17 @@ def main() -> None:
             parser.error("CI trial-space control requires state-averaged orbitals")
         if args.target_ci_max_space <= max(args.sa_singlet_roots + args.sa_triplet_roots):
             parser.error("CI trial space must exceed every orbital-ensemble root count")
+    if args.reuse_qc_manifest is not None or args.reuse_qc_sha256 is not None:
+        if not (args.reuse_qc_manifest and args.reuse_qc_sha256) or (
+            args.qc_only or not args.target_only or args.target_initial_checkpoint is not None
+        ):
+            parser.error(
+                "QC replay needs both pins, target-only and no QC/initial-checkpoint request"
+            )
+        from projects.ukrmol_co.reuse_qc import authenticated_qc
+
+        args.reuse_qc_manifest = args.reuse_qc_manifest.resolve()
+        authenticated_qc(args.reuse_qc_manifest, args.reuse_qc_sha256, vars(args))
     scripts = acquire_scripts(args.scripts_cache)
     workdir = args.workdir.resolve()
     workdir.mkdir(parents=True, exist_ok=False)

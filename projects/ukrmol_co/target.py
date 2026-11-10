@@ -358,8 +358,15 @@ def main() -> None:
     args = parser.parse_args()
     # PySCF writes through its own stdout object as well as ordinary print.
     with args.output.open("w", buffering=1) as log, contextlib.redirect_stdout(log):
-        result = build_target(json.loads(args.config.read_text()), Path("co.molden"))
-        args.config.with_name("target.json").write_text(json.dumps(result, indent=2) + "\n")
+        config = json.loads(args.config.read_text())
+        if config.get("reuse_qc_manifest") or config.get("reuse_qc_sha256"):
+            from projects.ukrmol_co.reuse_qc import replay_qc
+
+            result = replay_qc(config, Path("co.molden"))
+            print("Replayed accepted QC exports; no orbital optimization or fresh CI invoked.")
+        else:
+            result = build_target(config, Path("co.molden"))
+            args.config.with_name("target.json").write_text(json.dumps(result, indent=2) + "\n")
         print(json.dumps(result, indent=2))
 
 
