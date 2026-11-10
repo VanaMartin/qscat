@@ -20,19 +20,20 @@ from projects.ukrmol_co.native_full_reconstruction import _model_from_interface,
 from projects.ukrmol_co.pole_reference import pole_difference
 from projects.ukrmol_co.saved_matrices import read_interface
 
+LOCAL_CASES = tuple(
+    f"{anchor}/nine/{sector}" for anchor in ("stretched", "interior") for sector in ("B1", "B2")
+)
+
 
 def load_pole_model(source, contract):
-    """Dispatch explicit finite views; local stretched views never open a K grid."""
+    """Dispatch explicit finite views; local views never open a K grid."""
     source = Path(source)
     case = contract["case"]
     if "/".join(source.parts[-3:]) != case:
         raise ValueError("Case and source directory differ")
     if case in ["compressed/nine/B1", "compressed/nine/B2"]:
         return load_model(source)
-    if (
-        case in ["stretched/nine/B1", "stretched/nine/B2"]
-        and contract.get("model_view") == "local-cas11-nine-2048-v1"
-    ):
+    if case in LOCAL_CASES and contract.get("model_view") == "local-cas11-nine-2048-v1":
         return load_boundary_model(source)
     if (
         case == "compressed/cas12/B1"
@@ -143,12 +144,17 @@ def require_real_guard(root, contract):
     if hashlib.sha256(payload).hexdigest() != expected:
         raise ValueError("Five-model real guard digest differs")
     data = json.loads(payload)
-    indices = (
-        [16, 20]
-        if contract.get("model_view") == "local-cas11-nine-2048-v1"
-        and contract["case"] in ["stretched/nine/B1", "stretched/nine/B2"]
-        else [60, 80]
-    )
+    indices = [60, 80]
+    if contract.get("model_view") == "local-cas11-nine-2048-v1" and contract["case"] in LOCAL_CASES:
+        default = [16, 20] if contract["case"].startswith("stretched/") else []
+        indices = contract.get("real_development_indices", default)
+        if (
+            not isinstance(indices, list)
+            or len(indices) != 2
+            or any(type(i) is not int or not 0 <= i < 99 or i % 5 == 4 for i in indices)
+            or indices != sorted(set(indices))
+        ):
+            raise ValueError("Two explicit ordered non-holdout development indices are required")
     if (
         data.get("case") != contract["case"]
         or data.get("scientific_exit") != 0

@@ -188,3 +188,22 @@ witness without another propagation. See the
 [result and claim boundary](../../projects/ukrmol_co/COMPRESSED_POLE_REFERENCE.md):
 this is one pole of the finite declared model, not independent exterior or
 absolute CO accuracy, a width curve or a potential. No automatic next job.
+
+## Local boundary-only applications
+
+The explicit `local-cas11-nine-2048-v1` view also supports separately released
+stretched and interior B1/B2 cases. It reads only the complete native channel and
+boundary files, retaining all 48 targets, 298 channels and 2048 roots; it does not
+open an existing real-axis K/S grid. Equilibrium remains outside this dispatch.
+The case name is an application label, not proof of geometry or branch identity:
+those must be established from the frozen native inputs and independent reader.
+
+Every local case must pass its own pinned two-point real-axis guard before any
+complex map. An interior contract must explicitly freeze two increasing distinct
+development indices on the 99-point convention, excluding every fifth withheld
+row; missing, repeated, reversed, noninteger or withheld selections reject.
+Historical stretched contracts retain their original two-index default. The
+guard's measured rows must match the frozen selection exactly and pass the
+unchanged S, phase, flux, Wronskian, reciprocity and unitarity budgets. Newly
+calculated development points are training controls, not withheld predictions.
+Boundary preparation alone releases neither these guards nor a pole search.
