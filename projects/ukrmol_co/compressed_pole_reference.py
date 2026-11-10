@@ -23,8 +23,8 @@ from projects.ukrmol_co.compressed_a2_pole_contrast import (
 )
 from projects.ukrmol_co.native_boundary import surface_matrix
 from projects.ukrmol_co.outgoing_map import outgoing_map
+from projects.ukrmol_co.pole_localization import configured_search
 from projects.ukrmol_co.pole_reference import (
-    bordered_search,
     contour_witness,
     derivative_residue,
     matching,
@@ -36,6 +36,61 @@ from projects.ukrmol_co.pole_reference import (
 def digest(path):
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def reuse_evaluation(row, contract, output, ground):
+    """Reuse an exact pinned root map only under identical native inputs/methods."""
+    if row["kind"] != "root" or row["amplitudes"]:
+        return None
+    for prior in contract.get("reused_evaluations", []):
+        if (
+            prior["z_hartree"] != row["z_hartree"]
+            or prior["setting"] != row["setting"]
+            or prior["amplitudes"] is not False
+        ):
+            continue
+        source = Path(prior["path"])
+        pins = contract["input_sha256"]
+        manifest = str(Path(contract["raw_directory"]) / "input-manifest.json")
+        if (
+            not source.is_absolute()
+            or pins.get(str(source)) != digest(source)
+            or not pins.get(manifest)
+            or prior["input_manifest_sha256"] != pins[manifest]
+            or set(prior["method_sha256"]) != {"outgoing_map.py", "native_boundary.py"}
+        ):
+            raise ValueError("Unpinned or different-frame saved root map")
+        for name, expected in prior["method_sha256"].items():
+            if digest(Path(__file__).with_name(name)) != expected:
+                raise ValueError("Saved root-map numerical method differs")
+        with np.load(source, allow_pickle=False) as data:
+            z = complex(*row["z_hartree"])
+            np.testing.assert_allclose(data["z_hartree"], z, atol=0, rtol=0)
+            np.testing.assert_allclose(data["total_hartree"], ground + z, atol=0, rtol=0)
+            if (
+                data["q"].shape != (298, 298)
+                or data["y"].shape != (298, 298)
+                or data["a"].shape != (0, 298)
+                or not all(np.isfinite(data[name]).all() for name in ("q", "y", "a"))
+            ):
+                raise ValueError("Incomplete saved local root-map arrays")
+            sign, logabs = np.linalg.slogdet(matching(data["q"], data["y"]))
+            if not np.isfinite([prior["det_phase"], prior["log_abs_det_m"]]).all():
+                raise ValueError("Nonfinite saved root-map determinant diagnostics")
+            phase_error = abs(np.angle(np.exp(1j * (np.angle(sign) - prior["det_phase"]))))
+            if phase_error > 1e-10 or abs(logabs - prior["log_abs_det_m"]) > 1e-9:
+                raise ValueError("Saved root-map determinant diagnostics differ")
+        with (output / row["file"]).open("xb") as stream:
+            stream.write(source.read_bytes())
+        return dict(
+            completed=True,
+            new_ode_call=False,
+            reused_source_sha256=pins[str(source)],
+            diagnostics=prior["diagnostics"],
+            det_phase=prior["det_phase"],
+            log_abs_det_m=prior["log_abs_det_m"],
+        )
+    return None
 
 
 def initialize(source, output, contract):
@@ -51,6 +106,9 @@ def calculate(row):
     z = complex(*row["z_hartree"])
     endpoint, angle, order, rtol = row["setting"]
     model = MODEL
+    reused = reuse_evaluation(row, CONTRACT, OUTPUT, model["ground"])
+    if reused is not None:
+        return reused
     y, a, diagnostics = outgoing_map(
         model["thresholds"],
         model["angular"],
@@ -78,6 +136,7 @@ def calculate(row):
     np.savez(OUTPUT / row["file"], **capture)
     return dict(
         completed=True,
+        new_ode_call=True,
         diagnostics=diagnostics,
         det_phase=float(np.angle(sign)),
         log_abs_det_m=float(logabs) if np.isfinite(logabs) else None,
@@ -168,6 +227,8 @@ def run(root, output, contract):
         return 1
 
     try:
+        search, search_controls = configured_search(contract)
+        report["root_search"] = contract.get("root_search", "frozen-secant")
         report["inputs_verified_before"] = verify()
         canary = json.loads((root / contract["canary_result"]).read_text())
         if not (
@@ -176,7 +237,12 @@ def run(root, output, contract):
             and all(all(row["checks"].values()) for row in canary["rows"])
         ):
             raise ValueError("Finite outgoing-map prerequisite is not qualified")
-        for module in ["test_outgoing_map", "test_pole_reference"]:
+        controls = ["test_outgoing_map", "test_pole_reference"]
+        if report["root_search"] == "safeguarded-newton-v1":
+            controls.append("test_pole_localization")
+        if contract.get("reused_evaluations"):
+            controls.append("test_pole_capture_reuse")
+        for module in controls:
             with (output / (module + ".log")).open("x") as log:
                 result = subprocess.run(
                     [sys.executable, "-m", "projects.ukrmol_co." + module],
@@ -219,12 +285,13 @@ def run(root, output, contract):
                 record["search"] = value
                 save()
 
-            candidate, trace = bordered_search(
+            candidate, trace = search(
                 lambda z, setting=setting: evaluate(z, setting),
                 seeds,
                 contract["search_box_incident_hartree"],
                 limit,
                 observer=observe,
+                **search_controls,
             )
             record.update(
                 completed=True,
