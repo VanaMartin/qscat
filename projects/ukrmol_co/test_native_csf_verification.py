@@ -11,7 +11,7 @@ from projects.ukrmol_co.native_csf_verification import verify_cidata
 from projects.ukrmol_co.test_native_csf_map import toy
 
 
-def cidata_fixture(path, defect=None):
+def cidata_fixture(path, defect=None, root_counts=None):
     pairs = {}
     with FortranFile(path, "w") as stream:
         for symmetry, irrep in enumerate(("A1", "B1", "B2", "A2")):
@@ -23,7 +23,11 @@ def cidata_fixture(path, defect=None):
                 signs = np.ones(16, dtype="<i8")
                 signs[0] = -1
                 pairs[sector] = (source, source, signs)
-                roots = 13 if symmetry == 0 else 8
+                roots = (
+                    (13 if symmetry == 0 else 8)
+                    if root_counts is None
+                    else root_counts[len(pairs) - 1]
+                )
                 header = bytearray(208)
                 struct.pack_into("<qq", header, 0, len(pairs), roots + 3)
                 header[16:136] = f"CO CI calculation - {label} {irrep}".encode().ljust(120, b" ")
@@ -77,6 +81,23 @@ def test_all_74_root_records_and_integer_phases_roundtrip(tmp_path):
     result = verify_cidata(path, pairs)
     assert sum(s["roots"] for s in result) == 74
     assert all(s["exact_coefficient_roundtrip"] for s in result)
+
+
+def test_explicit_48_root_inventory_keeps_all_phase_and_vector_gates(tmp_path):
+    counts = [5, 5, 5, 5, 5, 5, 9, 9]
+    path = tmp_path / "fort.26"
+    pairs = cidata_fixture(path, root_counts=counts)
+    result = verify_cidata(path, pairs, root_counts=counts)
+    assert [s["roots"] for s in result] == counts
+    assert all(s["exact_coefficient_roundtrip"] for s in result)
+    with pytest.raises(ValueError):
+        verify_cidata(path, pairs)
+
+
+@pytest.mark.parametrize("counts", [[5] * 7, [0] * 8, [True] * 8, [5.0] * 8])
+def test_invalid_root_inventory_rejects_before_opening_file(tmp_path, counts):
+    with pytest.raises(ValueError):
+        verify_cidata(tmp_path / "absent", {}, root_counts=counts)
 
 
 @pytest.mark.parametrize("defect", ["phase", "energies", "root", "centres", "trailing"])

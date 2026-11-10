@@ -9,6 +9,7 @@ from projects.ukrmol_co.native_target_interface import (
     compare_integrals,
     compare_target,
     compiler_environment,
+    target_read_command,
 )
 
 
@@ -40,6 +41,16 @@ def test_compiler_relocation_overrides_stale_upstream_path_without_model_changes
     assert actual["OMPI_FC"] == "/opt/compiler/bin/gfortran"
     assert actual["OMPI_CC"] == "/opt/compiler/bin/gcc"
     assert actual["OMP_NUM_THREADS"] == "1" and env["OMPI_FC"].startswith("/build/")
+
+
+def test_read_command_preserves_legacy_default_and_pins_explicit_inventory():
+    legacy = ["reader", "target", "cidata", "csfs", "output"]
+    assert target_read_command("reader", "cidata", "csfs", "output") == legacy
+    assert target_read_command(
+        "reader", "cidata", "csfs", "output", root_counts=[5, 5, 5, 5, 5, 5, 9, 9]
+    ) == [*legacy, "5,5,5,5,5,5,9,9"]
+    with pytest.raises(ValueError):
+        target_read_command("reader", "cidata", "csfs", "output", root_counts=[5] * 7)
 
 
 @pytest.mark.parametrize("kind", [8, 16])

@@ -16,10 +16,19 @@ import numpy as np
 from scipy.io import FortranFile
 
 from projects.ukrmol_co.a2_channel_preflight import stage
+from projects.ukrmol_co.native_csf_verification import target_root_counts
 
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def target_read_command(executable, cidata, csfdir, output, *, root_counts=None):
+    """Declare a read-only inventory without changing native CIRMAT phase handling."""
+    command = [str(executable), "target", str(cidata), str(csfdir), str(output)]
+    if root_counts is not None:
+        command.append(",".join(map(str, target_root_counts(root_counts))))
+    return command
 
 
 def compiler_environment(environment):

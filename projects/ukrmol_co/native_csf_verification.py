@@ -14,13 +14,24 @@ from scipy.io import FortranFile
 
 from projects.ukrmol_co.native_csf_map import read_target_csfs, signed_correspondence
 
+DEFAULT_ROOT_COUNTS = (13, 13, 8, 8, 8, 8, 8, 8)
+
+
+def target_root_counts(counts):
+    """Require eight explicit positive integer counts in interleaved sector order."""
+    counts = tuple(counts)
+    if len(counts) != 8 or any(type(n) is not int or n < 1 for n in counts):
+        raise ValueError("Eight positive integer native target root counts are required")
+    return counts
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def verify_cidata(path, pairs):
+def verify_cidata(path, pairs, *, root_counts=DEFAULT_ROOT_COUNTS):
     """Check integer phases, every root and an exact in-memory sign round trip."""
+    root_counts = target_root_counts(root_counts)
     sectors = []
     with FortranFile(path, "r") as stream:
         for irrep in ("A1", "B1", "B2", "A2"):
@@ -34,7 +45,7 @@ def verify_cidata(path, pairs):
                 centers, dimension, roots, symmetry = np.frombuffer(
                     header, "<i8", count=4, offset=136
                 )
-                expected_roots = 13 if irrep == "A1" else 8
+                expected_roots = root_counts[len(sectors)]
                 if not (
                     len(header) == 208
                     and nset == len(sectors) + 1

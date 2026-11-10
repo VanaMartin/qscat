@@ -159,3 +159,20 @@ is byte-exact. Independent fresh-public reconstruction preserves all three
 original failed owners separately. See `projects/ukrmol_co/NATIVE_TARGET_INTERFACE.md`
 for retained commands/resources and the remaining scattering-channel/scientific
 selection gate. No QC/target/property/integral recomputation was needed.
+
+## Explicit target-root inventories
+
+The read-only client may take a fifth argument containing eight comma-separated
+root counts, ordered singlet-A1, triplet-A1, singlet-B1, triplet-B1, singlet-B2,
+triplet-B2, singlet-A2, triplet-A2. Without it the historical inventory remains
+13/13/8/8/8/8/8/8. `native_target_interface.target_read_command` validates an
+explicit inventory before launching the client; `verify_cidata(..., root_counts=...)`
+requires that same inventory rather than inferring it from an observed file.
+The client rejects nonpositive or dimension-exceeding counts before CIRMAT.
+
+This permits reading a 5/5/5/5/5/5/9/9 target bundle without selecting new roots,
+solving a Hamiltonian or rewriting CIDATA. Phase, complete-vector/energy-byte,
+geometry, orthogonality and EOF gates are unchanged. Synthetic 48- and 74-root
+files test the inventory and native phase-product semantics separately from
+the geometry-specific release; a matching-library runtime control is required
+after compiling the small I/O client. This is not an engine rebuild or promotion.

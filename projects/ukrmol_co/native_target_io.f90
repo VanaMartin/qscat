@@ -11,7 +11,7 @@ program native_target_io
     use scatci_routines, only: cirmat
     implicit none
 
-    character(len=line_len) :: mode, input, csfdir, output, path
+    character(len=line_len) :: mode, input, csfdir, output, path, root_text
     character(len=3) :: unit_text
     integer :: i, j, k, l, g, ordinal, n, err, u, v, column_h, column_s, idx(1)
     integer :: dims(8) = [15548,24366,15196,24540,15196,24540,15044,24564]
@@ -39,6 +39,13 @@ program native_target_io
 
     select case (trim(mode))
     case ('target')
+        ! Optional inventory is frozen by the caller; the historical default stays intact.
+        call get_command_argument(5, root_text)
+        if (len_trim(root_text) > 0) then
+            read(root_text, *, iostat=err) roots
+            if (err /= 0) error stop 'eight target root counts required'
+        end if
+        if (any(roots < 1) .or. any(roots > dims)) error stop 'invalid target root counts'
         open(unit=26, file=trim(input), status='old', form='unformatted', action='read')
         do g=1,8
             n = dims(g)
