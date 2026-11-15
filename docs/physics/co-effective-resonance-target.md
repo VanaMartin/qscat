@@ -94,6 +94,43 @@ width curve. Phase-fit candidates can locate a search domain, not certify it.
 
 ## Connection to the existing factory
 
+### Saved local evaluator (not a factory model)
+
+`projects.ukrmol_co.local_representation.load_representation(capsule)` authenticates
+the immutable local-delivery capsule by its pinned full SHA256 before reading
+selected JSON members in memory; it never extracts or executes archived source.
+There is no implicit download or quantum/scattering call. The returned
+`LocalRepresentation` accepts finite **real** scalar or array radii in the closed
+interval **1.9–2.5 bohr** only (no clipping, extrapolation or complex/ECS extension).
+Its methods preserve input shape and return energies in Hartree:
+
+- `v0(R)`: the saved degree-6 5Z Chebyshev series, evaluated at
+  `x=(R-2.2)/0.3`; zero is its own molecular total at **R=2.1323 bohr**,
+  not the minimum, native target total or separated fragments.
+- `er(R)` and `full_gamma(R)`: the saved not-a-knot piecewise cubics in
+  `Er` and `log(full Gamma)`, with width exponentiated after evaluation.
+  Stored powers descend from cubic to constant in `R-left_knot`; coefficients
+  are used literally, not reconstructed by another interpolation/fit.
+- `incident_pole(R) = er(R) - 0.5j*full_gamma(R)`.
+- `vres_hybrid(R) = v0(R) + er(R)`: an explicitly mixed-method view;
+  it is not an absolute correlated anion total.
+
+The loader requires the separate post-validation acceptance sidecar. It does not
+rewrite or reinterpret the original frozen candidate's historical false acceptance
+flag. Eight development nodes and two prospective validation nodes retain distinct
+roles; QZ sensitivity and separate MR endpoints are not substituted into this API.
+The CLI renders saved neutral/resonance curves and validation residuals outside
+Git, with separate development/validation markers and explicit hybrid labelling.
+
+Synthetic controls check known polynomial/log-width functions, stored-power
+orientation, C2 continuity and domain rejection. Opt-in authenticated saved-data
+regression must reproduce all 26 primary 5Z predictions and both frozen resonance
+predictions within **1e-12 Hartree/eV**, and retain the original **5 meV** position
+and **max(1% predicted full width, 1 meV)** sentinel gates. These test arithmetic
+and the frozen validation design, not a uniform error bound, electronic accuracy,
+unique N+1 continuation, global potential, full S matrix or nuclear dynamics.
+No hot path or promotion is claimed; this remains a Python project evaluator.
+
 Let V0_ref(R) be the correlated neutral curve on a declared common dissociation
 zero, distinct from the native absolute target energy. The eventual adapter is
 

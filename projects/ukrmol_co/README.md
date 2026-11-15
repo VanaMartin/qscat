@@ -30,11 +30,68 @@ continuous resonance-to-bound-anion branch remain unqualified.
 | Physical shell/coupled-tail and outgoing-pole controls | `physical_pole.py`, `coupled_tail.py`, `coupled_jost.py`; [physical benchmark](../../docs/physics/co-physical-pole-benchmark.md) |
 | Optional precision-preserving residual kernel | [native extension](../../native/qscat-extended/README.md), NumPy differential oracle |
 | Neutral well and atomic references | `neutral.py`, `atomic_references.py`; [atomic protocol](../../docs/physics/co-atomic-energy-references.md) |
+| Saved local neutral/resonance evaluator | `local_representation.py`; [usage below](#using-the-local-representations), [conventions](../../docs/physics/co-effective-resonance-target.md#saved-local-evaluator-not-a-factory-model) |
 | Independent saved-only reconstruction | `verify_*.py`, per-study readers and public artifact manifests |
 
 Experimental modules stay in `projects/`: none of this promotes an electronically
 unqualified CO model to `qscat`. Frozen execution contracts describe historical
 allocations; their authorization fields do not release a new calculation today.
+
+## Using the local representations
+
+The project-local evaluator uses the delivered **unchanged** coefficients over
+**1.9–2.5 real bohr only**. All API outputs are Hartree; widths are **full Gamma**,
+with `incident_pole = Er - i*Gamma/2`. `v0` is the primary 5Z neutral relative to
+its own molecular total at **R=2.1323 bohr**, not its minimum or fragments.
+`vres_hybrid = V0_5Z + Er_native` is explicitly mixed-method, **not** a correlated
+anion total. QZ and MR data remain separate. No global/factory/scattering model
+or uniform/electronic accuracy claim follows.
+
+Fetch the immutable capsule explicitly into an external directory (no credentials
+or engine required), then evaluate or plot. The loader checks full SHA256
+`437ea9e58c351b2a940bd2f57be05f2c09d34c3bb0c906735bd273b419c53555`
+**before** parsing selected JSON members; it never extracts/executes archived code.
+A partial/corrupt download raises an error, and is never accepted as a fixture.
+
+```bash
+# From the repository root, after uv sync --all-packages:
+WORK=$(mktemp -d)
+curl --fail --location --proto '=https' \
+  'https://data.qscat.org/co-local-representation-delivery-20261115T2020/delivery-capsule.tar.437ea9e58c35.gz' \
+  --output "$WORK/delivery-capsule.tar.gz"
+uv run python -m projects.ukrmol_co.local_representation \
+  --capsule "$WORK/delivery-capsule.tar.gz" --r-bohr 1.9 2.2 2.5 \
+  --plot-dir "$WORK/plots"
+```
+
+The two PNG/SVG figures show the saved curves and residuals, with **eight
+development nodes distinct from two prospective validation points**. Historical
+neutral residuals are not physical holdouts. Plot destinations must be new and
+outside the checkout; no output is overwritten and no refit/calculation is run.
+
+```python
+from projects.ukrmol_co.local_representation import load_representation
+
+co = load_representation("/external/path/delivery-capsule.tar.gz")
+co.v0(2.2)                    # Hartree, molecular-reference neutral
+co.er([2.0, 2.3])              # Hartree, native incident resonance position
+co.full_gamma([2.0, 2.3])      # Hartree, FULL width, strictly positive
+co.incident_pole(2.2)         # Hartree, Er - i*Gamma/2
+co.vres_hybrid(2.2)           # Hartree, labelled mixed-method view
+```
+
+Finite real scalars/arrays preserve input shape. Complex radii (even zero imaginary
+part), NaN/Inf and any out-of-domain element raise `ValueError`; no clipping or
+extrapolation is offered. The separate acceptance sidecar qualifies scoped use;
+the original candidate's historical `accepted_representation:false` is preserved.
+
+Default tests are synthetic/offline and skip the saved-data regression. To enable
+it, supply the explicitly fetched capsule; there is no automatic network access:
+
+```bash
+CO_LOCAL_REPRESENTATION_CAPSULE="$WORK/delivery-capsule.tar.gz" \
+  uv run python -m pytest projects/ukrmol_co/test_local_representation.py -q
+```
 
 ## Current scientific outcome
 
