@@ -35,11 +35,17 @@ def _fresh_ci_kernel(kernel):
 
 
 def _sector_ci_driver(fci, spin: int, irrep: str, config: dict):
-    """Select the experimental singlet-A1 driver without altering other sectors."""
-    choice = config.get("target_singlet_a1_driver", "spin1")
-    if choice not in ("spin1", "spin0"):
+    """Select an explicit singlet-irrep driver; triplets retain the ordinary driver."""
+    legacy = config.get("target_singlet_a1_driver", "spin1")
+    if legacy not in ("spin1", "spin0"):
         raise ValueError("Singlet-A1 CI driver must be spin1 or spin0")
-    if choice == "spin0" and spin == 0 and irrep == "A1":
+    overrides = config.get("target_singlet_irrep_drivers", {})
+    if not isinstance(overrides, dict) or any(
+        name not in IRREPS or choice not in ("spin1", "spin0") for name, choice in overrides.items()
+    ):
+        raise ValueError("Singlet CI drivers must map C2v irreps to spin1 or spin0")
+    choice = overrides.get(irrep, legacy if irrep == "A1" else "spin1")
+    if choice == "spin0" and spin == 0:
         return fci.direct_spin0_symm.FCI
     return fci.direct_spin1_symm.FCI
 
