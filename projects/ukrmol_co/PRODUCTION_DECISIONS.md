@@ -27,18 +27,40 @@ molecular/scattering or holdout work. See the
 
 ## Current disposition
 
-**Reference-first; production model, potential fit and sweep remain stopped.**
-The neutral well and finite atomic/pole calculations are reusable. Their
-physical insensitivity and dissociation qualification do not follow from passing
-execution or independent replay. The permanent
-[results and rejected-routes note](../../docs/physics/co-results-and-rejected-routes.md)
-is the compact scientific record; per-study evidence retains original failures.
+**Two scoped local representations delivered; stop new compute. Physical production
+remains unqualified.** Follow the
+[goal table and queue](RESEARCH_PLAN.md). Our computed neutral energies supply
+the `V0(R)` fit; compatible fixed-R resonance positions/full widths supply the
+resonant fit. External authoritative curves, absolute atomic-affinity accuracy,
+global dissociation and full-S/doorway construction do not block local data
+preparation. Numerical acceptance, fit sufficiency and physical accuracy are
+separate gates in [sweep readiness](SWEEP_READINESS.md).
 
-The matched aug-QZ→5Z control rejects atomic basis insensitivity: O EA changes
-23.533750 meV against 10 meV; matching-basis atom-to-fixed-molecular-reference
-offsets change 52.916179/29.382428/46.965473 meV against 20 meV. These are not
-De/D0 or initial-v attachment thresholds. Stop convergence/production inference;
-do not launch 6Z or extrapolate automatically. Both finite datasets stay qualified.
+This replaces the earlier reference-first/author-waiting dependency and blanket
+stop on every fit or finite-data sweep, **not** the failed numerical/physical
+verdicts. The user approved the local routes; actual execution remains bounded
+by separately frozen cards, not this standing table:
+
+| Output | Proposed route | Present limit |
+|---|---|---|
+| Local neutral | Prepared 5Z frozen-core RHF/CCSD(T), 1.9–2.5 bohr, and accepted molecular-zero degree-6 local representation; QZ kept separate | No global factory export, `De`, dissociation or independently validated electronic accuracy. The global EMO zero must not replace the declared local zero. |
+| Local resonance | CAS11/cc-pVDZ, 40-component orbital objective, nine-A2/48 retained targets, 2048 roots; ten qualified pairs, eight development/two prospective C2 PASSes | Scoped local representation delivered without refit; original cubic/PCHIP accuracy rejections preserved. No uniform/electronic/global accuracy or unique N+1 continuation claim. |
+
+Separate stretched CAS12 DZ/TZ poles remain accepted finite results, not points
+of the proposed CAS11 curve. The nine accepted MR endpoints (two atoms/seven CO,
+including R3/R4) are separate from the CC well. Never splice protocols or replace
+the individual target ground energy with the ensemble average.
+
+The [canonical local-scope conclusion](../../docs/physics/co-results-and-rejected-routes.md#local-representations-accepted-scope)
+records the completed two-sentinel design, unchanged coefficients and separate
+acceptance sidecar. The evaluator and approved documentation compression add no
+physical evidence. Exact original prose is archived there; scientific failures,
+successful partials and costs remain distinct in the [catalogue](experiments.md).
+No owner is active; stop compute. The [current handoff](CONTINUATION.md) bounds
+the next scope decision; no further acquisition, refit, other cleanup or merge
+follows from unused time.
+This disposition and the handoff govern current local work; earlier affinity-only
+restart proposals are historical, not a renewed queue.
 
 ## Decision queue
 

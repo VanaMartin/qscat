@@ -1,69 +1,69 @@
 # CO: current handoff
 
-## Oxygen-affinity diagnosis
+## Goals and current decision
 
-Separate branch;the PR under review is untouched. Saved-state5Z orbital replay
-completed,all exits0:semicanonical EA1.426635554eV versus original1.426606459eV,
-only+0.029095meV;density/core/CCSD invariants pass. Source/input/native-log and
-rotation-witness reconstruction confirms the negligible effect. This does not
-solve absolute affinity. Occupations/core/subtraction look consistent;benchmark
-evidence points to slow basis and missing higher correlation. See the
-[diagnosis](../../docs/physics/oxygen-affinity-diagnosis.md).
+Use the [two-goal table](RESEARCH_PLAN.md#goal-table),
+[scoped gates](SWEEP_READINESS.md) and [production decisions](PRODUCTION_DECISIONS.md).
+The two outputs are **our neutral energy table → fitted V0(R)** and
+**compatible fixed-R resonance positions/full widths → resonant fit**.
+External-author data and a separate doorway Hamiltonian are not prerequisites.
+The older reference-first/blanket fit-sweep stops are superseded at this local
+scope; no failed physical diagnostic is promoted to a pass.
 
-The separately frozen diffuse control then stopped:neutral O completed at
-−74.99518604197657Ha,but O− ROHF failed100cycles before CCSD/triples. Worker
-exits0/1,outer exits2,no OOM/timeout,owner15.860873s,5.491879GiB kernel peak.
-No affinity or diffuse shift exists. Do not score the failed SCF iterate or
-repeat the successful neutral. Both original attempt bundles are public and
-independently reconstructable;no active campaign job/monitor remains.
+**Current decision: local representation deliverable complete; stop new compute.**
+Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
+replay, without changing eight development nodes, coefficients, predictions or
+budgets. The accepted neutral fit and scoped local resonance representation are
+packaged in the [delivery report](https://data.qscat.org/co-local-representation-delivery-20261115T2020/REPORT.641961a5eed3.md),
+with [fresh-public verification](https://data.qscat.org/co-local-representation-public-receipt-20261115T2020/authentication.d88606b2afed.json).
+This is not a uniform/electronic/global accuracy claim or unique N+1 continuation.
+No owner is active. All new owners ended before the fresh **15November21:59UTC**
+ceiling; earlier allocation limits and original failures remain unchanged. Unused
+time authorizes no new acquisition, refit, cleanup, merge or deletion.
 
-## Goal and disposition
+**Packaging checkpoint:** the project-local [evaluator and usage](README.md#using-the-local-representations)
+now expose the unchanged authenticated coefficients, domain guards and saved-only
+plots. Analytic controls and opt-in external-data regression verify the interface;
+they add no physical evidence or new qualified geometry. Packaging uses only the
+completed local delivery, with no QC/native/outgoing calls, refits or protected-data
+access. No Rust optimization or promotion to a global QSCAT model is warranted.
+The approved local-representation documentation unit is compressed only after
+archiving/authenticating its seven exact original pages; the
+[canonical conclusion](../../docs/physics/co-results-and-rejected-routes.md#local-representations-accepted-scope)
+links that archive and the unchanged scientific delivery. Next: select a distinct
+physical observable and bounded decision, or retain this completed local milestone.
+No scientific branch is released. Earlier preparation/goal checkpoints are
+historical context, not a current queue. Unrelated dirty work remains outside this task.
 
-A physically grounded neutral and lowest-doublet-Pi resonance/bound-anion curve,
-then a QSCAT two-dimensional potential with excluded-geometry validation.
-**No production model, fit or sweep is released.** Low-Pi channel-specific
-dynamics is distinct from total thermal attachment near 10 eV.
+## Reuse, do not restart
 
-**Current decision:** stop endpoint basis-insensitivity/production inference and
-redirect to neutral dissociation, correlation and reference treatment. The
-[settled-results note](../../docs/physics/co-results-and-rejected-routes.md)
-records the evidence and rejected routes without the launch chronology.
+- 52 accepted QZ/5Z CCSD(T) well energies at 26 distinct geometries, 1.9–2.5 bohr.
+  Primary local neutral recommendation: 5Z, QZ sensitivity kept separately.
+  Preserve each molecular reference; the current factory EMO cannot consume it
+  as atom-relative data without explicit zero/offset treatment.
+- Nine accepted all-electron MR endpoints: two atoms plus seven CO points,
+  including R3/R4. Separate protocol; local-well physical diagnostics remain
+  failed and R12 orbital optimization remains unqualified.
+- CAS11/nine/2048 outgoing B1/B2 pairs at R=1.9, 2.224225, 2.408075 and 2.5:
+   **four** local training geometries; multi-R identity remains a separate gate.
+   Additional pairs at R=2.31615 and2.0621125 are separately scored prospective
+   validation, not refitted nodes of the original candidate.
+  Separate stretched CAS12 DZ/TZ poles qualify numerically but fail physical
+  sensitivity comparisons; they cannot fill a CAS11 curve.
+- All ten local pairs qualify. Eight are development ONLY for the frozen C2
+  candidate; R=2.021584375/2.2701875 remain its two passing prospective validation
+  points, not refitted development rows. Their original roles/scores stay separate
+  from the earlier rejected recipes.
+- Aug-TZ properties/preparation qualify; unchanged threshold-crossing export
+  remains blocked. New50 stays parked, nine working, 2048 retained.
+- R=2.408075 targets/properties, own continuum, both native boundaries and
+  outgoing counterpart pair qualify. Reuse all of them; no default-driver restart.
 
-## Latest completed evidence
-
-- [Matched aug-QZ/5Z atoms](qualification-evidence/atomic-5z-endpoints/README.md):
-  all original calculation exits zero; 5Z owner 114.673835 s, kernel high-water
-  11.883816 GiB on four physical cores, below the unchanged 16-GiB allocation.
-  O/C EA changes are +23.533750/+5.950705 meV. O rejects the 10-meV diagnostic;
-  all three fixed-reference offset changes reject 20 meV. No De/D0/CBS claim.
-- [Original 5Z startup stop](qualification-evidence/atomic-5z-launch-stop/README.md):
-  controls exit 1, outer exits 2, zero integral/SCF/CC calls. A separate exact-source-
-  byte control fixes Python-version-dependent AST metadata hashing; no physical
-  or numerical gate changed and no successful atom was repeated.
-- [Stretched DZ/TZ poles](qualification-evidence/stretched-pole-counterpart/README.md):
-  both finite numerical results qualify; position/full-width insensitivity rejects.
-- [Aug-TZ preparation](qualification-evidence/stretched-augtz-preparation/README.md)
-  qualifies; [unchanged export](qualification-evidence/stretched-augtz-inner-preflight/README.md)
-  is blocked before an inner allocation by threshold-crossing grid rows.
-
-No campaign quantum job or monitor is active. Both atomic jobs completed before
-their first 600-s periodic check; immediate terminal observations are retained.
-
-## One bounded next deliverable
-
-At most60minutes saved-source/method selection,zero new quantum calls. Choose
-one state/core-consistent correlation control with explicit residual/spin gates
-and a costed pilot contract;small-basis FCI versus CCSD(T) is a candidate,not an
-authorized successor or calculated5Z correction. Preserve the diffuse failure;
-no solver retry or gate relaxation. Absolute affinity,neutral dissociation and
-spin-free/lowest-J convention reconciliation remain open. A complete calculation
-also needs basis-limit,core and scalar-relativistic uncertainty,not empirical
-alignment to the experimental threshold.
-
-No 6Z, automatic extrapolation, dense neutral grid, augmented inner/pole work,
-fit, sweep or holdout action follows automatically. A new calculation needs
-its own tested, frozen, pushed source/input/owner release. Historical contract
-flags do not authorize a rerun against current source.
+The [results/rejected-routes ledger](../../docs/physics/co-results-and-rejected-routes.md)
+and [external catalogue](experiments.md) preserve original failures, fixes,
+accepted endpoints and actual costs. The affinity convention replay and failed
+diffuse-SCF control remain in the [diagnosis](../../docs/physics/oxygen-affinity-diagnosis.md);
+they are not reasons to delay molecular-zero tables.
 
 ## Standing protections
 
@@ -81,16 +81,27 @@ There is no perpetual scheduler while idle. Prefer Sadaharu: four physical cores
 for small jobs, eight for large and twelve for very large when justified;
 paid provisioning remains deferred.
 
-## Evidence, not a live launch ledger
+<a id="reopened-goal-checkpoint--continued-prospective-testing"></a>
+<a id="14-november-successor-checkpoint"></a>
+<a id="fresh-lower-r-corrected-recovery"></a>
 
-[Run/replay instructions](RUNNING.md), [evidence index](qualification-evidence/README.md)
-and [research queue](RESEARCH_PLAN.md) are the restart points. Remote originals
-are under `/home/kooza/ukrmol/co-sa-20261006` on Sadaharu; public authenticated
-bundles, not transient PIDs or local scratch paths, are the portable record.
-Superseded handoffs and figures are in the
-[campaign-history archive](qualification-evidence/campaign-history/README.md).
+## Completed prospective representation tests
 
-Main retrieval still reports incompatible shared-service dependencies. Last-known
-indexed main is `423d5770d3de337571f51e62702ae919bad97e8c`; integrity/current remote
-currency cannot be verified through that service. Current source, scoped Git
-differences and executed-source evidence govern. No service intervention was made.
+The [canonical local-scope conclusion](../../docs/physics/co-results-and-rejected-routes.md#local-representations-accepted-scope)
+records the completed local representation decision, rejected earlier recipes and
+unchanged limitations. It links the exact archived pre-compression pages and
+scientific delivery; the [catalogue](experiments.md) retains original releases,
+failed attempts, successful partials and measured costs. The lower-R runtime
+timeout and later successful QC/post-QC consumer failure remain different records,
+not failed physical predictions or a retrospectively all-zero process.
+
+## Current bounded next deliverable
+
+Local representation packaging and its approved documentation cleanup are complete;
+stop new compute. Use the canonical conclusion and
+[README evaluator instructions](README.md#using-the-local-representations).
+All successful work, original failures, coefficients and validation roles remain
+preserved; all 114 S holdouts and the reserved equilibrium outgoing pole remain
+unread. No owner is active. Next: choose a distinct physical observable and bounded
+decision, or retain the completed local milestone. No further scientific branch,
+cleanup unit or merge starts automatically.

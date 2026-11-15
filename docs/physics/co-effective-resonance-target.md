@@ -9,9 +9,14 @@ width, not its channel amplitudes. It replaces neither the native exterior nor
 the full physical S matrix. The bare full-S route remains
 [rejected](../../projects/ukrmol_co/DIRECT_SCATTERING_SCREEN.md).
 
-This note completes the target-definition stage only. No CO pole has been
-qualified, no factory target is populated, and no numerical successor or geometry
-sweep is authorized. A pole-only fit plus the reduced validation below would
+Compatible finite CAS11/nine/2048 B1/B2 pairs now support a prospectively tested
+scoped local representation; the [current handoff](../../projects/ukrmol_co/CONTINUATION.md)
+links its immutable data and validation membership. Separate stretched CAS12
+results remain distinct. Common N+1 identity and global/factory-model qualification
+are not supplied by this local representation.
+The [two-goal plan](../../projects/ukrmol_co/RESEARCH_PLAN.md)
+recommends local finite-model collection, without releasing a job or fit.
+A pole-only fit plus the reduced validation below would
 **not complete the campaign's full held-out scattering goal**. In particular,
 pole equivalence is not equivalence of vibrational-excitation cross sections.
 
@@ -217,7 +222,8 @@ unanalyzed; none is consumed or reclassified by this design.
 
 ## Capability boundary and stopping decision
 
-`native_boundary.surface_matrix` supports complex denominators, but has no
+At the original capability checkpoint, `native_boundary.surface_matrix`
+supported complex denominators, but had no
 missing-spectrum correction. `exterior_numerov.numerov_k` is **real-axis only**:
 float casts, real threshold decisions and real/imaginary column extraction make
 complex-energy reuse invalid. `combined_exterior` provides complex outgoing maps
@@ -225,21 +231,17 @@ for its two-channel toy, not the 298-channel CO reference. Saved real-axis
 reconstruction, finite controls and the 2048-to-4096 phase difference do not
 qualify complex continuation or bound complex pole error.
 
-The immediate missing input is a **qualified, assigned native outgoing pole**,
-including its sheet, residue witness and finite-model numerical uncertainty.
-It cannot be obtained honestly just by rerunning the rejected phase extractor.
-The separate production gap is a channel/background embedding for full-scattering
-predictions; pole targeting deliberately does not supply it.
+The missing-node question for the declared local representation is now complete;
+see the [canonical accepted scope](co-results-and-rejected-routes.md#local-representations-accepted-scope).
+Common N+1 identity, electronic/global accuracy and a channel/background embedding
+for full-scattering predictions remain separate unresolved claims. A qualified
+local pole interpolation does not supply them.
 
-**Disposition:** retain this map as the scalar integration specification; stop
-before a CO fit or automatic complex-propagation development. The bounded design
-cycle is complete with zero scientific compute. Next decision is whether to
-authorize a strictly one-anchor pole-reference feasibility contract, or redirect
-to a coupled effective model. The former would need explicit implementation and
-compute caps, known-truth controls, qualified prerequisites and a stop on failure
-before extension to other anchors. No runtime estimate for a nonexistent qualified
-298-channel solver is claimed here. New50, QC/properties repetition, dense inner
-solves and automatic root/channel ladders remain out of scope.
+**Current disposition:** reuse the saved evaluator and stop new compute. No
+automatic complex-propagation development, full-S campaign, new50, repeated
+QC/properties, dense inner solve or root/channel ladder. A different observable
+needs a separate scope decision and bounded release. The historical follow-through
+below records the original capability question, not a current missing-node queue.
 
 **23 October follow-through:** the separately frozen
 [one-anchor canary](co-outgoing-map-canary.md) now demonstrates finite298-channel

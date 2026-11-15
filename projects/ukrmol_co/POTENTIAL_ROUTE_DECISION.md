@@ -38,14 +38,16 @@ channel reference, not a production model. No full channel/basis/root ladder.
 
 ## Next bounded action
 
-At most 60 minutes saved evidence/source review, **zero new quantum calls**:
-select the neutral/reference treatment with well-overlap and fragment checks
-and one costed small diagnostic set, or record why selection is blocked.
-No expensive calculation is authorized by this note. New execution needs a
-tested/frozen/pushed source/input/owner release under
-[production decisions](PRODUCTION_DECISIONS.md).
+The [scoped local representations are complete](../../docs/physics/co-results-and-rejected-routes.md#local-representations-accepted-scope);
+use the [authenticated evaluator](README.md#using-the-local-representations).
+The canonical conclusion preserves the accepted scope, rejected earlier recipes
+and original documentation/evidence pointers instead of duplicating their history.
+Reference/continuation gates for a global physical potential are not entrance
+requirements for these completed local data products.
 
-All previous failures and budgets, 114 holdouts, equilibrium pole exclusion and
-2048-root baseline stay protected. No active campaign job/monitor remains.
-Full chronological decisions are preserved in the optional
-[history archive](qualification-evidence/campaign-history/README.md).
+Stop new compute; no owner is active. Select any different physical observable
+and its smallest decision-changing test separately, retaining the boundaries
+above. A new stage requires a frozen bounded release; unused time is not one.
+Keep all 114 S holdouts, the equilibrium outgoing exclusion, nine working/new50
+parked, 2048 baseline, failures and costs. The [current handoff](CONTINUATION.md)
+does not release further acquisition, refitting, unrelated cleanup or merge.
