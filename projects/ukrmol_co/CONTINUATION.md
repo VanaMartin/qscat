@@ -169,12 +169,19 @@ not failed physical predictions or a retrospectively all-zero process.
 
 Local representation packaging and approved documentation integration are complete.
 The bounded pure-Python implementation and synthetic qualification are complete;
-see the linked method/API and tests. No CO data were used. The next preparation
-is a named-only host/input/runtime inventory and a release decision for the
-first missing stage, retaining state/threshold/energy-domain and whole-node cost
-gates. Full-size bound-side uncertainty/localization and state correspondence
-remain unqualified; synthetic success is not a molecular execution release.
-No generic solver project or automatic new-geometry acquisition follows.
+see the linked method/API and tests. No CO data were used. Read-only named-host
+checks now confirm access, CPU topology, resource floors and existence of the
+previously pinned image. The limited root/runs/prepared direct-name scan found
+no R2.8 entry; this is not exhaustive remote input authentication. Existing
+workloads were only inspected for allocation and were not changed.
+
+The next release still needs named input/source/runtime authentication and fixed
+state/threshold/energy-domain and whole-node cost gates. Full-size bound-side
+uncertainty/localization and state correspondence remain unqualified. Freeze a
+fresh explicit execution duration/deadline and resolve push/public-record
+permissions before molecular work; a large opportunity window is not an exact
+release contract. Synthetic success and host access release no acquisition.
+No generic solver project or automatic new-geometry run follows.
 Do not fund a dense extension or require the 2.5-bohr basis sentinel to solve
 every accuracy question first.
 If absolute accuracy is required next, a matched physical benchmark remains a
