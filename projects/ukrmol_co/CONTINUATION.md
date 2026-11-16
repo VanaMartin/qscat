@@ -188,12 +188,18 @@ The original **R=2.8 QC and independent saved reading pass**; the
 [authenticated terminal assessment](https://data.qscat.org/co-crossing-r2800-qc-result-20261116/assessment.20a23ddad9b2.md)
 qualifies ordinary QC only. Do not repeat it. The separate
 [reference-only release](https://data.qscat.org/co-crossing-r2800-reference-release-20261116/decision.4c2ff7cff018.md)
-now attempts the sixteen missing fixed-orbital probes, retaining twelve roots,
-spaces160/240, original action/spin/projection gates, two-hour cap, four physical
-cores/32 GiB and 600-s plus terminal observations. Its result is pending.
-Next deliverable: independently assess the reference result and reassess the
-crossing objective before any native allocation. Any failure stops without retry.
-No target/property or boundary stage is released here; the shared deadline is unchanged.
+completed all sixteen fixed-orbital probes. Their original action/spin/Gram/
+projection gates and independent raw saved-array reading
+[pass](https://data.qscat.org/co-crossing-r2800-reference-result-20261116/assessment.e1e67cc04605.md).
+The two prerequisites supply own inputs, not an endpoint or unique N+1 identity.
+The goal reassessment permits only the missing
+[48-target/property stage](https://data.qscat.org/co-crossing-r2800-target-release-20261116/decision.8024c31d3d38.md),
+now active after exact engine/library/CSF/Molden and bounded-owner preflight.
+QC and reference solves are not repeated. Retain the two-hour cap, four physical
+cores/32 GiB, 600-s plus terminal observations and unchanged shared deadline.
+Next deliverable: independently assess own native targets/properties before any
+continuum/boundary allocation. Any failure stops without retry; no boundary or
+exterior stage is released here.
 
 The two-node rule remains R=2.8 first, then R=2.65 after a qualified bound endpoint
 or R=3.0 after a qualified resonance. Ambiguity/failure stops without a rescue node.
