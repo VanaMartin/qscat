@@ -10,8 +10,8 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: retain the completed local representations; crossing inputs
-qualify and positive-energy B1 preparation is next. No owner is active.**
+**Current decision: retain the completed local representations; one separately
+frozen positive-energy B1 resonance attempt is active.**
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -211,11 +211,16 @@ levels in this retained B1 operator. This is not full-electronic/omitted-spectru
 absence, interval-certified arithmetic or resonance qualification. No molecular
 D/N or decaying map was needed; no R=2.65 allocation follows.
 
-Next bounded deliverable: prepare a separately qualified positive-energy B1
-search below the first excited threshold, with an explicit tested input window,
-independent real-axis controls and unchanged pole/residue/character budgets.
-The old positive-grid guard is not bypassed, and no complex map is released by
-this handoff. First qualification failure stops without retry or rescue.
+The [explicit six-open positive window](https://data.qscat.org/co-positive-window-20261116/verification.675b75e0822e.json)
+passes generated regressions and pinned-image domain/dispatch/owner controls,
+without changing the old positive-grid guard or propagation/root/residue kernels.
+The separate [B1-only pole release](https://data.qscat.org/co-crossing-r2800-b1-pole-release-20261116/decision.08962b74addc.md)
+has launched: two own independent real-axis checks precede the bounded
+positive-energy root/contour/residue/Pi-character test. Its result is pending.
+Retain the fifteen-minute science cap, four physical cores/32 GiB, fixed seed/
+box/contour and original numerical budgets. No B2 or second geometry is released.
+Next bounded deliverable: authenticate and independently assess this original
+B1 terminal result. First qualification failure stops without retry or rescue.
 
 The separate [below-threshold input adapter](https://data.qscat.org/co-crossing-closed-loader-20261116/verification.49a01430ab55.json)
 passes generated/regression controls and preserves the old positive-grid guard.
