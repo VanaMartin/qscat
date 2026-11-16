@@ -201,6 +201,11 @@ Next deliverable: independently assess own native targets/properties before any
 continuum/boundary allocation. Any failure stops without retry; no boundary or
 exterior stage is released here.
 
+The separate [below-threshold input adapter](https://data.qscat.org/co-crossing-closed-loader-20261116/verification.49a01430ab55.json)
+passes generated/regression controls and preserves the old positive-grid guard.
+It supplies no molecular bound qualification; pinned-host capability and actual
+own boundary checks remain required before use. The active target job is unchanged.
+
 The two-node rule remains R=2.8 first, then R=2.65 after a qualified bound endpoint
 or R=3.0 after a qualified resonance. Ambiguity/failure stops without a rescue node.
 Full-size molecular uncertainty/localization and state correspondence remain gates;
