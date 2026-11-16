@@ -2,7 +2,7 @@
 
 ## Current disposition
 
-**Two scoped local representations delivered; stop new compute. Physical production
+**Two scoped local representations delivered; no automatic acquisition. Physical production
 remains unqualified.** Follow the
 [goal table and queue](RESEARCH_PLAN.md). Our computed neutral energies supply
 the `V0(R)` fit; compatible fixed-R resonance positions/full widths supply the
@@ -31,9 +31,9 @@ records the completed two-sentinel design, unchanged coefficients and separate
 acceptance sidecar. The evaluator and approved documentation compression add no
 physical evidence. Exact original prose is archived there; scientific failures,
 successful partials and costs remain distinct in the [catalogue](experiments.md).
-No owner is active; stop compute. The [current handoff](CONTINUATION.md) bounds
-the next scope decision; no further acquisition, refit, other cleanup or merge
-follows from unused time.
+Local-delivery owners ended. The separately frozen crossing QC-only release in
+the [current handoff](CONTINUATION.md) does not enlarge the delivered fit's scope;
+no further acquisition, refit, other cleanup or merge follows from unused time.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 
@@ -103,5 +103,6 @@ days: observable/domain/accuracy; reused evidence and smallest new check;
 compute/implementation caps; actual evidence delta/cost; **continue / redirect /
 stop** and one bounded next deliverable. Interface fixes alone are not sweep
 progress. The approved documentation integration and saved-evidence proposal are
-complete; no scientific execution is released. Other cleanup/merge remain deferred.
+complete. The handoff identifies the separate bounded crossing release; this
+standing table releases no job. Other cleanup/merge remain deferred.
 PR95 stays closed and unmerged.

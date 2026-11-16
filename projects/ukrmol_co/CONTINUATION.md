@@ -10,14 +10,15 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: local representation deliverable complete; stop new molecular compute.**
+**Current decision: retain the completed local representations; a separately frozen
+crossing QC-only stage is active.**
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
 packaged in the [delivery report](https://data.qscat.org/co-local-representation-delivery-20261115T2020/REPORT.641961a5eed3.md),
 with [fresh-public verification](https://data.qscat.org/co-local-representation-public-receipt-20261115T2020/authentication.d88606b2afed.json).
 This is not a uniform/electronic/global accuracy claim or unique N+1 continuation.
-No owner is active. All new owners ended before the fresh **15November21:59UTC**
+All local-delivery owners ended before the fresh **15November21:59UTC**
 ceiling; earlier allocation limits and original failures remain unchanged. Unused
 time authorizes no new acquisition, refit, cleanup, merge or deletion.
 
@@ -32,7 +33,7 @@ archiving/authenticating its seven exact original pages; the
 [canonical conclusion](../../docs/physics/co-results-and-rejected-routes.md#local-representations-accepted-scope)
 links that archive and the unchanged scientific delivery. Next: select a distinct
 physical observable and bounded decision, or retain this completed local milestone.
-No scientific branch is released. Earlier preparation/goal checkpoints are
+That packaging checkpoint released no scientific branch. Earlier preparation/goal checkpoints are
 historical context, not a current queue. Unrelated dirty work remains outside this task.
 
 ## Reuse, do not restart
@@ -87,12 +88,13 @@ costs remain separately discoverable in the [catalogue](experiments.md).
   jobs; eight/twelve only when justified. No paid provisioning by default.
 - During active jobs target 600-s checks plus immediate terminal observation;
   record actual gaps separately from scientific success. All earlier allocations
-  and monitors ended. No idle scheduler or renewed execution window.
+  and monitors ended. Only the current catalogued release renews execution;
+  there is no idle scheduler.
 - Check goal relevance before each task; review at each deliverable and within
   one or two active working days. Continue within a bounded release; stop on
   numerical, identity, resource or scope blockers rather than escalate silently.
-- Only the approved documentation integration and saved-evidence planning are
-  in scope; other cleanup and merge remain deferred. **PR95 stays closed and unmerged**.
+- The approved crossing pilot is separate from the completed local delivery;
+  other cleanup and merge remain deferred. **PR95 stays closed and unmerged**.
 
 ## Restart pointers and retrieval limits
 
@@ -114,7 +116,7 @@ policy-source switch or service/configuration change follows from this review.
 
 ## Goal checkpoint — 16 November 2026
 
-**Stop compute; include resonance-to-bound coverage in next-stage planning.**
+**Historical planning checkpoint: include resonance-to-bound coverage.**
 The neutral fit and ten-pair local representation remain complete on 1.9–2.5
 bohr. The user's upper-domain concern identifies a different missing regime:
 that interval does not establish a bound-side continuation. Plan a small
@@ -137,9 +139,10 @@ resource ceilings, pending method/state/cost qualification and a separate
 release. It promises neither a crossing nor unique N+1 identity. The earlier
 2.5 DZ/TZ and CAS12 diffuse-flexibility alternatives remain preserved, not
 mandatory prerequisites. The implementation/validation adds synthetic evidence
-only, with no molecular QC/native/outgoing calls or protected payloads. Original
+only, with no molecular QC/native/outgoing calls or protected payloads at that
+checkpoint. Original
 failed coarse-tail and execution-control attempts remain preserved externally;
-no numerical guard was relaxed. No extended-R route is released.
+no numerical guard was relaxed. That planning checkpoint released no extended-R route.
 
 ### Historical target-correspondence assessment
 
@@ -168,27 +171,30 @@ not failed physical predictions or a retrospectively all-zero process.
 ## Current bounded next deliverable
 
 Local representation packaging and approved documentation integration are complete.
-The bounded pure-Python implementation and synthetic qualification are complete;
-see the linked method/API and tests. No CO data were used. Read-only named-host
-checks now confirm access, CPU topology, resource floors and existence of the
-previously pinned image. The limited root/runs/prepared direct-name scan found
-no R2.8 entry; this is not exhaustive remote input authentication. Existing
-workloads were only inspected for allocation and were not changed.
+The user explicitly approved a shared **16-hour** crossing pilot, starting at
+the first frozen molecular release, plus reviewed pushes and scoped public
+records; no merge. The [authorization and preparation record](https://data.qscat.org/co-crossing-preparation-20261116/authorization.e5460b612151.json)
+and [QC-only release](https://data.qscat.org/co-crossing-r2800-qc-release-20261116/decision.892ea1e699f7.md)
+in the [catalogue](experiments.md) supersede the earlier permission/window blocker.
+The exact release fixes the shared deadline; later stages cannot reset it.
 
-The next release still needs named input/source/runtime authentication and fixed
-state/threshold/energy-domain and whole-node cost gates. Full-size bound-side
-uncertainty/localization and state correspondence remain unqualified. Freeze a
-fresh explicit execution duration/deadline and resolve push/public-record
-permissions before molecular work; a large opportunity window is not an exact
-release contract. Synthetic success and host access release no acquisition.
-No generic solver project or automatic new-geometry run follows.
-Do not fund a dense extension or require the 2.5-bohr basis sentinel to solve
-every accuracy question first.
-If absolute accuracy is required next, a matched physical benchmark remains a
-separate missing input. Stop new compute. Use the canonical conclusion and
-[README evaluator instructions](README.md#using-the-local-representations).
-All successful work, original failures, coefficients and validation roles remain
-preserved; all 114 S holdouts and the reserved equilibrium outgoing pole remain
-unread. No owner is active. Any proposed physical-model test still needs acceptance
-of its observable, prescription, comparison, exact source/inputs, numerical/resource
-caps and fresh execution window. No scientific branch or merge starts automatically.
+Small/full-size generated controls and named accepted R=2.5 seed/runtime/projection
+authentication pass. These qualify preparation and conditional cost, not actual
+CO coupling, binding, localization, omitted-spectrum error or N+1 identity.
+Original preparation/publication-consumer failures are retained without repeating
+the successful preflight or changing unrelated workloads.
+
+The released owner attempts only missing **R=2.8 QC**, with a two-hour cap, four
+physical cores/32 GiB, 600-s observations and immediate terminal checks. Its
+result is pending. Next deliverable: independently assess that original QC result;
+only a pass permits a separate fixed-orbital reference-stage release. Any failure
+stops the attempt without retry. No native or boundary stage is released here.
+
+The two-node rule remains R=2.8 first, then R=2.65 after a qualified bound endpoint
+or R=3.0 after a qualified resonance. Ambiguity/failure stops without a rescue node.
+Full-size molecular uncertainty/localization and state correspondence remain gates;
+compatible local endpoints alone cannot prove a strict unique-branch bracket.
+Do not fund a dense curve, extrapolate/refit the delivered evaluator or require
+the separate 2.5-bohr basis sentinel to solve every accuracy question first.
+Successful work, failures, coefficients and validation roles remain preserved;
+all 114 S holdouts and the reserved equilibrium outgoing pole remain unread.

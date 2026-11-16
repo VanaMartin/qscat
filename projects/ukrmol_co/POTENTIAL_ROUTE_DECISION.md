@@ -43,9 +43,10 @@ and original documentation/evidence pointers instead of duplicating their histor
 Reference/continuation gates for a global physical potential are not entrance
 requirements for these completed local data products.
 
-Stop new compute; no owner is active. Select any different physical observable
-and its smallest decision-changing test separately, retaining the boundaries
-above. A new stage requires a frozen bounded release; unused time is not one.
+Local-delivery compute ended. The separately selected crossing observable and
+QC-only release are in the [current handoff](CONTINUATION.md), retaining the
+boundaries above. Every later stage requires its own frozen bounded release;
+unused time is not one.
 Keep all 114 S holdouts, the equilibrium outgoing exclusion, nine working/new50
 parked, 2048 baseline, failures and costs. The [current handoff](CONTINUATION.md)
-does not release further acquisition, refitting, unrelated cleanup or merge.
+does not automatically release downstream acquisition, refitting, unrelated cleanup or merge.
