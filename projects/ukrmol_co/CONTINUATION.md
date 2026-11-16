@@ -192,19 +192,34 @@ completed all sixteen fixed-orbital probes. Their original action/spin/Gram/
 projection gates and independent raw saved-array reading
 [pass](https://data.qscat.org/co-crossing-r2800-reference-result-20261116/assessment.e1e67cc04605.md).
 The two prerequisites supply own inputs, not an endpoint or unique N+1 identity.
-The goal reassessment permits only the missing
-[48-target/property stage](https://data.qscat.org/co-crossing-r2800-target-release-20261116/decision.8024c31d3d38.md),
-now active after exact engine/library/CSF/Molden and bounded-owner preflight.
-QC and reference solves are not repeated. Retain the two-hour cap, four physical
-cores/32 GiB, 600-s plus terminal observations and unchanged shared deadline.
-Next deliverable: independently assess own native targets/properties before any
-continuum/boundary allocation. Any failure stops without retry; no boundary or
-exterior stage is released here.
+The own [48-target/property stage](https://data.qscat.org/co-crossing-r2800-target-result-20261116/assessment.f1dd973bd7e7.md)
+also passes, including remote/local independent saved-data reading and fresh-public
+authentication. Its original archive-consumer failure and additive role-counter
+clarification remain preserved; the eight development/two validation roles do not change.
+QC, reference and native target/property solves must not be repeated.
+
+The separately frozen [own continuum/B1-only boundary release](https://data.qscat.org/co-crossing-r2800-b1-boundary-release-20261116/decision.4be7936af02d.md)
+has launched after source/engine/client/CSF/runtime/owner controls and public-byte
+authentication. Its terminal result is pending. Retain the two-hour science cap,
+four physical cores/32 GiB and 600-s plus terminal observations. The shared
+boundary clock also limits any later B2 allocation; the whole-pilot deadline remains
+**17 November, 09:26:51 UTC**. B2 and all molecular exterior maps remain unreleased.
+Next bounded deliverable: independently authenticate and assess the original B1
+terminal result, including successful partials, exits and costs. First qualification
+failure stops without retry or rescue. Native input success alone is not a binding sign.
 
 The separate [below-threshold input adapter](https://data.qscat.org/co-crossing-closed-loader-20261116/verification.49a01430ab55.json)
 passes generated/regression controls and preserves the old positive-grid guard.
-It supplies no molecular bound qualification; pinned-host capability and actual
-own boundary checks remain required before use. The active target job is unchanged.
+Its pinned-host generated native-file control also passes; actual own-boundary
+checks remain pending. It supplies no molecular bound qualification.
+
+The [finite-radius D/N support](https://data.qscat.org/co-bound-box-20261116/verification.aa804847affe.json)
+passes analytic/BVP/convergence and rejection controls, without molecular payloads
+or changes to the active B1 owner. Explicitly opted-in box roots are labelled
+finite-box-root-only. Exact form bracketing is not certified ODE/roundoff control;
+pinned-runtime support, numerical padding and molecular sign/localization/state
+gates remain before any matching release. No Rust/QSCAT promotion or new acquisition
+follows from these tests.
 
 The two-node rule remains R=2.8 first, then R=2.65 after a qualified bound endpoint
 or R=3.0 after a qualified resonance. Ambiguity/failure stops without a rescue node.
