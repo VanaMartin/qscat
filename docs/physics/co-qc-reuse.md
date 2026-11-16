@@ -30,3 +30,36 @@ no recomputation fallback. The ordinary optimization path remains the default.
 Native root/residual checks, independent energies, properties, channel ordering,
 boundary qualification and multi-geometry identity remain separate gates.
 Replay alone adds no resonance geometry and authorizes no scattering calculation.
+
+## Native audit output is per invocation
+
+The retained `scattering_telemetry.c` interposer deliberately opens
+`UKRMOL_EPS_AUDIT` with exclusive-create mode (`"ax"`). Give **each target-sector
+solve a distinct, absent absolute filename**. Reusing an aggregate path aborts
+the next rank-zero audit after `EPSSolve` returns, before native vector export;
+a solve-site backtrace alone can therefore
+misidentify an instrumentation failure as an eigensolver defect. Preserve the
+original failure, inspect the actual interposer and test its file-opening behavior
+before changing numerical settings or rerunning completed sectors. Never remove
+an old audit file to make an unchanged attempt appear successful.
+
+## Recover the failed stage, not successful peers
+
+Distinguish the QC process exit from downstream consumer/controller exits.
+`authenticated_qc` requires the original six-file bundle's
+`resources.json["exit_code"] == 0`; a later log-reader failure does not change
+that QC exit. Conversely, converged orbitals inside a timed-out QC process do
+not meet this API. Separately qualified split completion needs its own explicit
+contract and provenance, never an edited resource record or a bypass of this gate.
+
+Read the native command's declared output unit rather than assuming `fort.921`
+for every symmetry. Preserve accepted sectors and real guards byte-identically;
+a consumer-only error does not justify another native solve. A search that leaves
+its frozen box supplies no pole, not evidence of absent resonance: diagnose
+localization and qualify safeguards before a separately released remainder,
+without silently reseeding, widening the box or relaxing numerical budgets.
+
+QC, target-only and expanded-continuum layouts are distinct stages. Reuse
+geometry-independent signed CSFs only after actual inventory/deck compatibility;
+integrals, CIDATA, properties and native vectors remain geometry/frame-specific.
+Verify destination phases and target-integral equivalence before boundary reuse.
