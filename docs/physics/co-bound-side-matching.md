@@ -1,11 +1,12 @@
-# Finite CO bound-side matching: design, not a qualified solver
+# Finite CO bound-side matching: synthetic Python prototype
 
 ## Purpose and scope
 
 Test for a normalizable fixed-nuclei N+1 state below the native neutral ground
 threshold using the same finite inner spectrum and closed-channel exterior as
-the local resonance calculation. This is a proposed project-level Python
-capability, not implemented/validated here or promoted to QSCAT. It does not
+the local resonance calculation. The project-level Python prototype
+`projects.ukrmol_co.bound_matching` is tested on analytic/synthetic cases only;
+it is not a qualified molecular solver or promoted QSCAT capability. It does not
 establish electronic convergence, unique multi-R identity or attachment dynamics.
 The [local representation](co-results-and-rejected-routes.md#local-representations-accepted-scope)
 and its real-R domain remain unchanged.
@@ -63,22 +64,38 @@ Column scaling of U and its derivative must remain consistent. A singular chart,
 unresolved nullspace or missing stable representation stops the bounded attempt;
 it is not permission for an open-ended matching-framework project.
 
-## Candidate API and implementation boundary
+## Implemented API and boundary
 
-A small project adapter could take incident Hartree energy, native thresholds/
-multipoles, matching radius, a prescribed exterior domain and numerical caps,
-and return Y_dec plus tail/endpoint/residual diagnostics. A separate bounded
-root driver would consume D/W/E0 and a fixed **negative-energy** interval,
-returning an energy, null/residual witnesses and a numerical uncertainty estimate.
-Candidate interfaces (not implemented or frozen public APIs):
-
-    decaying_dtn(incident_hartree, thresholds_rydberg, c2, c3,
-                 radius_bohr, exterior_settings, caps) -> (y, diagnostics)
+    decaying_dtn(incident_hartree, thresholds_rydberg, c2, c3, radius_bohr,
+                 *, endpoint_bohr, tail_order=8, rtol=1e-11, caps=...)
     find_bound_state(poles_hartree, amplitudes, ground_hartree,
-                     negative_interval_hartree, decaying_map, caps) -> result
+                     negative_interval_hartree, decaying_map, *, mode_index=0,
+                     energy_tolerance_hartree=1e-12,
+                     residual_tolerance_hartree=1e-8,
+                     isolation_gap_hartree=1e-6, caps=...)
 
-It must reject nonnegative/boundary-threshold inputs and nondecaying solutions.
-No input should trigger QC, native exports or implicit downloads.
+`decaying_dtn` integrates the real-axis Riccati equation inward with DOP853 and
+returns `(Y, diagnostics)`, including raw transpose defect, tail-order/endpoint
+settings and RHS cost. It shares the inverse-power recurrence with the outgoing
+code, not that code's sheet/angle interface. It rejects nonnegative/complex
+incident energies, invalid dimensions/symmetry, unresolved tail/DtN charts and
+time/RHS exhaustion. No projection repairs a failed symmetry check.
+
+`find_bound_state` brackets one prospectively selected **ordered eigenvalue**
+of F using Brent's method. It checks the raw matrix residual, local isolation,
+unchanged inner inputs and identical-energy map replay. It returns the energy,
+inner coefficients, numerical diagnostics and `qualification="finite-model-root-only"`.
+Neither a successful bracket nor this local index proves global root count or
+state assignment. Callback maps must enforce their own work caps; cooperative
+before/after-call time checks cannot preempt an arbitrary blocked callback.
+
+`BoundCaps` defaults to 30 seconds, 20000 RHS calls, 96 map evaluations, at most
+32 channels and 256 inner poles. These are synthetic-stage limits, not a
+qualified 298-channel/2048-root execution envelope. There are no molecular
+readers, implicit downloads, native calls or recomputation fallbacks.
+DtN-chart failures stop; the inverse-free representation described above is not
+implemented. `total_uncertainty_hartree` remains **unset**: search tolerance,
+residual and the last tail term are not a rigorous total error enclosure.
 
 `outgoing_map.sheet_momenta` already selects decaying roots for closed channels
 inside a negative reference interval, but the full all-closed bound workflow is
@@ -92,7 +109,23 @@ residue. A bound solution has no open detachment channels, so it needs a separat
 bound-state acceptance contract, not a bypass that reports the resonance tests
 as passed. Real-axis K/S guards cannot supply a below-threshold scattering oracle.
 
-## Validation required before a molecular release
+## Synthetic controls and remaining molecular gates
+
+`test_bound_matching.py` exercises the controls below using derived toy inputs,
+not measured fixtures. Three tolerance levels test exact decaying p waves down
+to incident energy -5e-9 Hartree; three tail orders/endpoints test a two-channel
+map against a separate real second-order boundary-value solve. The latter shares
+the finite differential operator but not the Riccati propagation or tail
+recurrence, and uses a farther leading-Robin endpoint. A shallow radial square
+well is checked against its analytic secular equation at three inner-spectrum
+sizes, including the expected omitted-tail trend. Rotated two-mode closed-form
+roots and opposite-order coupled boundary matching check the F construction.
+Subcritical/short-box and singularity controls retain rejected outcomes.
+
+These controls do not establish a CO binding sign, molecular localization,
+full-size cost, omitted-spectrum error, or the adequacy of a molecular exterior.
+Before a molecular release, retain these controls and additionally qualify the
+actual input/state/domain and uncertainty contract:
 
 - Free closed-channel DtN against exact -kappa, and nonzero-l decaying solutions
   against analytic logarithmic derivatives, including shallow negative energies.

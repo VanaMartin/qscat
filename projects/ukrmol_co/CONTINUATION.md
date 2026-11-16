@@ -10,7 +10,7 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: local representation deliverable complete; stop new compute.**
+**Current decision: local representation deliverable complete; stop new molecular compute.**
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -122,10 +122,12 @@ state-tracked crossing bracket before a dense extended curve; do not enlarge
 the evaluator's domain or extrapolate its cubics/log-width. Electronic-model
 accuracy and hybrid joining remain separate unresolved claims.
 
-The saved-source feasibility/cost review is complete. It selects
-[all-closed physical-sheet matching for qualification](../../docs/physics/co-bound-side-matching.md),
-not blind continuation of the outgoing prescription. The existing resonance
-open-residue test cannot qualify a bound state. No qualified primary inputs
+The saved-source feasibility/cost review and bounded synthetic Python stage are
+complete. [All-closed physical-sheet matching](../../docs/physics/co-bound-side-matching.md)
+now has analytic/synthetic controls, not blind continuation of the outgoing
+prescription. The existing resonance open-residue test cannot qualify a bound
+state. The prototype returns a finite-model root, not a total error enclosure
+or molecular qualification. No qualified primary inputs
 beyond 2.5 were identified in the inspected catalogue/named local paths; remote
 inventory remains unverified. Earlier interior stage costs supply only a
 conditional reference scenario, not a supported complete crossing-pilot forecast.
@@ -134,8 +136,10 @@ The external card records a two-node conditional geometry rule and proposed
 resource ceilings, pending method/state/cost qualification and a separate
 release. It promises neither a crossing nor unique N+1 identity. The earlier
 2.5 DZ/TZ and CAS12 diffuse-flexibility alternatives remain preserved, not
-mandatory prerequisites. This review adds no molecular evidence and used zero
-QC/native/outgoing calls or protected payloads. No extended-R route is released.
+mandatory prerequisites. The implementation/validation adds synthetic evidence
+only, with no molecular QC/native/outgoing calls or protected payloads. Original
+failed coarse-tail and execution-control attempts remain preserved externally;
+no numerical guard was relaxed. No extended-R route is released.
 
 ### Historical target-correspondence assessment
 
@@ -164,12 +168,13 @@ not failed physical predictions or a retrospectively all-zero process.
 ## Current bounded next deliverable
 
 Local representation packaging and approved documentation integration are complete.
-Next bounded task proposed: pure-Python bound-side implementation and analytic/
-synthetic qualification under the external card's effort/test/resource caps;
-no CO inputs or molecular calls. See the linked design for equations, false-root
-controls and acceptance limits. This task has not run and releases no subsequent
-molecular acquisition. Stop if it cannot qualify within its cap; no generic
-solver project follows.
+The bounded pure-Python implementation and synthetic qualification are complete;
+see the linked method/API and tests. No CO data were used. The next preparation
+is a named-only host/input/runtime inventory and a release decision for the
+first missing stage, retaining state/threshold/energy-domain and whole-node cost
+gates. Full-size bound-side uncertainty/localization and state correspondence
+remain unqualified; synthetic success is not a molecular execution release.
+No generic solver project or automatic new-geometry acquisition follows.
 Do not fund a dense extension or require the 2.5-bohr basis sentinel to solve
 every accuracy question first.
 If absolute accuracy is required next, a matched physical benchmark remains a
