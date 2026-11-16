@@ -10,8 +10,8 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: retain the completed local representations; a separately frozen
-crossing stage is active.**
+**Current decision: retain the completed local representations; crossing inputs
+qualify and positive-energy B1 preparation is next. No owner is active.**
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -200,22 +200,31 @@ QC, reference and native target/property solves must not be repeated.
 
 The separately frozen [own continuum/B1-only boundary release](https://data.qscat.org/co-crossing-r2800-b1-boundary-release-20261116/decision.4be7936af02d.md)
 has launched after source/engine/client/CSF/runtime/owner controls and public-byte
-authentication. Its terminal result is pending. Retain the two-hour science cap,
-four physical cores/32 GiB and 600-s plus terminal observations. The shared
+authentication. Its [original terminal result and independent raw readers pass](https://data.qscat.org/co-crossing-r2800-b1-boundary-result-20261116/assessment.77007b22882e.md),
+with all six native exits zero. Do not repeat the continuum/B1 solve. The shared
 boundary clock also limits any later B2 allocation; the whole-pilot deadline remains
 **17 November, 09:26:51 UTC**. B2 and all molecular exterior maps remain unreleased.
-Next bounded deliverable: independently authenticate and assess the original B1
-terminal result, including successful partials, exits and costs. First qualification
-failure stops without retry or rescue. Native input success alone is not a binding sign.
+The separately released [retained-input sign test](https://data.qscat.org/co-crossing-r2800-b1-sign-result-20261116/assessment.9c52b0af4355.md)
+and independent raw-record checks also pass: a strictly positive retained inner
+term and the prescribed sufficient nonnegative-exterior witness exclude negative
+levels in this retained B1 operator. This is not full-electronic/omitted-spectrum
+absence, interval-certified arithmetic or resonance qualification. No molecular
+D/N or decaying map was needed; no R=2.65 allocation follows.
+
+Next bounded deliverable: prepare a separately qualified positive-energy B1
+search below the first excited threshold, with an explicit tested input window,
+independent real-axis controls and unchanged pole/residue/character budgets.
+The old positive-grid guard is not bypassed, and no complex map is released by
+this handoff. First qualification failure stops without retry or rescue.
 
 The separate [below-threshold input adapter](https://data.qscat.org/co-crossing-closed-loader-20261116/verification.49a01430ab55.json)
 passes generated/regression controls and preserves the old positive-grid guard.
-Its pinned-host generated native-file control also passes; actual own-boundary
-checks remain pending. It supplies no molecular bound qualification.
+Its pinned-host generated native-file and actual own-B1 boundary checks pass.
+It supplies no molecular bound qualification or positive-energy input policy.
 
 The [finite-radius D/N support](https://data.qscat.org/co-bound-box-20261116/verification.aa804847affe.json)
 passes analytic/BVP/convergence and rejection controls, without molecular payloads
-or changes to the active B1 owner. Explicitly opted-in box roots are labelled
+or changes to the native B1 owner. Explicitly opted-in box roots are labelled
 finite-box-root-only. Exact form bracketing is not certified ODE/roundoff control;
 pinned-runtime support, numerical padding and molecular sign/localization/state
 gates remain before any matching release. No Rust/QSCAT promotion or new acquisition
