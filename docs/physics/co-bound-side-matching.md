@@ -66,6 +66,16 @@ it is not permission for an open-ended matching-framework project.
 
 ## Implemented API and boundary
 
+`projects.ukrmol_co.local_pole_inputs.load_closed_boundary_model(source)` loads
+only the same neutral 48-target/298-channel/2048-pole/a=18-bohr native inputs,
+without opening a K/S grid. It retains six zero ground thresholds, strictly
+positive finite excited thresholds and the native target/threshold energy identity.
+Unlike the unchanged positive-grid `load_boundary_model`, it imposes no 0.3675-Ry
+excited-threshold floor. This is input support for **strictly negative incident
+Hartree energies**, not qualification of a positive grid or molecular bound state.
+Both loaders share the D/W/multipole decoder and preserve native normalization.
+The decaying solver still enforces its own energy domain and numerical gates.
+
     decaying_dtn(incident_hartree, thresholds_rydberg, c2, c3, radius_bohr,
                  *, endpoint_bohr, tail_order=8, rtol=1e-11, caps=...)
     find_bound_state(poles_hartree, amplitudes, ground_hartree,
