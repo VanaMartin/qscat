@@ -136,8 +136,10 @@ and the frozen validation design, not a uniform error bound, electronic accuracy
 unique N+1 continuation, global potential, full S matrix or nuclear dynamics.
 No hot path or promotion is claimed; this remains a Python project evaluator.
 
-Let V0_ref(R) be the correlated neutral curve on a declared common dissociation
-zero, distinct from the native absolute target energy. The eventual adapter is
+Let V0_ref(R) be the correlated neutral curve on a declared common zero,
+distinct from the native absolute target energy. A local dataset may use a
+fixed molecular reference; a global dissociation-constrained factory model
+requires a qualified fragment zero. The eventual adapter is
 
     ResonanceTarget.v_ion(R) = V0_ref(R) + Re z(R),
     ResonanceTarget.gamma(R) = -2 Im z(R).
@@ -158,7 +160,8 @@ Existing constraints are real blockers, not reasons to invent targets:
 - `ea`, `R_inf` and `tail` require justified dissociation data. The factory's
   `polarisation_tail` is an **ion--atom tail in nuclear R**, not the native
   electron exterior in r. A local 1.9–2.5 bohr dataset cannot justify those
-  asymptotic inputs. No CO asymptote is guessed to make the API run.
+  asymptotic inputs. No CO asymptote is guessed to make the API run. Store local
+  data first; a local-fit interface must explicitly defer global constraints.
 - `Target.eigenphase` is reserved metadata, not an implemented T2 scattering
   loss. `CouplingTarget` is not determined by Gamma(R) alone.
 
@@ -172,12 +175,13 @@ Historical equilibrium real-axis results are already known: this is not a claim
 of globally blind data. Qualification-method controls should use analytic cases
 and the compressed reference, not tune against the excluded equilibrium pole.
 
-The minimum later geometry design needs four genuine training nodes bracketing
-that exclusion and one validation node. Keeping compressed/stretched anchors
-therefore requires at least two additional training geometries. Their identities,
-electronic prescription, cost and execution require a separate pilot decision;
-this note launches none. A neutral input at equilibrium may be supplied openly:
-this is conditional resonance validation, not prediction of the neutral curve.
+The original minimum design required four genuine training nodes bracketing
+that exclusion and one validation node. The delivered local representation now
+has eight development nodes and two different prospective validation nodes;
+this minimum is no longer a missing-geometry queue. The equilibrium outgoing
+pole stays reserved and needs its own later release. A neutral input at
+equilibrium may be supplied openly: this is conditional resonance validation,
+not prediction of the neutral curve.
 
 Before seeing the validation pole, freeze the scalar parameters, numerical
 settings and assignment rule. Compare its predicted incident pole with an
@@ -219,6 +223,12 @@ hidden loss function in this scalar map. Until supplied and tested, the original
 held-out physical-scattering deliverable remains open even if reduced gates pass.
 All 114 energy-route holdout S matrices from the direct-S screen remain
 unanalyzed; none is consumed or reclassified by this design.
+
+A fixed right-background replacement is insufficient even when it preserves
+unitarity: if the background and pole factors do not commute, their product
+need not be symmetric and reciprocity can fail. A separately specified
+channel-aware construction would need its own reciprocity and predictive tests;
+no CO embedding or local-potential equivalence is qualified here.
 
 ## Capability boundary and stopping decision
 

@@ -42,12 +42,129 @@ compute; any different physical claim needs a separate scope decision.
 Reference-first ordering concerns unqualified global claims, not these completed
 local goals. No historical work package releases a new job.
 
-## Ordered task queue
+## Computed neutral curve: immediate scope
 
-Before **each** task, name the missing first-dataset output it removes. Reject
-support work that cannot change that decision. This queue is sequential only
-where there is a real dependency: the neutral representation need not wait for
-resonance acquisition.
+Compute-first means `V0(R) = E0(R) - E_ref`, using our own energies. Use the
+already-paid 5Z well as the primary local dataset; keep QZ separate. The 52
+accepted QZ/5Z energies cover **26 distinct geometries**, not 52 geometries.
+Keep absolute totals and each basis's own molecular reference at R=2.1323 bohr.
+The existing 14-knot/12-midpoint tests measure representation, not independent
+physical accuracy; these historical data are not globally blind.
+
+**Energy-zero gate:** the current factory's EMO has a zero dissociation asymptote
+and no additive offset in `fit_neutral`. Do not feed molecular-reference-zero
+energies as though they were atom-relative. Use an explicitly offset/local
+representation or table and defer physical `De` and the asymptote. Alternatively,
+any computed fragment zero must match the molecular method/basis/core treatment;
+MR atom totals cannot align the CCSD(T) well.
+
+The first local representation now uses a fixed degree-6 Chebyshev polynomial
+constrained to the molecular reference, with original knots and historical
+midpoints kept separate. Its representation checks pass; no electronic accuracy
+or asymptotic claim follows. Tables, coefficients, exact analysis and controls
+are external records in the catalogue, not constants promoted to `qscat`.
+
+The nine accepted all-electron aug-cc-pCVTZ CASSCF/SC-NEVPT2 endpoints are a
+**separate** dataset: two atoms and seven molecular points, including R=3 and 4.
+They preserve a finite bridge, not qualified dissociation. Their local-well
+physical diagnostic failed; the R12 orbital optimization remains unqualified.
+Do not splice CC and MR energies or repeat accepted endpoints. If extended-R
+neutral coverage becomes essential, the bounded contingency is one missing MR
+overlap point at R=2.5 under the accepted prescription, not another R12 retry.
+It needs its own release and does not establish a global curve.
+
+See [well evidence](qualification-evidence/neutral-near-equilibrium/README.md),
+the latest neutral qualification in the [catalogue](experiments.md), and
+[results and rejected routes](../../docs/physics/co-results-and-rejected-routes.md).
+
+## Delivered finite resonance prescription
+
+Use the existing operational outgoing definition, not new pole software:
+
+- CAS11/cc-pVDZ: ten active electrons, two inactive A1 core pairs, active
+  irreps `[5,3,3,0]`.
+- Equal-weight **40-component orbital objective**; retained targets
+  `[5,5,5,9]` per spin, 48 total. Nine-A2 is not a new 50-component optimization.
+- Radius 18 bohr, l≤4, deletion 1e−6, uncorrected 2048 inner roots; retain all
+  finite closed-channel/exterior couplings and actual target frames.
+- Initially local, positive-energy scope within 1.9–2.5 bohr, only where the
+  isolated branch can be followed. Threshold collision, lost isolation or
+  ambiguous character stops/splits the segment.
+
+This prescription maximizes compatible reuse; it is **not a converged physical
+CO model**. Compressed active-space and separate stretched DZ/TZ sensitivity
+tests failed their physical comparisons. Complex omitted-spectrum uncertainty
+and multi-R identity remain unresolved. B1/B2 counterparts are identity checks,
+not extra geometry nodes. Native real-axis fits, CAS12 poles and other bases
+must remain separately labelled.
+
+Keep the full [effective-target contract](../../docs/physics/co-effective-resonance-target.md),
+[compressed reference](COMPRESSED_POLE_REFERENCE.md),
+[paired character evidence](PAIRED_POLE_CHARACTER.md) and
+[existing electronic prescription](a2-compressed-scattering-contract.json).
+The latter is evidence, not renewed execution authority.
+
+**Bounded alternative, not a parallel campaign:** a separately adopted native
+RESON/Breit–Wigner dataset could use a single prospectively frozen same-model
+recipe and its own window/background/grid adequacy gates. Audit its allowed
+compressed development comparison first; stop if inadequate. Existing rejected
+windows stay rejected. Such rows are estimator-defined, never relabelled outgoing
+poles, and do not silently replace the outgoing target or lower its tolerances.
+
+## Energy and state contract
+
+Use Hartree and bohr internally; Gamma is the **full width**:
+
+    z(R) = E_total,pole(R) - E_ground,native(R) = Er(R) - i Gamma(R)/2.
+    Vres_hybrid(R) = V0_QC(R) + Er(R).
+
+Keep individual native ground totals, total pole energies and incident energies.
+Never use the state-average ensemble energy as a ground energy. A separately
+correlated neutral plus native resonance is a **declared hybrid**, not an absolute
+correlated anion calculation. UKRmol+ constructs target/scattering Hamiltonians
+internally; `neutral.py` is a separate PySCF/Psi4 correlated-QC route.
+
+Preserve the historical requested-eV grid conversion `E_inc=0.0735*E_requested/2`
+separately from physical eV presentation/tolerances using `qscat.units`.
+For a later dissociation claim, use matched `A0=E_C+E_O`, `AO=E_C+E_Ominus`,
+`AC=E_Cminus+E_O`, so atom-relative anion limits are `-EA_O` and `-EA_C`.
+State spin-free versus lowest-J conventions and core/charge/spin treatment.
+`D0=De-ZPE`; a ground-fragment attachment threshold is `D0-EA`, not a fixed-R
+resonance or an atom-to-fixed-molecular-reference offset. The
+[atomic protocol](../../docs/physics/co-atomic-energy-references.md) governs those
+later comparisons; they are not entrance gates to a molecular-zero local fit.
+
+The current `ResonanceTarget`/fit API couples local data to `ea`, `R_inf` and
+asymptotic setup. Store the local table first. A later local-fit interface must
+explicitly defer unavailable global constraints, never invent constants.
+
+## Validity gates by stage
+
+The operative checklist is [sweep readiness](SWEEP_READINESS.md):
+
+1. **Accept a row:** immutable provenance, actual protocol/state/zero, final
+   applicable residual/spin/density/orbital/import checks and extraction guards.
+2. **Call it a curve:** compatible protocol and target/channel bookkeeping;
+   physical target/subspace and pole/residue assignment in a common frame.
+3. **Fit it:** actual sufficient nodes, bounded parameter count, declared zero,
+   domain, numerical uncertainty and representation tests; freeze exclusions.
+4. **Claim physical accuracy:** quantify electronic-model sensitivity and matched
+   physical comparisons. A failed insensitivity test does not delete a valid
+   finite row or prohibit all local collection.
+5. **Claim global/dynamical predictions:** qualify fragments, dissociation,
+   bound joining, tails and nuclear observables; full S additionally needs a
+   separately specified channel/background model.
+
+Existing numerical and physical budgets retain their original scopes; no
+lower-accuracy production or exploratory tier is silently adopted.
+
+## Completed local milestones and future decision boundary
+
+The first-dataset milestones below are complete, not a current acquisition queue.
+Before any new task, name the distinct physical decision it can change; more
+interpolation points alone do not qualify electronic accuracy. Documentation
+integration and one saved-evidence pilot proposal are complete; proposal review,
+not execution, is the next scope decision.
 
 | Order | Task | Completion test / bound |
 |---|---|---|
@@ -70,157 +187,23 @@ is tested/committed/pushed before use; exact executed inputs/source/owners and
 failures live externally under the [planning contract](../../docs/experiment-planning.md).
 No successful electronic calculation is repeated merely to accumulate passes.
 
-## Rules preventing another open-ended supporting campaign
+## Blind alleys and literature basis
 
-1. Every new job must answer a named physical decision below. Reuse accepted
-   electronic data and2048-root controls; no automatic basis/root/channel ladder.
-2. Keep numerical error distinct from model error. Preserve0.1meV position/full
-   width and1e-6rad same-model numerical criteria, and existing50meV/5%-with-1meV-
-   floor/0.05rad physical criteria in their specified metrics. Earlier rejections
-   remain rejections. The discussed0.1eV/10–20% exploratory tier is **not adopted**
-   by this plan; any lower-quality release needs an explicit new scope decision.
-3. No model is selected because it has a larger basis or one convenient literature
-   match. Published phase-fit widths are not exact outgoing-pole benchmarks.
-4. Small jobs: four physical Sadaharu cores; larger/very large jobs: eight/twelve
-   only when justified. No paid provisioning, image rebuild or unrelated workload
-   changes by default. Preserve immutable inputs, exits, failures and measured cost.
-5. Freeze and push exact inputs/source/tests/owner before a quantum job. A stage
-   failure stops that release; do not turn it into an unbounded repair project.
-6. Review at each deliverable and at most48h of active work. One working-cycle
-   implementation cap per stage; exceeding its stated bound requires reassessment.
-7. Keep114 S holdouts untouched, reserve the equilibrium outgoing pole for the
-   specified validation, retain nine as working reference/new50 parked. No fit,
-   sweep or automatic B2 rescue is released by this plan.
-8. User requests automatic continuation and status checks every5–15minutes.
-   During active runs,target600s checks plus immediate terminal observation;
-   record actual gaps. Continue within an approved bounded stage and independently
-   qualify its result. A new stage needs its goal-linked tested/frozen release,
-   not another preference question. Stop on scientific/resource/scope blockers.
-   This is active-run monitoring,not a perpetual scheduler while no job runs.
+Use the [no-repeat/reopening ledger](../../docs/physics/co-results-and-rejected-routes.md#no-repeat-and-reopening-conditions),
+not historical “next” entries. External-author waiting, atomic precision ladders,
+R12 restarts, full-S/doorway work and general exporters do not unblock the local
+tables. Nine remains working, new50 parked, 2048 retained; equilibrium outgoing
+validation and all 114 S holdouts stay protected. Cleanup/merge remain separate.
 
-## Ordered work packages and decision gates
+The committed reference notes support the relevant cautions:
+[Dora 2016](../../reference/literature/dora-2016-epjd70-197.md), p. 6, Table 4,
+documents model dependence and nonmonotonic improvement with larger CAS;
+[Dora 2020](../../reference/literature/dora-2020-jpb53-195202.md), pp. 2–3 and
+5–6, documents geometry/state-tracking difficulties and fit-sensitive widths.
+Neither is a matched absolute-accuracy benchmark for our outgoing estimator.
+Conventional eigenphase fits are not automatically outgoing poles; small atom
+count alone does not diagnose a package bug. Additional reference-note work is
+separate from this CO integration.
 
-| Order | Deliverable | Completion / decision gate | Bound and stop |
-|---|---|---|---|
-| 0 | Reference/energy-zero specification and actual missing-data ledger | All three atomic limits and native-pole-to-neutral map explicit; unknown totals remain null, not literature placeholders | Saved source only; one planning session |
-| 1 | Four-atom C(3P), O(3P), O-(2P), C-(4S) pilot | Correct charge/spin/occupation/core conventions; finite converged totals; internally consistent sums/EAs; external comparison labeled by convention | First one augmented basis matched to existing neutral data; four physical cores, no geometry/scattering job; exact costed contract before launch |
-| 2 | One matched literature pass and existing-neutral shape assessment | Actual source data coverage/zeros/full-width convention authenticated; compare only overlapping R and estimator; use existing52 points for Re/curvature/low-v assessment with domain checks | At most one60minute acquisition/normalization pass; report inaccessible/missing data, do not replace it by high-precision figure digitization |
-| 3 | Neutral dissociation/correlation decision | Select one justified stable spin-consistent treatment, or explicitly declared literature/hybrid reference; demonstrate overlap with accepted well data and a route to fragment consistency | One bounded method-selection cycle; a small diagnostic set, not a new dense curve; numerical release/caps specified separately |
-| 4 | Single electronic-model decision | Use literature, atom/neutral evidence and existing sensitivity to choose a prescription with uncertainty, reject it, or freeze a limited model-conditional claim | Finish at most the already prepared aug-TZ contrast if it can change this choice; no mandatory augmented run or unlimited model ladder |
-| 5 | Minimal compatible resonance/bound curve | At least four actual training geometries plus separate validation; assignment continuous; cover binding transition/escape region for DA; correct bound continuation and asymptotic residual | Choose nodes after prior gates; reuse compatible records; per-node costs and stopping conditions before allocation |
-| 6 | Fit once, freeze, predict held-out observables | Excluded geometry passes the declared reduced target; independently specified channel/background treatment for scattering; nuclear observable before a DA claim | No fitting training poles back to themselves as validation; rejection/inconclusive if missing physics dominates |
-
-Packages1 and2 are independent and may be interleaved without delaying the atomic
-pilot behind a publisher-access problem. A second atomic basis is conditional on
-the first actual result: estimate the endpoint/EA basis effect only if needed;
-do not launch a QZ/5Z/CBS ladder in advance. The four-atom pilot alone does **not**
-certify molecular dissociation or absolute EA accuracy. The user-selected matched5Z
-counterpart is now complete; its rejected diagnostics stop this basis branch.
-No6Z or automatic CBS extrapolation follows.
-
-## Energy and state contract
-
-Use Hartree and bohr internally. Required free-fragment sums are
-
-\[
-A_0=E_C+E_O,\qquad A_O=E_C+E_{O^-},\qquad A_C=E_{C^-}+E_O.
-\]
-
-Define `V0(R)=E_CO(R)-A0`. On that zero, the anion limits are
-`AO-A0=-EA_O` and `AC-A0=-EA_C`. The scattering pole is relative to its own
-native neutral threshold: `z=E_res-i*Gamma/2`. The proposed effective map is
-`Vminus=V0_ref+Re(z)`, `Gamma=-2*Im(z)`. Substituting an independently correlated
-neutral is a declared hybrid reference construction, not a calculated correlated
-absolute anion energy. Validate its joining/assignment assumptions.
-
-Specify nonrelativistic spin-free term energies for calculated atoms, not
-fine-structure ground-J values. External EA/D0 comparisons must label isotope,
-term/ground-J convention and any unapplied corrections. Keep the electronic
-minimum, fixedR=2.1323 reference, and initial rovibrational zero distinct;
-`D0=De-ZPE`. Ground-fragment DA thresholds are `D0-EA`, not the low-energy
-fixed-nuclei resonance position.
-
-Match the existing valence correlation by freezing **one1s spatial orbital per
-atom**, retaining its total core energy; molecular CO freezes two occupied
-spatial orbitals. Use spherical functions and augmented bases for both charge
-states. Open-shell atomic reference/correlation choices must be named explicitly;
-do not label an automatically converted ROHF/UHF implementation as restricted
-closed-shell CCSD(T). Multiplicity alone is not an orbital-term check.
-
-Free-atom sums are necessary endpoints, not finite-R matching proof. Later check
-spin-coupled neutral dissociation, charge localization, size-consistency/BSSE and
-residual long-range interactions. For C+O-, the isotropic polarization term uses
-neutral **carbon's** polarizability; open-shell anisotropic interactions may also
-matter. Do not invent a CO matching radius or impose a spherical tail without
-testing its applicability.
-
-## Aug-TZ branch is parked, not rejected
-
-Own properties/preparation qualify and must not be repeated. The4.94144eV
-excited thresholds block the unchanged99-point/six-open-channel export view.
-No new inner allocation or general variable-channel framework is on this queue.
-If package4 genuinely needs this one finite comparison, first prescribe an
-explicit subthreshold diagnostic reference, retain **all** closed-channel
-couplings and qualify the modified domain. No silent grid truncation or new
-claim about threshold-crossing/high-energy DA follows.
-
-## Restart status
-
-| Item | Status | Next action |
-|---|---|---|
-| User direction and work order | Approved; recorded here | Follow this queue instead of the old inner-export successor |
-| Reference specification | Complete; [protocol](../../docs/physics/co-atomic-energy-references.md) and [unset ledger](atomic-asymptote-inputs-20261103.json) | Freeze source/tests/owner before quantum execution |
-| Open-shell runtime | [Source-only inspection passes](atomic-runtime-preflight-20261103.json);PySCF2.11 conversion supported,external ROHF stability unavailable | Use supported internal checks;external status must remain unavailable,not passed |
-| Actual atomic sums | [QZ and matched5Z endpoints independently reconstructed](qualification-evidence/atomic-5z-endpoints/README.md);5Z114.674s/11.884GiB | Preserve both finite datasets;no absolute-accuracy or dissociation claim |
-| Atomic finite-basis diagnostics | O EA+23.534meV exceeds10meV;all fixed-reference offset shifts exceed20meV | Reject insensitivity;no6Z/extrapolation;return to neutral/correlation/reference decision |
-| Neutral QZ/5Z well data | Reuse; no dense rerun | Read existing records for shape/spectroscopic diagnostics |
-| Dora2020 numerical supplement | One acquisition pass reached human-verification page; [receipt](literature-reference-acquisition-20261103.json) | No bypass/digitized precision benchmark; proceed with independent atomic work |
-| Neutral stretched reference | Restricted approach stopped | Select spin-consistent correlation/dissociation strategy, not an SCF retry |
-| Augmented scattering | Paused; no inner/pole result | Reopen only after the physical-model decision needs it |
-| Potential/DA/production release | Not ready | Complete reference, curve and independent validation gates |
-
-**Completed continuation —3November12:09:56UTC:** matched5Z atoms complete from
-separately frozen source`e5f8e74`;all original exits0. Science114.268448s,
-owner114.673835s,CPU302.461764s/11.883816GiB/four physical cores. Public reader
-reconstructs48 raw files/21 executed Git sources/573 samples and original QZ data.
-5Z EAs O1.426606459/C1.240999940eV change by+23.533750/+5.950705meV.
-O rejects10meV;C passes. Matching-basis atom-to-fixedR=2.1323 molecular-reference
-offsets shift+52.916179/+29.382428/+46.965473meV for C+O/C+O-/C-+O:
-all reject20meV. These offsets are not De,D0 or initial-v DA thresholds.
-
-The [original startup stop](qualification-evidence/atomic-5z-launch-stop/README.md)
-remains separate:controls1/outer exits2,zero integral/SCF/CC calls. A separately
-frozen exact-source-byte equality control replaces Python-version-dependent AST
-metadata hashing;all eight controls pass in the actual image before science.
-No quantum calculation repeated and no physical/numerical gate changed.
-Both finite atomic jobs complete before their first600s periodic check;
-immediate terminal observations are retained.
-
-**Disposition: stop endpoint basis-insensitivity/production inference;redirect
-to the neutral/correlation/reference choice.** Immediate next deliverable is one
-at-most60minute saved-evidence/source method-selection cycle (packages2–3),zero
-new quantum calls: choose one spin-consistent dissociation treatment or explicitly
-declared hybrid/literature reference,with overlap/fragment checks and a costed
-small diagnostic set. Reconcile spin-free/ground-J conventions before precise EA
-scoring. If evidence cannot select a treatment,record the blocker rather than
-start a basis ladder. No6Z,CBS extrapolation,new neutral grid or scattering job
-follows automatically;any selected quantum control needs a new exact freeze.
-No active campaign job/monitor remains. Continue the approved research without
-repeated preference questions,but do not waive scientific stops.
-
-## Evidence and provenance
-
-- [Neutral near-equilibrium evidence](qualification-evidence/neutral-near-equilibrium/README.md).
-- [Finite pole sensitivity](qualification-evidence/stretched-pole-counterpart/README.md).
-- [Own augmented preparation](qualification-evidence/stretched-augtz-preparation/README.md)
-  and [threshold blocker](qualification-evidence/stretched-augtz-inner-preflight/README.md).
-- [Effective target and held-out claim boundaries](../../docs/physics/co-effective-resonance-target.md).
-- [Laporta2012 reference](../../reference/literature/laporta-2012-psst21-045005.md),
-  preprint pp.4–6; [Dora2016](../../reference/literature/dora-2016-epjd70-197.md),
-  pp.4–7; [Dora2020](../../reference/literature/dora-2020-jpb53-195202.md), pp.3–8.
-
-Planning starts from current branch source at`74ae008`. Main retrieval still
-errors on incompatible shared-service dependencies; last-known indexed commit
-`423d5770d3de337571f51e62702ae919bad97e8c`, integrity/upstream currency unverified.
-Current source and scoped local branch differences, not stale retrieval, govern
-this queue. Prior research scratch notes are not a load-bearing dependency.
+Detailed research, provenance and superseded plan snapshots belong in the
+[external catalogue](experiments.md), not another chronological launch ledger.

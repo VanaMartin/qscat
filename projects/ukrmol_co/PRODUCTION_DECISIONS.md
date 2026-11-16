@@ -1,30 +1,5 @@
 # CO production decisions
 
-## Current user-selected affinity correctness checkpoint
-
-The user asks to solve the atomic-affinity discrepancy and identify an incorrect
-setting if present. The saved5Z orbital-convention control completed: EA changes
-only +0.029095 meV,below its0.1meV criterion;density/core and CCSD energy invariant.
-All original exits0,76.515963s owner,11.817177GiB kernel peak,zero SCF/CCSD
-iterations. Thus this convention is not the main cause. Occupation/core/subtraction
-audit finds no configuration bug. External atomic benchmarks support slow basis
-convergence and missing post-CCSD(T) correlation,not an empirical correction.
-
-**Stop the attempted diffuse-SCF diagnostic:** the fixed-QZ105-AO extension
-passes integral-only parent-space controls;neutral O completes,but O− ROHF fails
-100cycles before correlation. Worker exits0/1,outer exits2;no affinity or diffuse
-shift. No gate relaxation/retry,timeout or OOM. Owner15.860873s,CPU44.236479s,
-kernel peak5,896,859,648bytes. Original partial evidence and failure remain intact.
-This does not establish negligible diffuseness or absence of a stationary ROHF
-state;it does show that adding diffuse functions is not a reliable automatic fix.
-
-**Redirect:** at most60minutes saved-source/method selection,zero quantum calls,
-for one state/core-consistent correlation control with spin/residual gates and a
-costed pilot. Small-basis FCI is a candidate,not an automatic successor or a5Z
-correction. Absolute affinity remains unresolved;no6Z/CBS,empirical adjustment,
-molecular/scattering or holdout work. See the
-[completed diagnosis and limits](../../docs/physics/oxygen-affinity-diagnosis.md).
-
 ## Current disposition
 
 **Two scoped local representations delivered; stop new compute. Physical production
@@ -62,66 +37,71 @@ follows from unused time.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 
-## Decision queue
+## Decisions that remain closed
 
-| Question | Settled status | What can change the decision |
-|---|---|---|
-| Atomic/neutral reference | Finite endpoints exist; basis sensitivity remains; restricted neutral continuation fails at 3/4 bohr | One stable spin-consistent correlation/reference treatment with well-overlap and fragment checks |
-| Electronic model | Compressed CAS11/CAS12 and stretched DZ/TZ pole insensitivity reject | A justified model/reference choice with explicit residual uncertainty, not simply a larger basis |
-| Channel/ensemble prescription | Five A2 insufficient at stretched anchor; nine working reference; new50 parked | Named observable-sensitive comparison, not channel/root escalation by default |
-| Resonance extraction and identity | Local finite poles exist; phase-fit widths need physical constraints; no global continuous branch | Compatible model, thresholds, pole/residue assignment and bound continuation over a declared domain |
-| Aug-TZ scattering | Properties/preparation qualify; unchanged export blocked at open-channel threshold crossing | Reopen only if needed for the physical-model choice, with explicit domain/export design |
-| Production | No fit or sweep; 114 holdouts untouched | All [readiness gates](SWEEP_READINESS.md), then one frozen restartable pilot |
+- Atomic QZ→5Z insensitivity and molecular-reference-offset diagnostics failed;
+  no automatic 6Z/CBS or empirical alignment. Saved 5Z orbital replay found a
+  negligible convention effect; the diffuse O− SCF failed and supplied no EA.
+  Absolute affinity remains unresolved, but is not a local molecular-zero gate.
+- Restricted stretched CCSD(T) references failed stability. Accepted MR finite
+  R3/R4 results do not repair that route or qualify the stalled R12 optimization.
+- Compressed active-space and stretched DZ/TZ pole sensitivities reject their
+  physical insensitivity claims, not the numerical validity of the finite poles.
+- Aug-TZ properties/preparation are retained; unchanged fixed-six-open export is
+  blocked by threshold-crossing rows before inner allocation. No generic exporter
+  project or augmented inner job follows automatically.
+- A bare scalar full-S fit and fixed-background pole replacement do not provide
+  a general reciprocal scattering map. A pole fit deliberately leaves channel
+  residues/background and nuclear dynamics open; it does not need their solution
+  before local data collection.
+
+See [settled results and reopening conditions](../../docs/physics/co-results-and-rejected-routes.md),
+[oxygen-affinity diagnosis](../../docs/physics/oxygen-affinity-diagnosis.md), and
+immutable original reviews in the [catalogue](experiments.md). The earlier
+external-hybrid preference and unsent author request are historical alternatives,
+not a missing input the user must now supply.
 
 ## Unchanged error budgets and protections
 
-- Physical comparisons: **50 meV position**, **5% full width with a 1-meV floor**,
-  **0.05 rad in the specified phase metric**. Failed extraction cannot certify
-  a width comparison. A passing finite pair is not an absolute electronic error.
+- Physical comparisons: **50 meV position**, **max(5% full width, 1 meV)**,
+  **0.05 rad in the specified phase metric**. A finite model comparison is not an
+  absolute electronic error bound; failed extraction cannot certify width accuracy.
 - Same-model numerical pole controls: **0.1 meV** position/full width and
-  **1e-6 rad**. Other studies retain their distinct frozen K/S/flux/representation
-  budgets; do not conflate them with physical tolerances.
-- The discussed lower-accuracy exploratory tier was not adopted.
-- Keep 114 S-matrix holdouts, the specified equilibrium outgoing-pole exclusion,
-  nine working/new50 parked and the qualified 2048-root baseline.
-- Preserve immutable input/source/image pins, original failed exits and actual
-  resource measurements. Packaging failure, numerical rejection and physical
-  model sensitivity are distinct outcomes.
+  **1e−6 rad** in their specified tests. Other residual/K/S/flux/representation
+  budgets retain their own scopes. No lower-accuracy tier is adopted.
+- Keep **114 S holdouts untouched**, the specified equilibrium outgoing-pole
+  exclusion, nine working/new50 parked and the qualified 2048-root baseline.
+- Retain immutable inputs/source/image pins, original exits/failures and measured
+  costs. Do not repeat accepted endpoints or reinterpret failed SCF iterates as
+  physical data. Corrected attempts/analyses get new external identities.
 
-## Goal-convergence checkpoint — every one or two days of campaign work
+## Reuse and recovery
 
-Review at most every 48 hours of active work, on resumption, before opening a
-new experimental branch and after a decision-changing result. Record:
+The [canonical native-preparation/search-recovery conclusion](../../docs/physics/co-results-and-rejected-routes.md#native-preparation-and-search-recovery)
+records accepted interior inputs/pairs and the distinction between failed
+launchers, numerical searches and physical comparisons. Reuse qualified stages;
+do not restart successful peers after a downstream failure. The
+[QC replay contract](../../docs/physics/co-qc-reuse.md) retains its six-file and
+original-QC-exit requirements. Detailed milestones and costs remain archived,
+not a current execution queue.
 
-1. The physical/potential decision and observable/domain/accuracy it serves.
-2. Reused data and the smallest check that could change that decision.
-3. Compute/resource caps, implementation-effort cap and first-failure stop.
-4. Actual evidence delta, unchanged uncertainty and measured cost.
-5. **Continue / redirect / stop**, with one bounded next deliverable.
+The [canonical target-coverage conclusion](../../docs/physics/co-results-and-rejected-routes.md#target-coverage-versus-pole-identity)
+separates completed gap coverage from unqualified N+1 identity. Later local-
+representation acceptance does not settle that question; the old stopping/reopening
+entries are historical, not a current execution release.
 
-Passing tests, payload counts and interface fixes are supporting evidence, not
-sweep progress. Without a decision-relevant delta, reassess rather than refine.
-Historical launch entries and contract flags do not release new execution.
+This document releases no job or protected-data action; current bounded status
+is in [the handoff](CONTINUATION.md). New execution requires the
+[frozen decision card](../../docs/experiment-planning.md#5-freeze-one-decision-card-before-launch)
+and tested bounded owner; historical contract flags are not authority.
 
-## Current checkpoint and next deliverable
+## Goal-convergence checkpoint
 
-The atomic-basis control reused QZ and all molecular data, calculating only
-four 5Z atoms with identical calculation-source bytes and state/core/method
-conventions. All original calculation exits zero; owner 114.673835 s,
-CPU 302.461764 s, kernel peak 11.883816 GiB on four physical cores within 16 GiB.
-The separate zero-quantum AST-control stop remains failed; exact-source-byte
-equality changes only the control, not physics or tolerances. Independent public
-reading reconstructs 48 raw files, 21 executed Git sources, 573 samples and QZ.
-The result changes the physical decision: endpoint insensitivity cannot be used
-to justify production alignment.
-
-**Redirect:** at most 60 minutes saved evidence/source method selection, zero
-quantum calls. Choose one stable neutral dissociation/correlation treatment or
-declared hybrid/literature reference with overlap/fragment checks and a costed
-small diagnostic set, or record a blocker. Review at that decision and before
-any new quantum release. No active job/monitor or automatic basis/scattering
-successor. The detailed remaining order is in [the research queue](RESEARCH_PLAN.md).
-
-Earlier checkpoint chronology is optional audit material in the
-[public history archive](qualification-evidence/campaign-history/README.md), not
-a dependency for understanding these decisions.
+Before each task, name the missing data output and why the task removes it.
+Review on resumption, at every deliverable and within one or two active working
+days: observable/domain/accuracy; reused evidence and smallest new check;
+compute/implementation caps; actual evidence delta/cost; **continue / redirect /
+stop** and one bounded next deliverable. Interface fixes alone are not sweep
+progress. The approved documentation integration and saved-evidence proposal are
+complete; no scientific execution is released. Other cleanup/merge remain deferred.
+PR95 stays closed and unmerged.

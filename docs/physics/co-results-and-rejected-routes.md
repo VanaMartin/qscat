@@ -23,7 +23,10 @@ times the imaginary unit. A native phase-fit candidate is not an outgoing pole.
 | Independent outer-region controls | Native normalization, K/S/phase reconstruction, exact shell and coupled-tail controls, captured-operand replay | Uniform real/complex convergence outside the tested domains |
 | Extended residual kernel | Optional Rust/PyO3 and C long-double dot products with NumPy differential oracle | Portable extended arithmetic on every host or a replacement for model qualification |
 | Correlated neutral well | 52 frozen-core RHF/CCSD(T) QZ/5Z points, 1.9–2.5 bohr | Molecular dissociation, absolute atomic alignment or unrestricted extrapolation |
+| Multireference neutral endpoints | Nine accepted all-electron aug-cc-pCVTZ CASSCF/SC-NEVPT2 endpoints: two atoms plus seven CO points, including R3/R4 | A CC/MR splice, qualified dissociation or passing local-well physical accuracy |
 | Atomic endpoints | C(3P), O(3P), O-(2P), C-(4S), matched aug-QZ/5Z ROHF-reference UCCSD(T), one frozen 1s pair per atom | Absolute accuracy, CBS convergence, full correlated orbital-term purity or a molecular size-consistent limit |
+| Compressed outgoing pair | CAS11/cc-pVDZ/nine-A2/2048 B1/B2 poles and local character witnesses at R=1.9 | More than one training geometry, multi-R identity or converged electronic physics |
+| Compatible stretched outgoing pair | Same CAS11/nine-A2/2048 prescription at R=2.5; both sectors/local character, numerical and independent saved-arithmetic checks pass | A four-node training set, multi-R assignment or physical model convergence; distinct from the CAS12 comparison |
 | Stretched finite poles | Own DZ and TZ CAS12 B1 poles at 2.5 bohr, independently reconstructed with local Pi/residue controls | Cross-basis unique N+1 identity, a continuous width curve or a production model |
 
 The target implementation and conventions are in
@@ -63,6 +66,81 @@ Detailed controls remain in [phase identifiability](co-phase-identifiability.md)
 [diffuse-flexibility limits](co-stretched-diffuse-flexibility.md).
 These are measured limits, not invitations to reopen supporting campaigns.
 
+## No-repeat and reopening conditions
+
+The [two-goal plan](../../projects/ukrmol_co/RESEARCH_PLAN.md) separates local
+fitting data from global physical claims. A failed insensitivity test rejects
+that claim, not a numerically accepted finite row. No completed calculation is
+repeated merely because a later stage failed.
+
+| Stopped route / unsupported prerequisite | Reopen only under this condition |
+|---|---|
+| External-author waiting, NRM/doorway and full-S work before own local data | An external comparison or full-scattering/nuclear observable is actually the next deliverable. Neither author data nor a separate Hamiltonian is required to compute our local neutral/resonance tables. |
+| Restricted stretched CCSD(T), or repeated R12 seeds | A genuinely changed stable reference/optimizer addresses the measured stability/spin/core/gradient failure and extended-R data are needed. Not more unchanged iterations or NEVPT2 on an unconverged orbital state. |
+| Atomic precision/6Z/CBS/empirical-correction ladder | A global alignment/attachment decision requires that precision and a separately frozen systematic comparison can change it. No matching MR atomic zero for CC molecular energies. |
+| Root/channel/basis escalation or another CAS12 B2 to rescue B1 sensitivity | A named observable exposes a specific limitation and justifies one bounded contrast. Pairing cannot erase an already failed model comparison. Keep 2048/nine; new50 remains parked. |
+| Background/window rescue to claim exact pole widths | Independently constrained physical pole/background information and a prospectively frozen representation with known-truth controls, or an explicitly separate estimator-defined scope. No fitting until agreement or erasure of failed windows. |
+| Unchanged threshold-incompatible aug-TZ export / generic exporter development | A necessary model decision justifies a narrowly threshold-aware domain/export with all closed couplings and its own numerical gates. Reuse accepted preparation; no silent row deletion. |
+| Bare full-S scalar fit / fixed-background pole swap | A separately frozen reciprocal channel-aware or Hermitian coupled construction, only if full scattering is the requested next output. A smoother pole curve does not reopen the rejected full-S inference. |
+
+A fixed right-background pole replacement can preserve unitarity without
+preserving reciprocity; it is not a general scattering embedding. This limitation
+does not block local Er/Gamma collection. A local fit is not a dissociation/DA/full-S result.
+
+### Native preparation and search recovery
+
+**Accepted, finite-model scope:** the original CAS11/nine-A2/48-target/2048-root
+interiors at R=2.224225 and 2.408075 bohr supply qualified target/property bundles,
+own continuum/B1-B2 boundaries and outgoing pairs. Successful stages remain
+reusable; neither a telemetry-path abort nor a launcher/declared-unit error
+rejects their physics. The original search-box stop qualified no root; later
+safeguarded extraction and missing-only remainders passed unchanged numerical
+and counterpart gates, not electronic accuracy or unique multi-R identity.
+Reuse accepted QC, integrals, native references and sectors by digest. Check
+per-invocation audit paths, actual output units, continuum layout, signed target
+transport and integral equivalence before consuming saved files. Never feed
+target-only fort16/CONGEN into an expanded continuum layout without qualification.
+Reopen a failed stage only after diagnosing its specific blocker and freezing a
+bounded remainder; do not repeat successful peers or enlarge a search/model to
+hide failure. See [QC reuse and stage recovery](co-qc-reuse.md).
+
+Exact historical prose is in the [authenticated documentation archive](#local-representations-accepted-scope);
+the [evidence catalogue](../../projects/ukrmol_co/experiments.md) retains original
+failures, partial successes, source/input pins and measured costs separately.
+
+### Target coverage versus pole identity
+
+Physical target-metric coverage is complete for the original four-geometry
+CAS11/nine-A2/2048 path: 16 missing sector matrices qualified and eight final-gap
+matrices were reused. Direct interior retained/buffer exchanges and weak
+compressed correspondence leave unique N+1 continuation unqualified. Finite-step
+core motion can attenuate overlaps; low target overlap alone does not prove a
+wrong local pole or a discontinuous Hamiltonian. The then-clean final gap had
+only two actual pole nodes, so it did not qualify a narrower fit at that
+assessment. These historical findings do not invalidate later qualified pairs
+or the completed prospective local representation. Reuse accepted QC, native
+inputs, poles and metrics; do not change retained roots to hide exchanges or
+repeat successful work merely for another pass. Reopen correspondence only when
+a separately selected observable justifies a pole/N+1-specific or interior-
+sensitivity test with a frozen outcome-to-decision rule. Scoped interpolation
+acceptance remains distinct from this unresolved identity claim.
+
+[Completed target-metric batch](https://data.qscat.org/co-common-frame-target-overlaps-20261113/results.tar.8161225e1209.gz),
+SHA256 `8161225e1209da295bd61fccf97ecfe517907aee4a8560e9280bf6f02dfa57b0`.
+The later [accepted local representation](#local-representations-accepted-scope)
+does not settle this identity question.
+
+### Later neutral outcomes do not erase earlier failures
+
+The latest neutral qualification in the
+[external catalogue](../../projects/ukrmol_co/experiments.md) retains the original
+CI-cutoff failure and a separate residual-qualified continuation, accepted MR
+R3/R4 and local endpoints, failed local-well physical diagnostics and the R12
+orbital-gradient stall. Thus “no stretched neutral energies” is stale, while
+“dissociation remains unqualified” is still correct. The five-point saved-energy
+minimum analysis corrected an unbracketed three-point extraction, not electronic
+energies; successful electronic workers must not be repeated.
+
 ## Neutral and atomic energy alignment
 
 The near-well QZ→5Z relative-energy change is at most 17.2433 meV; cubic held-point
@@ -101,30 +179,6 @@ original failure. All numerical, physical and resource gates stay unchanged.
 
 See [atomic states, totals and zero conventions](co-atomic-energy-references.md)
 and the [public matched-basis reconstruction](../../projects/ukrmol_co/qualification-evidence/atomic-5z-endpoints/README.md).
-
-## No-repeat and reopening conditions
-
-### Target coverage versus pole identity
-
-Physical target-metric coverage is complete for the original four-geometry
-CAS11/nine-A2/2048 path: 16 missing sector matrices qualified and eight final-gap
-matrices were reused. Direct interior retained/buffer exchanges and weak
-compressed correspondence leave unique N+1 continuation unqualified. Finite-step
-core motion can attenuate overlaps; low target overlap alone does not prove a
-wrong local pole or a discontinuous Hamiltonian. The then-clean final gap had
-only two actual pole nodes, so it did not qualify a narrower fit at that
-assessment. These historical findings do not invalidate later qualified pairs
-or the completed prospective local representation. Reuse accepted QC, native
-inputs, poles and metrics; do not change retained roots to hide exchanges or
-repeat successful work merely for another pass. Reopen correspondence only when
-a separately selected observable justifies a pole/N+1-specific or interior-
-sensitivity test with a frozen outcome-to-decision rule. Scoped interpolation
-acceptance remains distinct from this unresolved identity claim.
-
-[Completed target-metric batch](https://data.qscat.org/co-common-frame-target-overlaps-20261113/results.tar.8161225e1209.gz),
-SHA256 `8161225e1209da295bd61fccf97ecfe517907aee4a8560e9280bf6f02dfa57b0`.
-The later [accepted local representation](#local-representations-accepted-scope)
-does not settle this identity question.
 
 ## Local representations: accepted scope
 
@@ -169,7 +223,8 @@ rescue failed scores or fill an unapproved global model.
   them with an independently correlated neutral is a **declared hybrid**, not
   the calculated absolute anion energy of either method.
 - All 114 reserved S-matrix holdouts remain untouched; the specified equilibrium
-  outgoing-pole exclusion remains reserved. No fit or sweep is released.
+  outgoing-pole exclusion remains reserved. The local data/fit routes are
+  recommendations, not execution releases.
 - Accepted calculations, immutable inputs, source pins and original failures
   remain available. Launch receipts, host PIDs and repeated status figures are
   historical evidence, not current execution authority.

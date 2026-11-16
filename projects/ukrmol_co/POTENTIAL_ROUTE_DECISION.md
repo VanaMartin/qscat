@@ -1,40 +1,38 @@
 # CO potential route
 
-## Selected route: references before more scattering
+## Two inputs before global predictions
 
-The end product needs a neutral curve, a consistent lowest-doublet-Pi
-resonance/bound-anion branch and independent validation of a QSCAT 2-D model.
-Current calculations do not supply that complete physical target.
+Follow the [canonical two-goal table](RESEARCH_PLAN.md#goal-table): our neutral
+ground-state energies → fitted `V0(R)`; compatible threshold-relative resonance
+positions/full widths → resonant effective-potential fit. The primary local
+recommendations are existing 5Z CCSD(T) well data and CAS11/cc-pVDZ/nine-A2/2048
+outgoing data. Neither is a qualified global physical CO potential.
 
-1. **Retain** the accepted neutral well, finite atomic endpoints, native exports
-   and finite poles. They are qualified within their stated finite scopes.
-2. **Stop** atomic basis-insensitivity/production inference. O's QZ→5Z EA shift
-   is 23.533750 meV against 10 meV; all molecular-reference offset shifts exceed
-   20 meV. No automatic 6Z, CBS extrapolation or empirical alignment hides this.
-3. **Select one neutral/correlation/reference treatment.** The RHF-based neutral
-   continuation at 3/4 bohr is rejected; spin coupling, well overlap, fragment
-   consistency and any hybrid/experimental corrections must be explicit.
-4. **Then choose an electronic model**, using the measured active-space/basis/
-   channel sensitivity and uncertainty. No model wins by a convenient literature
-   value, more roots or a larger basis alone.
-5. **Only then** obtain a minimal compatible resonance-to-bound curve, freeze a
-   fit and predict excluded-geometry scattering. A channel-specific attachment
-   claim additionally needs a nuclear-observable check.
+For an explicit common reference, combine `Vres_hybrid=V0_QC+Er_native`, with
+full width Gamma. Keep native ground totals and individual protocols. This is a
+declared hybrid, not an absolute correlated anion calculation. The separate
+[effective-target contract](../../docs/physics/co-effective-resonance-target.md)
+defines what this reduction does and does not predict.
 
-The [results/rejected-routes note](../../docs/physics/co-results-and-rejected-routes.md)
-records why earlier shortcuts do not establish this target. The
-[atomic protocol](../../docs/physics/co-atomic-energy-references.md) defines the
-common zero and open-shell/core conventions. A correlated neutral combined with
-a native scattering pole is a declared hybrid reference, not an absolute anion
-calculation. Fixed-R atomic offsets are not De, D0 or initial-v thresholds.
+External-author curves and a separate coupled-doorway Hamiltonian are not
+prerequisites for either local table. Earlier external-hybrid preferences and
+reference-first ordering in the [catalogue](experiments.md) are superseded for
+this local scope; their failed reconstruction/reciprocity evidence is unchanged.
+There is no requirement to contact authors or supply another Hamiltonian.
 
-## Parked rather than rejected
+## Boundaries that remain
 
-Aug-TZ properties and preparation qualify, but its unchanged six-open-channel
-export is incompatible with thresholds crossing requested grid rows. Preserve
-that work; do not build a general threshold/export framework unless one named
-physical-model decision needs it. New50 remains parked; nine is a working
-channel reference, not a production model. No full channel/basis/root ladder.
+Numerical validity, sweep identity, fit sufficiency and physical accuracy have
+[separate gates](SWEEP_READINESS.md). Atomic affinity/offset diagnostics,
+restricted stretched references, R12 optimization and electronic-model
+insensitivity failures stay failed. Accepted MR R3/R4 and separate stretched
+CAS12 poles remain finite data, not replacements for the selected local protocols.
+Keep accepted aug-TZ properties/preparation; its threshold-incompatible export
+stays parked. No automatic new50, root/basis/channel ladder or global exporter.
+
+Global dissociation, continuous resonance/bound joining, fragment alignment and
+full-S/nuclear validation remain later requirements for those physical claims.
+A local pole fit cannot determine a full background/channel map or establish DA.
 
 ## Next bounded action
 

@@ -17,7 +17,8 @@ continuous resonance-to-bound-anion branch remain unqualified.
   records, independent readers and original failures.
 - [Production decisions](PRODUCTION_DECISIONS.md), [readiness gates](SWEEP_READINESS.md)
   and [current handoff](CONTINUATION.md): current authority, not a dated launch log.
-- [Research queue](RESEARCH_PLAN.md): remaining physical questions and finite bounds.
+- [Two-goal table and research queue](RESEARCH_PLAN.md): own neutral energies and
+  compatible resonance data for fitting, with finite bounds and later claim gates.
 
 ## Settled contributions
 
@@ -98,6 +99,9 @@ CO_LOCAL_REPRESENTATION_CAPSULE="$WORK/delivery-capsule.tar.gz" \
 - The 52 QZ/5Z neutral points pass relative-basis/interpolation checks only over
   **1.9–2.5 bohr**. All four restricted RHF attempts at 3/4 bohr failed external
   stability before CCSD(T); there is no accepted dissociation continuation.
+- Separate all-electron MR work retains nine accepted endpoints: two atoms and
+  seven CO geometries including R3/R4. Local-well physical diagnostics failed;
+  R12 orbital optimization remains unqualified. Do not splice these with CC data.
 - Finite stretched DZ/TZ poles independently qualify, but differ by
   **103.37 meV in position and 44.17 meV in full width**. Both physical budgets
   reject. Retained-target correspondence does not prove unique N+1 state identity.

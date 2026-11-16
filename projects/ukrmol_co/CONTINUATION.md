@@ -44,16 +44,11 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 - Nine accepted all-electron MR endpoints: two atoms plus seven CO points,
   including R3/R4. Separate protocol; local-well physical diagnostics remain
   failed and R12 orbital optimization remains unqualified.
-- CAS11/nine/2048 outgoing B1/B2 pairs at R=1.9, 2.224225, 2.408075 and 2.5:
-   **four** local training geometries; multi-R identity remains a separate gate.
-   Additional pairs at R=2.31615 and2.0621125 are separately scored prospective
-   validation, not refitted nodes of the original candidate.
-  Separate stretched CAS12 DZ/TZ poles qualify numerically but fail physical
-  sensitivity comparisons; they cannot fill a CAS11 curve.
 - All ten local pairs qualify. Eight are development ONLY for the frozen C2
   candidate; R=2.021584375/2.2701875 remain its two passing prospective validation
   points, not refitted development rows. Their original roles/scores stay separate
-  from the earlier rejected recipes.
+  from the earlier rejected recipes. Separate stretched CAS12 DZ/TZ poles qualify
+  numerically but fail physical sensitivity comparisons; they cannot fill a CAS11 curve.
 - Aug-TZ properties/preparation qualify; unchanged threshold-crossing export
   remains blocked. New50 stays parked, nine working, 2048 retained.
 - R=2.408075 targets/properties, own continuum, both native boundaries and
@@ -65,21 +60,82 @@ accepted endpoints and actual costs. The affinity convention replay and failed
 diffuse-SCF control remain in the [diagnosis](../../docs/physics/oxygen-affinity-diagnosis.md);
 they are not reasons to delay molecular-zero tables.
 
-## Standing protections
+## Native preparation and recovery: settled scope
 
-Preserve accepted calculations, immutable null input ledgers, original failures,
-exit statuses and measured costs. Keep all 114 S holdouts untouched, the specified
-equilibrium outgoing-pole exclusion, nine as working reference, new50 parked and
-the 2048-root baseline. Budgets remain in [production decisions](PRODUCTION_DECISIONS.md).
-Review goal convergence every one or two active working days, on resumption,
-before a new branch and after a decision-changing result.
+Both original interior target/property bundles, compatible B1/B2 boundaries and
+outgoing pairs qualify and remain reusable. Earlier telemetry, search-localization,
+declared-unit and launcher failures supplied no missing physical observable; later
+missing-only remainders did not erase their exits or repeat successful peers.
+Use the [canonical recovery conclusion](../../docs/physics/co-results-and-rejected-routes.md#native-preparation-and-search-recovery)
+and [replay requirements](../../docs/physics/co-qc-reuse.md), not the historical
+launch sequence. Exact original prose is covered by the documentation archive;
+scientific inputs, checkpoints, failed attempts, successful partials and measured
+costs remain separately discoverable in the [catalogue](experiments.md).
 
-Automatic continuation applies within approved bounded stages, with scientific,
-resource and scope stops. Active runs target 600-s checks plus immediate terminal
-observation; preserve actual gaps against the requested 5–15-minute interval.
-There is no perpetual scheduler while idle. Prefer Sadaharu: four physical cores
-for small jobs, eight for large and twelve for very large when justified;
-paid provisioning remains deferred.
+## Standing protections and execution
+
+- All **114 S holdouts** remain untouched. Reserve the equilibrium outgoing pole
+  until parameters/numerics/assignment are frozen and validation separately
+  released. Neutral equilibrium energies and documented historical real-axis
+  results are not that reserved pole.
+- Keep original numerical/physical budgets, null ledgers, inputs/source/image
+  pins, accepted results, failures and measured costs. No automatic root/channel/
+  basis ladder, R12 restart, author contact or full-S project.
+- New execution needs a tested bounded owner, frozen external inputs/source and
+  resource/implementation caps with first-failure stop. Commit/push reusable code
+  before use, not per-run data. Prefer four physical Sadaharu cores for small
+  jobs; eight/twelve only when justified. No paid provisioning by default.
+- During active jobs target 600-s checks plus immediate terminal observation;
+  record actual gaps separately from scientific success. All earlier allocations
+  and monitors ended. No idle scheduler or renewed execution window.
+- Check goal relevance before each task; review at each deliverable and within
+  one or two active working days. Continue within a bounded release; stop on
+  numerical, identity, resource or scope blockers rather than escalate silently.
+- Only the approved documentation integration and saved-evidence planning are
+  in scope; other cleanup and merge remain deferred. **PR95 stays closed and unmerged**.
+
+## Restart pointers and retrieval limits
+
+[Run/replay instructions](RUNNING.md), [evidence index](qualification-evidence/README.md),
+and [catalogue](experiments.md) locate authenticated public records. Sadaharu
+originals are under `/home/kooza/ukrmol/co-sa-20261006`; public bundles are the
+portable evidence, not transient PIDs or local scratch paths. Detailed research
+and prior plan snapshots are external records, not current launch authority.
+Exact executed numerical source, external wrappers and owners are pinned by each
+catalogued release. Later reusable driver/evaluator changes do not replace those
+source capsules. Existing unrelated dirty/reference work is retained.
+
+The repository MCP status is reachable, but retrieval remains unavailable:
+zero rows, null published source commit and policy provenance, absent integrity,
+unknown upstream currency and not query-ready. Refresh reports the indexing
+profile absent from the fetched branch. Current source, scoped branch/dirty
+deltas and pinned scientific capsules govern; no index completeness claim,
+policy-source switch or service/configuration change follows from this review.
+
+## Goal checkpoint — 16 November 2026
+
+**Stop compute; documentation integration and saved-evidence planning complete.**
+The neutral fit and ten-pair local representation are complete.
+Electronic-model accuracy and the mixed-method joining uncertainty remain open;
+more interpolation nodes do not address them. This batch reuses saved decision
+notes and authenticated prose only, with zero QC/native/outgoing calls and no
+protected-data access. Documentation checks add no scientific evidence. One
+external proposal compares a primary-CAS11 basis contrast with the already-prepared
+CAS12 diffuse-flexibility sentinel and recommends the former for relevance to the
+working model, with outcome rules and proposed implementation/resource ceilings.
+It measures finite-model sensitivity, not absolute accuracy, and remains blocked
+on prescription/identity/cost/source freeze and explicit scope acceptance.
+Neither route has an execution release.
+
+### Historical target-correspondence assessment
+
+Target-gap coverage is complete for the original four-geometry path; unique
+N+1 identity remains unqualified. See the
+[canonical target-coverage conclusion](../../docs/physics/co-results-and-rejected-routes.md#target-coverage-versus-pole-identity)
+and [unchanged validity gates](SWEEP_READINESS.md). This historical assessment is
+not a current missing-data queue or rejection of the later frozen local
+representation. Original assessments, failures and costs remain in the
+authenticated archives linked by the canonical conclusion and [catalogue](experiments.md).
 
 <a id="reopened-goal-checkpoint--continued-prospective-testing"></a>
 <a id="14-november-successor-checkpoint"></a>
@@ -97,11 +153,13 @@ not failed physical predictions or a retrospectively all-zero process.
 
 ## Current bounded next deliverable
 
-Local representation packaging and its approved documentation cleanup are complete;
-stop new compute. Use the canonical conclusion and
+Local representation packaging and approved documentation integration are complete.
+Review the proposed primary-CAS11 sentinel's finite-model scope before any further
+preparation; select a matched physical benchmark instead if absolute accuracy is
+the required next output. Stop new compute. Use the canonical conclusion and
 [README evaluator instructions](README.md#using-the-local-representations).
 All successful work, original failures, coefficients and validation roles remain
 preserved; all 114 S holdouts and the reserved equilibrium outgoing pole remain
-unread. No owner is active. Next: choose a distinct physical observable and bounded
-decision, or retain the completed local milestone. No further scientific branch,
-cleanup unit or merge starts automatically.
+unread. No owner is active. Any proposed physical-model test still needs acceptance
+of its observable, prescription, comparison, exact source/inputs, numerical/resource
+caps and fresh execution window. No scientific branch or merge starts automatically.
