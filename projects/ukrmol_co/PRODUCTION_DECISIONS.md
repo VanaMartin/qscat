@@ -34,6 +34,8 @@ successful partials and costs remain distinct in the [catalogue](experiments.md)
 Local-delivery owners ended. The separately frozen crossing pilot in
 the [current handoff](CONTINUATION.md) does not enlarge the delivered fit's scope;
 no further acquisition, refit, other cleanup or merge follows from unused time.
+That bounded pilot stopped INCONCLUSIVE at its first contour-domain search
+qualification failure; it qualifies no endpoint beyond R=2.5 and releases no retry.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 

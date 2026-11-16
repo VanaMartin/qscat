@@ -10,8 +10,8 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: retain the completed local representations; one separately
-frozen positive-energy B1 resonance attempt is active.**
+**Current decision: crossing pilot stopped INCONCLUSIVE at its first search
+qualification failure. Completed local representations are preserved; no owner is active.**
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -199,11 +199,12 @@ clarification remain preserved; the eight development/two validation roles do no
 QC, reference and native target/property solves must not be repeated.
 
 The separately frozen [own continuum/B1-only boundary release](https://data.qscat.org/co-crossing-r2800-b1-boundary-release-20261116/decision.4be7936af02d.md)
-has launched after source/engine/client/CSF/runtime/owner controls and public-byte
+ran after source/engine/client/CSF/runtime/owner controls and public-byte
 authentication. Its [original terminal result and independent raw readers pass](https://data.qscat.org/co-crossing-r2800-b1-boundary-result-20261116/assessment.77007b22882e.md),
 with all six native exits zero. Do not repeat the continuum/B1 solve. The shared
 boundary clock also limits any later B2 allocation; the whole-pilot deadline remains
-**17 November, 09:26:51 UTC**. B2 and all molecular exterior maps remain unreleased.
+**17 November, 09:26:51 UTC**. Neither clock overrides the terminal first-failure
+stop; B2 remains uncomputed.
 The separately released [retained-input sign test](https://data.qscat.org/co-crossing-r2800-b1-sign-result-20261116/assessment.9c52b0af4355.md)
 and independent raw-record checks also pass: a strictly positive retained inner
 term and the prescribed sufficient nonnegative-exterior witness exclude negative
@@ -214,13 +215,22 @@ D/N or decaying map was needed; no R=2.65 allocation follows.
 The [explicit six-open positive window](https://data.qscat.org/co-positive-window-20261116/verification.675b75e0822e.json)
 passes generated regressions and pinned-image domain/dispatch/owner controls,
 without changing the old positive-grid guard or propagation/root/residue kernels.
-The separate [B1-only pole release](https://data.qscat.org/co-crossing-r2800-b1-pole-release-20261116/decision.08962b74addc.md)
-has launched: two own independent real-axis checks precede the bounded
-positive-energy root/contour/residue/Pi-character test. Its result is pending.
-Retain the fifteen-minute science cap, four physical cores/32 GiB, fixed seed/
-box/contour and original numerical budgets. No B2 or second geometry is released.
-Next bounded deliverable: authenticate and independently assess this original
-B1 terminal result. First qualification failure stops without retry or rescue.
+The separate [B1-only pole attempt stops at the contour-exposure guard](https://data.qscat.org/co-crossing-r2800-b1-pole-failure-20261116/assessment.f88d8630b3e6.md).
+Its own native real-axis checks and four real-map comparisons pass; two complex
+maps complete but qualify no root. The next proposed trial is inside the frozen
+rectangle but outside the first contour's exposed domain, and is rejected before
+integration. This is an inconclusive numerical prescription failure, not evidence
+of physical resonance absence. Original nonzero exits, successful partials,
+trace, exact source/inputs and costs are preserved and publicly authenticated;
+independent saved-only verification does not relabel the failed attempt a pass.
+
+**Stop compute.** No retry, reseed, angle/box change, B2 solve, R=2.65/R=3.0,
+refit or successful-peer repetition follows from the unused sixteen-hour window.
+There is no newly qualified resonance/bound endpoint beyond R=2.5 or crossing
+bracket. The bounded terminal preservation/handoff deliverable is complete.
+Any reopening requires a substantive fresh scope decision and a new joint
+sheet/contour/search-domain contract, reusing accepted inputs rather than
+repeating QC/native peers. This handoff releases no such attempt or merge.
 
 The separate [below-threshold input adapter](https://data.qscat.org/co-crossing-closed-loader-20261116/verification.49a01430ab55.json)
 passes generated/regression controls and preserves the old positive-grid guard.
@@ -231,12 +241,13 @@ The [finite-radius D/N support](https://data.qscat.org/co-bound-box-20261116/ver
 passes analytic/BVP/convergence and rejection controls, without molecular payloads
 or changes to the native B1 owner. Explicitly opted-in box roots are labelled
 finite-box-root-only. Exact form bracketing is not certified ODE/roundoff control;
-pinned-runtime support, numerical padding and molecular sign/localization/state
-gates remain before any matching release. No Rust/QSCAT promotion or new acquisition
-follows from these tests.
+actual D/N propagation would still need pinned-runtime support, numerical padding
+and molecular localization/state gates before any bound qualification. No
+Rust/QSCAT promotion or new acquisition follows from these tests.
 
-The two-node rule remains R=2.8 first, then R=2.65 after a qualified bound endpoint
-or R=3.0 after a qualified resonance. Ambiguity/failure stops without a rescue node.
+The original two-node rule was R=2.8 first, then R=2.65 after a qualified bound
+endpoint or R=3.0 after a qualified resonance. Neither second-node condition was
+met; the failure stopped this pilot without a rescue node.
 Full-size molecular uncertainty/localization and state correspondence remain gates;
 compatible local endpoints alone cannot prove a strict unique-branch bracket.
 Do not fund a dense curve, extrapolate/refit the delivered evaluator or require

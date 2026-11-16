@@ -159,6 +159,17 @@ residue gates; input-policy success alone neither releases a calculation nor
 qualifies a resonance. Historical model views and the default positive-grid
 floor remain unchanged.
 
+That threshold window classifies open/closed channels; it does **not** guarantee
+complex-contour exposure. On the continued outgoing/decaying sheet, every chosen
+angle must also satisfy `Im(exp(i theta) k_i) > 0` for every channel, since
+`exp(i k_i exp(i theta) t)` must decay along the rotated ray. Check the joint
+sheet/contour/search domain, not just seeds and real-axis controls: a rectangular
+complex box can include points outside an exposed wedge, and a root-search trial
+can reach them. The existing outgoing map rejects such a point before integration.
+That rejection qualifies neither a root nor absence of a resonance. Revising the
+domain, angle or seed after a frozen first-failure stop requires a separate
+experiment decision; it is not grounds to remove the exposure guard.
+
     decaying_dtn(incident_hartree, thresholds_rydberg, c2, c3, radius_bohr,
                  *, endpoint_bohr, tail_order=8, rtol=1e-11, caps=...)
     find_bound_state(poles_hartree, amplitudes, ground_hartree,
