@@ -160,6 +160,7 @@ def find_bound_state(
     energy_tolerance_hartree=1e-12,
     residual_tolerance_hartree=1e-8,
     isolation_gap_hartree=1e-6,
+    finite_box_boundary=None,
     caps=_DEFAULT_CAPS,
 ):
     """Bracket one preselected ordered eigenvalue of D-T-W Y W.T.
@@ -169,8 +170,12 @@ def find_bound_state(
     code; an external owner is still needed to preempt a blocked callback.
     Only a local finite-model root is returned. Search tolerance is not a total
     energy uncertainty or a proof of global root count/state assignment.
+    An explicit finite_box_boundary opts into a tagged Dirichlet/Neumann map;
+    that result is finite-box-root-only, not an infinite-domain bound claim.
     """
     started = monotonic()
+    if finite_box_boundary not in [None, "dirichlet", "neumann"]:
+        raise ValueError("Finite-box boundary must be dirichlet or neumann")
     poles = _real(poles_hartree, "Inner poles").copy()
     w = _real(amplitudes, "Boundary amplitudes").copy()
     ground = _real(ground_hartree, "Ground total")
@@ -215,8 +220,19 @@ def find_bound_state(
         y = _real(y, "Decaying DtN")
         if y.shape != (w.shape[1], w.shape[1]):
             raise ValueError("Decaying DtN channel dimension differs")
-        if not report.get("decaying", True):
-            raise ValueError("A physical decaying map is required")
+        if finite_box_boundary is None:
+            if (
+                not report.get("decaying", True)
+                or report.get("finite_box", False)
+                or report.get("boundary") in ["dirichlet", "neumann"]
+            ):
+                raise ValueError("A physical decaying map is required")
+        elif (
+            report.get("boundary") != finite_box_boundary
+            or report.get("finite_box") is not True
+            or report.get("decaying") is not False
+        ):
+            raise ValueError("Finite-box callback boundary tags differ from explicit opt-in")
         _symmetric(y, "Decaying DtN")
         if repeat and not np.allclose(y, cache[energy][3], atol=1e-12, rtol=0):
             raise ValueError("Decaying map changed on identical-input replay")
@@ -264,7 +280,9 @@ def find_bound_state(
         isolation_gap_hartree=gap,
         search_tolerance_hartree=energy_tolerance_hartree,
         total_uncertainty_hartree=None,
-        qualification="finite-model-root-only",
+        qualification=(
+            "finite-model-root-only" if finite_box_boundary is None else "finite-box-root-only"
+        ),
         map_diagnostics=report,
         map_evaluations=evaluations,
         wall_seconds=monotonic() - started,

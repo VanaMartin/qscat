@@ -66,6 +66,74 @@ it is not permission for an open-ended matching-framework project.
 
 ## Implemented API and boundary
 
+### Finite-radius D/N support
+
+`projects.ukrmol_co.bound_box.finite_box_dtn` takes the same incident Hartree
+energy, native Rydberg thresholds/C2/C3 and inner radius as `decaying_dtn`, with
+an explicit `endpoint_bohr=R` and `boundary="dirichlet"` or `"neumann"`.
+The radial equation is
+
+    U'' = V_epsilon(r) U,
+    V_epsilon = diag(thresholds - 2 epsilon) + C2/r^2 + C3/r^3.
+
+For Neumann data, integrate `Y'=V_epsilon-Y Y` inward from `Y(R)=0`.
+For Dirichlet data, integrate the inverse chart `Z=U(U')^-1` from `Z(R)=0`
+using `Z'=I-Z V_epsilon Z`, then solve `Z(a) Y(a)=I`. Matrix multiplication
+order matters for coupled channels. These are prescribed separate problems,
+not automatic chart alternatives. Invalid inputs, asymmetric maps, singular or
+ill-conditioned inverse charts, divergent integration and work caps stop the
+calculation without switching boundaries or projecting away transpose defects.
+Inputs are copied and checked for changes; this does not preempt arbitrary
+concurrent mutations, so external ownership remains required.
+
+These maps are tagged `finite_box=True`, `decaying=False` and with their boundary.
+`find_bound_state(..., finite_box_boundary="dirichlet" | "neumann")` requires
+matching tags and returns **finite-box-root-only**. Its default path still rejects
+explicit nondecaying/finite-box maps. Neither mode supplies a total uncertainty.
+Legacy untagged callbacks remain accepted by the default API; callers, not the
+driver, are responsible for not misrepresenting a finite box as a physical tail.
+
+For exact D/N bracketing, use the **same fixed finite inner model** in all three
+problems. Its quadratic form has inner term `c.T (D-E0) c`, exterior term
+`1/2 integral[|u'|^2 + u.T V_0 u] dr`, total norm `|c|^2+integral |u|^2 dr`
+and trace constraint `u(a)=sqrt(2) W.T c`. Variation gives precisely
+`F=D-(E0+epsilon)I-W Y W.T`, without another radius or sqrt(2) factor.
+Dirichlet truncation at R restricts the form domain and gives ordered upper
+bounds. Neumann splitting at R enlarges it and gives a direct sum of the finite
+box and a detached Neumann half-line. **Only if the latter is nonnegative**
+do its eigenvalues not contaminate the ordered negative spectrum: then
+
+    epsilon_N,k(R) <= epsilon_infinite,k <= epsilon_D,k(R).
+
+Matching the same ordered index also requires regular DtN charts and a common
+self-adjoint operator/state ordering, not merely nearby numerical roots. A
+nonnegative exterior throughout `[a,infinity)` is a sufficient (stronger than
+necessary) condition. A negative Neumann box level alone proves no binding;
+a short Dirichlet box can miss a shallow physical bound level altogether.
+
+`nonnegative_exterior_witness(thresholds, C2, C3, a)` supplies a conservative
+sufficient test, with nonnegative thresholds T. In exact arithmetic,
+
+    r^2 V_0(r) >= a^2 T + C2 + C3/r,       r >= a.
+
+The right-hand side is a convex combination of `B0=a^2 T+C2` and
+`B1=B0+C3/a`. Nonnegative Gershgorin row lower bounds at both matrices suffice.
+The implementation requires exact input symmetry and applies a floating safety
+allowance `64*(n+1)*eps*row_sum(a^2 T+|C2|+|C3|/a)`, retaining uncancelled
+input scales. Free exact-zero rows are allowed.
+This allowance is **not interval arithmetic or certified roundoff**, and failure
+is inconclusive, including for positive matrices that are not diagonally dominant.
+The witness covers only the supplied finite-channel native multipole operator;
+it adds no polarization tail or omitted-channel/electronic error bound.
+
+Analytic tanh/coth and modified-Bessel controls, independent second-order coupled
+collocation, three-level tolerance/radius refinements and a shallow finite-inner
+well test exercise these APIs. D/N ordering is an exact quadratic-form statement,
+not an ODE error enclosure: molecular acceptance still needs separate controlled
+numerical padding/refinement, a resolved negative interval, localization and
+state witnesses. No molecular matching prescription or execution follows from
+these generated tests. This remains project-stage Python, not promoted QSCAT code.
+
 `projects.ukrmol_co.local_pole_inputs.load_closed_boundary_model(source)` loads
 only the same neutral 48-target/298-channel/2048-pole/a=18-bohr native inputs,
 without opening a K/S grid. It retains six zero ground thresholds, strictly
