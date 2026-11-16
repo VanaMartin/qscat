@@ -11,7 +11,7 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: retain the completed local representations; a separately frozen
-crossing QC-only stage is active.**
+crossing stage is active.**
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -184,11 +184,16 @@ CO coupling, binding, localization, omitted-spectrum error or N+1 identity.
 Original preparation/publication-consumer failures are retained without repeating
 the successful preflight or changing unrelated workloads.
 
-The released owner attempts only missing **R=2.8 QC**, with a two-hour cap, four
-physical cores/32 GiB, 600-s observations and immediate terminal checks. Its
-result is pending. Next deliverable: independently assess that original QC result;
-only a pass permits a separate fixed-orbital reference-stage release. Any failure
-stops the attempt without retry. No native or boundary stage is released here.
+The original **R=2.8 QC and independent saved reading pass**; the
+[authenticated terminal assessment](https://data.qscat.org/co-crossing-r2800-qc-result-20261116/assessment.20a23ddad9b2.md)
+qualifies ordinary QC only. Do not repeat it. The separate
+[reference-only release](https://data.qscat.org/co-crossing-r2800-reference-release-20261116/decision.4c2ff7cff018.md)
+now attempts the sixteen missing fixed-orbital probes, retaining twelve roots,
+spaces160/240, original action/spin/projection gates, two-hour cap, four physical
+cores/32 GiB and 600-s plus terminal observations. Its result is pending.
+Next deliverable: independently assess the reference result and reassess the
+crossing objective before any native allocation. Any failure stops without retry.
+No target/property or boundary stage is released here; the shared deadline is unchanged.
 
 The two-node rule remains R=2.8 first, then R=2.65 after a qualified bound endpoint
 or R=3.0 after a qualified resonance. Ambiguity/failure stops without a rescue node.

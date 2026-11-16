@@ -31,7 +31,7 @@ records the completed two-sentinel design, unchanged coefficients and separate
 acceptance sidecar. The evaluator and approved documentation compression add no
 physical evidence. Exact original prose is archived there; scientific failures,
 successful partials and costs remain distinct in the [catalogue](experiments.md).
-Local-delivery owners ended. The separately frozen crossing QC-only release in
+Local-delivery owners ended. The separately frozen crossing pilot in
 the [current handoff](CONTINUATION.md) does not enlarge the delivered fit's scope;
 no further acquisition, refit, other cleanup or merge follows from unused time.
 This disposition and the handoff govern current local work; earlier affinity-only

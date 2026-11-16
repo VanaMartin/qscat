@@ -44,7 +44,7 @@ Reference/continuation gates for a global physical potential are not entrance
 requirements for these completed local data products.
 
 Local-delivery compute ended. The separately selected crossing observable and
-QC-only release are in the [current handoff](CONTINUATION.md), retaining the
+stage releases are in the [current handoff](CONTINUATION.md), retaining the
 boundaries above. Every later stage requires its own frozen bounded release;
 unused time is not one.
 Keep all 114 S holdouts, the equilibrium outgoing exclusion, nine working/new50
