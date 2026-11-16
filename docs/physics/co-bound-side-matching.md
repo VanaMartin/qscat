@@ -144,6 +144,21 @@ Hartree energies**, not qualification of a positive grid or molecular bound stat
 Both loaders share the D/W/multipole decoder and preserve native normalization.
 The decaying solver still enforces its own energy domain and numerical gates.
 
+A positive search must not reinterpret that negative-only policy.
+`load_positive_boundary_model(source, positive_interval_hartree)` separately
+qualifies an explicit finite ordered interval with `0 < lower < upper` and every
+excited native Rydberg threshold strictly above `2*upper`. Threshold touching
+fails. The neutral 48/298/2048/a18 view, six zero ground thresholds and D/W
+normalization are unchanged; this is not a variable-open-channel exporter or
+qualification of the historical wider positive grid. Real and complex consumers
+must enforce the declared real-energy projection for every evaluation.
+The explicit `local-cas11-six-open-window-v1` pole-runner view requires its search
+box within that interval and exactly its own two native input files. It retains
+the mandatory measured two-point real-axis guard, canary, root, contour and
+residue gates; input-policy success alone neither releases a calculation nor
+qualifies a resonance. Historical model views and the default positive-grid
+floor remain unchanged.
+
     decaying_dtn(incident_hartree, thresholds_rydberg, c2, c3, radius_bohr,
                  *, endpoint_bohr, tail_order=8, rtol=1e-11, caps=...)
     find_bound_state(poles_hartree, amplitudes, ground_hartree,

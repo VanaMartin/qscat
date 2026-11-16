@@ -186,7 +186,13 @@ def run(root, output, contract):
                 raise ValueError(f"Changed prerequisite: {name}")
         manifest = json.loads((raw / "input-manifest.json").read_text())
         local_view = contract.get("model_view") == "local-cas11-nine-2048-v1"
-        if len(manifest) != (4 if local_view else 123):
+        windowed = contract.get("model_view") == "local-cas11-six-open-window-v1"
+        if windowed and (
+            contract["case"] not in LOCAL_CASES
+            or set(manifest) != {contract["case"] + "/" + name for name in ["fort.10", "fort.21"]}
+        ):
+            raise ValueError("Windowed local view requires exactly its own two native files")
+        if len(manifest) != (2 if windowed else 4 if local_view else 123):
             raise ValueError("Changed original input inventory")
         for name, want in manifest.items():
             if digest(raw / name) != want:

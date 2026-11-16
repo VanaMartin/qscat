@@ -15,7 +15,7 @@ import numpy as np
 from qscat.units import hartree_to_ev
 
 from projects.ukrmol_co.compressed_five_view import SELECTED_PROPERTY_IDS, load_compressed_five
-from projects.ukrmol_co.local_pole_inputs import load_boundary_model
+from projects.ukrmol_co.local_pole_inputs import load_boundary_model, load_positive_boundary_model
 from projects.ukrmol_co.native_full_reconstruction import _model_from_interface, load_model
 from projects.ukrmol_co.pole_reference import pole_difference
 from projects.ukrmol_co.saved_matrices import read_interface
@@ -35,6 +35,20 @@ def load_pole_model(source, contract):
         return load_model(source)
     if case in LOCAL_CASES and contract.get("model_view") == "local-cas11-nine-2048-v1":
         return load_boundary_model(source)
+    if case in LOCAL_CASES and contract.get("model_view") == "local-cas11-six-open-window-v1":
+        interval = np.asarray(contract.get("positive_energy_interval_hartree", []))
+        box = np.asarray(contract.get("search_box_incident_hartree", []))
+        if (
+            np.iscomplexobj(interval)
+            or np.iscomplexobj(box)
+            or interval.shape != (2,)
+            or box.shape != (4,)
+            or not np.isfinite(interval).all()
+            or not np.isfinite(box).all()
+            or not interval[0] <= box[0] < box[1] <= interval[1]
+        ):
+            raise ValueError("Search real-energy projection must lie inside the explicit window")
+        return load_positive_boundary_model(source, interval)
     if (
         case == "compressed/cas12/B1"
         and contract.get("model_view") == "compressed-cas12-native40-v1"
@@ -145,7 +159,10 @@ def require_real_guard(root, contract):
         raise ValueError("Five-model real guard digest differs")
     data = json.loads(payload)
     indices = [60, 80]
-    if contract.get("model_view") == "local-cas11-nine-2048-v1" and contract["case"] in LOCAL_CASES:
+    if (
+        contract.get("model_view") in ["local-cas11-nine-2048-v1", "local-cas11-six-open-window-v1"]
+        and contract["case"] in LOCAL_CASES
+    ):
         default = [16, 20] if contract["case"].startswith("stretched/") else []
         indices = contract.get("real_development_indices", default)
         if (

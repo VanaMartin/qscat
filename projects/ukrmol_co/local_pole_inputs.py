@@ -22,6 +22,25 @@ def load_closed_boundary_model(source: Path) -> dict:
     return _load_boundary_model(source, minimum_excited_threshold_rydberg=0.0)
 
 
+def load_positive_boundary_model(source: Path, positive_interval_hartree) -> dict:
+    """Qualify only an explicit strictly positive, six-open-channel window.
+
+    The same native layout and decoder apply. Every excited threshold must
+    exceed twice the upper incident Hartree endpoint; threshold touching is
+    rejected. Consumers must still keep all real/complex evaluations inside
+    the declared real-energy projection. This does not qualify the legacy grid.
+    """
+    interval = np.asarray(positive_interval_hartree)
+    if (
+        np.iscomplexobj(interval)
+        or interval.shape != (2,)
+        or not np.isfinite(interval).all()
+        or not 0 < interval[0] < interval[1]
+    ):
+        raise ValueError("A finite ordered strictly positive real Hartree interval is required")
+    return _load_boundary_model(source, minimum_excited_threshold_rydberg=2 * float(interval[1]))
+
+
 def _load_boundary_model(source: Path, *, minimum_excited_threshold_rydberg: float) -> dict:
     interface = read_interface(source / "fort.10", source / "fort.21")
     if (
