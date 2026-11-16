@@ -221,8 +221,9 @@ maps complete but qualify no root. The next proposed trial is inside the frozen
 rectangle but outside the first contour's exposed domain, and is rejected before
 integration. This is an inconclusive numerical prescription failure, not evidence
 of physical resonance absence. Original nonzero exits, successful partials,
-trace, exact source/inputs and costs are preserved and publicly authenticated;
-independent saved-only verification does not relabel the failed attempt a pass.
+trace, exact source/inputs and costs are preserved and publicly authenticated.
+The [fresh-public saved-only replay and terminal receipts](https://data.qscat.org/co-crossing-terminal-verification-20261116/verification.111d231729a9.json)
+verify preservation and partials, not a retrospective scientific pass.
 
 **Stop compute.** No retry, reseed, angle/box change, B2 solve, R=2.65/R=3.0,
 refit or successful-peer repetition follows from the unused sixteen-hour window.
