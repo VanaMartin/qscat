@@ -102,6 +102,30 @@ original failure. All numerical, physical and resource gates stay unchanged.
 See [atomic states, totals and zero conventions](co-atomic-energy-references.md)
 and the [public matched-basis reconstruction](../../projects/ukrmol_co/qualification-evidence/atomic-5z-endpoints/README.md).
 
+## No-repeat and reopening conditions
+
+### Target coverage versus pole identity
+
+Physical target-metric coverage is complete for the original four-geometry
+CAS11/nine-A2/2048 path: 16 missing sector matrices qualified and eight final-gap
+matrices were reused. Direct interior retained/buffer exchanges and weak
+compressed correspondence leave unique N+1 continuation unqualified. Finite-step
+core motion can attenuate overlaps; low target overlap alone does not prove a
+wrong local pole or a discontinuous Hamiltonian. The then-clean final gap had
+only two actual pole nodes, so it did not qualify a narrower fit at that
+assessment. These historical findings do not invalidate later qualified pairs
+or the completed prospective local representation. Reuse accepted QC, native
+inputs, poles and metrics; do not change retained roots to hide exchanges or
+repeat successful work merely for another pass. Reopen correspondence only when
+a separately selected observable justifies a pole/N+1-specific or interior-
+sensitivity test with a frozen outcome-to-decision rule. Scoped interpolation
+acceptance remains distinct from this unresolved identity claim.
+
+[Completed target-metric batch](https://data.qscat.org/co-common-frame-target-overlaps-20261113/results.tar.8161225e1209.gz),
+SHA256 `8161225e1209da295bd61fccf97ecfe517907aee4a8560e9280bf6f02dfa57b0`.
+The later [accepted local representation](#local-representations-accepted-scope)
+does not settle this identity question.
+
 ## Local representations: accepted scope
 
 **Scoped local representations are accepted over 1.9–2.5 real bohr only.**
