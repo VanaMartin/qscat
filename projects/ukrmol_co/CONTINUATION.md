@@ -122,14 +122,20 @@ state-tracked crossing bracket before a dense extended curve; do not enlarge
 the evaluator's domain or extrapolate its cubics/log-width. Electronic-model
 accuracy and hybrid joining remain separate unresolved claims.
 
-The preserved external proposal compares primary-CAS11 DZ/TZ sensitivity at
-2.5 with the separate CAS12 diffuse-flexibility alternative. A new saved-source
-addendum reconsiders that allocation's priority: the 2.5 test is useful but
-cannot settle crossing coverage. The current outgoing map explicitly rejects
-crossing its reference threshold interval; bound-side qualification, state
-assignment, actual geometry inputs and whole-stage costs remain blockers.
-This review adds no scientific evidence and used zero QC/native/outgoing calls
-or protected payloads. No model-sensitivity or extended-R route is released.
+The saved-source feasibility/cost review is complete. It selects
+[all-closed physical-sheet matching for qualification](../../docs/physics/co-bound-side-matching.md),
+not blind continuation of the outgoing prescription. The existing resonance
+open-residue test cannot qualify a bound state. No qualified primary inputs
+beyond 2.5 were identified in the inspected catalogue/named local paths; remote
+inventory remains unverified. Earlier interior stage costs supply only a
+conditional reference scenario, not a supported complete crossing-pilot forecast.
+
+The external card records a two-node conditional geometry rule and proposed
+resource ceilings, pending method/state/cost qualification and a separate
+release. It promises neither a crossing nor unique N+1 identity. The earlier
+2.5 DZ/TZ and CAS12 diffuse-flexibility alternatives remain preserved, not
+mandatory prerequisites. This review adds no molecular evidence and used zero
+QC/native/outgoing calls or protected payloads. No extended-R route is released.
 
 ### Historical target-correspondence assessment
 
@@ -158,10 +164,14 @@ not failed physical predictions or a retrospectively all-zero process.
 ## Current bounded next deliverable
 
 Local representation packaging and approved documentation integration are complete.
-Next scope decision: a minimal costed crossing-bracket design for the primary
-model, with separately qualified resonance/bound prescriptions and fixed limits
-on R, new geometries, effort and resources. Do not fund a dense extension or
-require the 2.5-bohr basis sentinel to solve every accuracy question first.
+Next bounded task proposed: pure-Python bound-side implementation and analytic/
+synthetic qualification under the external card's effort/test/resource caps;
+no CO inputs or molecular calls. See the linked design for equations, false-root
+controls and acceptance limits. This task has not run and releases no subsequent
+molecular acquisition. Stop if it cannot qualify within its cap; no generic
+solver project follows.
+Do not fund a dense extension or require the 2.5-bohr basis sentinel to solve
+every accuracy question first.
 If absolute accuracy is required next, a matched physical benchmark remains a
 separate missing input. Stop new compute. Use the canonical conclusion and
 [README evaluator instructions](README.md#using-the-local-representations).
