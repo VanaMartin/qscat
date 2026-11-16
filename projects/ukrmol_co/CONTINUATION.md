@@ -114,18 +114,22 @@ policy-source switch or service/configuration change follows from this review.
 
 ## Goal checkpoint — 16 November 2026
 
-**Stop compute; documentation integration and saved-evidence planning complete.**
-The neutral fit and ten-pair local representation are complete.
-Electronic-model accuracy and the mixed-method joining uncertainty remain open;
-more interpolation nodes do not address them. This batch reuses saved decision
-notes and authenticated prose only, with zero QC/native/outgoing calls and no
-protected-data access. Documentation checks add no scientific evidence. One
-external proposal compares a primary-CAS11 basis contrast with the already-prepared
-CAS12 diffuse-flexibility sentinel and recommends the former for relevance to the
-working model, with outcome rules and proposed implementation/resource ceilings.
-It measures finite-model sensitivity, not absolute accuracy, and remains blocked
-on prescription/identity/cost/source freeze and explicit scope acceptance.
-Neither route has an execution release.
+**Stop compute; include resonance-to-bound coverage in next-stage planning.**
+The neutral fit and ten-pair local representation remain complete on 1.9–2.5
+bohr. The user's upper-domain concern identifies a different missing regime:
+that interval does not establish a bound-side continuation. Plan a small
+state-tracked crossing bracket before a dense extended curve; do not enlarge
+the evaluator's domain or extrapolate its cubics/log-width. Electronic-model
+accuracy and hybrid joining remain separate unresolved claims.
+
+The preserved external proposal compares primary-CAS11 DZ/TZ sensitivity at
+2.5 with the separate CAS12 diffuse-flexibility alternative. A new saved-source
+addendum reconsiders that allocation's priority: the 2.5 test is useful but
+cannot settle crossing coverage. The current outgoing map explicitly rejects
+crossing its reference threshold interval; bound-side qualification, state
+assignment, actual geometry inputs and whole-stage costs remain blockers.
+This review adds no scientific evidence and used zero QC/native/outgoing calls
+or protected payloads. No model-sensitivity or extended-R route is released.
 
 ### Historical target-correspondence assessment
 
@@ -154,9 +158,12 @@ not failed physical predictions or a retrospectively all-zero process.
 ## Current bounded next deliverable
 
 Local representation packaging and approved documentation integration are complete.
-Review the proposed primary-CAS11 sentinel's finite-model scope before any further
-preparation; select a matched physical benchmark instead if absolute accuracy is
-the required next output. Stop new compute. Use the canonical conclusion and
+Next scope decision: a minimal costed crossing-bracket design for the primary
+model, with separately qualified resonance/bound prescriptions and fixed limits
+on R, new geometries, effort and resources. Do not fund a dense extension or
+require the 2.5-bohr basis sentinel to solve every accuracy question first.
+If absolute accuracy is required next, a matched physical benchmark remains a
+separate missing input. Stop new compute. Use the canonical conclusion and
 [README evaluator instructions](README.md#using-the-local-representations).
 All successful work, original failures, coefficients and validation roles remain
 preserved; all 114 S holdouts and the reserved equilibrium outgoing pole remain

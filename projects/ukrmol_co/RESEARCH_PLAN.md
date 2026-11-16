@@ -138,6 +138,29 @@ The current `ResonanceTarget`/fit API couples local data to `ea`, `R_inf` and
 asymptotic setup. Store the local table first. A later local-fit interface must
 explicitly defer unavailable global constraints, never invent constants.
 
+## Beyond the local interval: crossing coverage
+
+The accepted upper limit **R=2.5 bohr is a data/representation boundary, not a
+physical endpoint** for resonance-to-bound continuation. That objective needs
+compatible coverage on both sides of detachment, including a normalizable N+1
+state below the matched neutral threshold with resolved binding uncertainty.
+Re z crossing zero, an unresolved width, or intersecting independently zeroed
+curves alone does not qualify binding. In the declared hybrid,
+`Vres_hybrid−V0_QC=Er_native` by construction; a plotted crossing is not independent
+electronic validation. Fixed-R binding also does not establish attachment dynamics.
+
+Plan a small state-tracked crossing bracket before a dense extended curve;
+do not defer this regime behind an unbounded local-accuracy campaign. Model
+sensitivity and crossing coverage are separate decisions. Retain the frozen
+1.9–2.5 evaluator without extrapolation or refit. The current outgoing map
+rejects crossing its reference threshold interval: the physical bound-side
+prescription and its controls must be qualified separately, not obtained by
+removing that guard or clipping Gamma to zero. New geometries require their own
+targets/thresholds and a bounded costed release. Extending the hybrid also needs
+qualified neutral coverage; separate MR endpoints cannot be spliced into the CC
+fit. Internuclear R is distinct from the electronic sphere radius a and exterior
+endpoint; changing one does not automatically justify changing the others.
+
 ## Validity gates by stage
 
 The operative checklist is [sweep readiness](SWEEP_READINESS.md):
