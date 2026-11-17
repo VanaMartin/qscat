@@ -14,9 +14,10 @@ scope; no failed physical diagnostic is promoted to a pass.
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
 The separately released log-tail calculation qualifies a localized B1 finite-model
-bound candidate at R=3.0. The original B2 owner stopped before container launch;
-the separate resource-corrected B2 owner is now launched. A compatible B2 endpoint
-remains missing.** The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
+bound candidate at R=3.0; both native boundaries now qualify. No owner is active;
+the B2 bound counterpart and pair comparison remain missing.** The
+[B2 native result](https://data.qscat.org/co-crossing-r3000-b2-boundary-v2-result-20261117/assessment.c50f0d9c004e.md)
+passes remote/local/fresh-public raw replay. The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
 passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
 replay. It is not electronic accuracy or unique multi-R continuation. The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
@@ -434,13 +435,28 @@ The separate [resource-corrected B2 release](https://data.qscat.org/co-crossing-
 now passes all original engine/client/layout/decoder/first-failure controls and
 fresh public authentication. It retains the failed preparation in cumulative
 usage, enforces4GiB only for this native run, and changes no science/accuracy cap.
-Ready for one missing B2 solve; matching still needs a separate release.
-The first preparation stopped before run creation at its 30-GiB initial-free
+That missing-only B2 solve now qualifies: one native stage, residual1.22454e-10Ha,
+science4888s/19528CPU-s, independent remote/local/public raw replay. Accepted
+continuum/target/QC/B1 work was not repeated. Original pre-container resource stop
+and initial-observer assertion remain separate, not retrospective allocation passes.
+
+**Continue preparation, final bounded pilot deliverable:** freeze the missing B2
+all-closed counterpart using the accepted B1 method/family and exact B1 interval,
+then compare the same-R pair with accepted B1 evidence, not another B1 solve.
+Position/negative-interval/norm gates and permutation/phase-invariant angular
+trace profiles must pass. Preparation30min from23:12UTC; science7200s/reader600s/
+owner7920s within the same absolute ceiling. Numeric-only2-GiB new-run cap,
+18-GiB initial free and unchanged20-GiB cumulative/10-GiB free-stop; no large CSFs
+are copied into this matching capsule. Synthetic/runtime/owner and public
+authentication precede launch. PASS completes the scoped two-endpoint pilot,
+not strict unique-branch identity, crossing location, physical accuracy or a refit.
+
+The first bound preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
 initial free; cumulative20-GiB/10-GiB free-stop remain unchanged. No deletion or
 scientific repeat. The default Gershgorin behavior and accuracy budgets stay unchanged. This is
 the shortest test of binding sign, not another input-acquisition stage. Failure
-stops for reassessment; B2 remains unreleased until B1 evidence justifies it.
+stops for reassessment; B2 matching is not automatically released by native success.
 Same four cores/32 GiB and absolute deadline; no third geometry, model/basis/root/
 channel ladder, refit, successful-stage repeat or automatic successor. All
 protections and development/validation roles remain unchanged; the

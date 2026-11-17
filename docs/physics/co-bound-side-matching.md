@@ -352,3 +352,20 @@ solutions provide a quadrature comparison. The inner probability fraction
 `(c.T c)/(c.T c+norm_exterior)` is a useful finite-model localization witness,
 not an electronic-state assignment or an N+1 overlap across geometries. If it is
 unresolved, no localization claim follows from boundary amplitudes alone.
+
+## Comparing transverse bound counterparts
+
+A same-geometry B1/B2 comparison first requires the same target energies, neutral
+zero, geometry, retained space and exterior model. Compare qualified energies
+with their numerical uncertainty intervals and compare localization estimates
+under the same normalization. Reuse the accepted component's saved evidence;
+do not repeat its exterior solve merely to compare the missing counterpart.
+
+Raw inner coefficients or ordinal channel profiles across B1/B2 are not invariant
+state overlaps: target components, real-harmonic signs and channel ordering can
+differ. A limited trace-character check aggregates `|W.T c|^2` by `(l,abs(m))`,
+both for all channels and separately for ground-target channels, then normalizes
+each profile. This is invariant under channel permutations and phases, but loses
+target-resolution information. Agreement is a necessary compatible-counterpart
+witness, not a proof of unique electronic identity or continuation across R.
+Never reinterpret those surface weights as full inner/exterior probabilities.

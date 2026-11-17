@@ -54,12 +54,13 @@ with no SCF restart and independent new-frame stationarity/public replay. Its
 sixteen fixed-orbital references and native 48-target/property bundle now also
 qualify, as does the own continuum/B1 boundary with independent public replay.
 One negative retained inner level motivates bound-side qualification, not a
-binding claim. The original sufficient Gershgorin witness rejects; a separate
-positive-form criterion needs derivation/tests and a frozen selection. Exterior
+binding claim. The original sufficient Gershgorin witness rejects; the separate
+positive-form criterion is derived/tested and explicitly selected. Exterior
 matching first stops at the unchanged fundamental-tail symmetry gate. A separate
 derived/tested direct-Riccati-tail calculation then qualifies a localized B1
 finite-model bound candidate, including D/N/norm/QF/trace controls and public
-replay. The missing B2 boundary/counterpart is separately bounded in the handoff.
+replay. The missing-only B2 native boundary now also qualifies with public replay;
+its bound counterpart and pair comparison remain separately bounded in the handoff.
 No compatible bound pair, unique-branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain/roles remain unchanged; the handoff bounds the next stage.
