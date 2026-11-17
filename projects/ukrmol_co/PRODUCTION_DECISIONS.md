@@ -48,8 +48,10 @@ starting with a separately frozen QC-only release. That ordinary QC stops at
 singlet B1/B2 CI nonconvergence despite reported orbital convergence; no target
 bundle or downstream stage qualifies. Fixed-orbital spin1 completion then converges
 all CI sectors but rejects unchanged-frame gradient/occupation gates. The handoff
-bounds assessment of a small corrective refinement, not an automatic optimizer
-restart or gate relaxation. No bound endpoint, branch
+bounds a separately frozen corrective refinement, not an automatic optimizer
+restart or gate relaxation. That correction now qualifies after two new macros,
+with no SCF restart and independent new-frame stationarity/public replay. Its
+fixed-orbital reference coverage and native stages remain missing. No bound endpoint, branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain/roles remain unchanged; the handoff bounds the next stage.
 This disposition and the handoff govern current local work; earlier affinity-only

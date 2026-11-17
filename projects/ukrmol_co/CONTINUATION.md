@@ -11,9 +11,10 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; R=3.0 fixed-orbital completion converges CI but rejects unchanged-frame
-stationarity. The separate three-macro corrective owner is active under its
-tested release.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
+qualifies; the separately corrected R=3.0 QC bundle now qualifies. No owner is
+active.** The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
+passes new-frame action/stationarity and remote/local/fresh-public saved reading.
+It is not an endpoint or crossing bracket. The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
 QC bundle. The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
@@ -353,15 +354,19 @@ gradient failure; eight CI arrays are reusable partials, not a qualified QC bund
 Science46.3s, no SCF or orbital optimization, original exit1/false flags and two
 failed generated preflights preserved. Export-only recovery is rejected.
 
-**Redirect, one bounded next deliverable:** assess at most three corrective orbital
-macros from the exact saved frame with the now-qualified spin1 numerical route,
-reusing RHF/CI vectors, not restarting SCF or repeating fifteen completed macros.
-The prior stationarity report cannot be inherited as a pass. Fresh CI/action/spin,
-actual recomputed gradient/occupation and independent export gates must qualify
-the corrected frame under the [separate corrective release](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-release-20261117/decision.e2e612bbe7d5.md).
-Exact expanded-source/initial-CI/RHF energy-residual controls, generated gradient
-and actual-owner controls pass; fresh public bytes authenticate. At most three
-new macros, science1800s/reader600s/owner2520s; no SCF restart. Same
+The separate correction now qualifies after **two** new macros, reusing RHF and
+initial CI without an SCF restart or repetition of fifteen completed macros.
+Actual canonical-frame gradient3.75448e-8 and occupationerror1.10723e-10 pass
+unchanged gates, with independent raw RDM/integral and fresh-public replay.
+Science214.3s/718.9CPU-s; original failures stay failed. The corrected MO frame
+needs its own frame-specific references, integrals and native data.
+
+**Continue preparation, one bounded next deliverable:** freeze only the missing
+sixteen twelve-root fixed-orbital probes at spaces160/240 on that corrected frame.
+They test lowest-root/action/spin/projection coverage and ground dipole, not a
+resonance or bound endpoint. Reuse exact qualified QC; no QC/SCF/optimizer repeat.
+Proposed science2400s/reader600s/owner3120s needs its own tested source/owner and
+fresh public release before launch. Same
 four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
