@@ -51,7 +51,8 @@ all CI sectors but rejects unchanged-frame gradient/occupation gates. The handof
 bounds a separately frozen corrective refinement, not an automatic optimizer
 restart or gate relaxation. That correction now qualifies after two new macros,
 with no SCF restart and independent new-frame stationarity/public replay. Its
-fixed-orbital reference coverage and native stages remain missing. No bound endpoint, branch
+sixteen fixed-orbital references now also qualify; own native stages remain
+missing. No bound endpoint, branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain/roles remain unchanged; the handoff bounds the next stage.
 This disposition and the handoff govern current local work; earlier affinity-only

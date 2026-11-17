@@ -11,8 +11,9 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; the separately corrected R=3.0 QC bundle now qualifies. The separate
-reference-only owner is active under its tested release.** The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
+qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
+qualify. No owner is active.** The [reference result](https://data.qscat.org/co-crossing-r3000-reference-result-20261117/assessment.1f0b98b55f3d.md)
+passes remote/local/fresh-public saved reading. The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
 passes new-frame action/stationarity and remote/local/fresh-public saved reading.
 It is not an endpoint or crossing bracket. The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
@@ -361,16 +362,20 @@ unchanged gates, with independent raw RDM/integral and fresh-public replay.
 Science214.3s/718.9CPU-s; original failures stay failed. The corrected MO frame
 needs its own frame-specific references, integrals and native data.
 
-**Continue preparation, one bounded next deliverable:** freeze only the missing
-sixteen twelve-root fixed-orbital probes at spaces160/240 on that corrected frame.
-They test lowest-root/action/spin/projection coverage and ground dipole, not a
-resonance or bound endpoint. Reuse exact qualified QC; no QC/SCF/optimizer repeat.
-Science2400s/reader600s/owner3120s apply. The
-[reference-only release](https://data.qscat.org/co-crossing-r3000-reference-release-20261117/decision.37a2fdd3543c.md)
-passes strict six-file QC authentication, unchanged recipe/runtime/owner and
-first-probe failure controls, with exact public authentication. Its additive
-metadata note distinguishes historical seed/container fields from the actual
-command and corrected QC manifest; no old record or clock is edited. Same
+All sixteen twelve-root160/240 reference probes now qualify on the corrected
+frame, including action/spin/projection and ground dipole gates; about223s science
+wall/618CPU-s. Remote/local/fresh-public saved replay passes. The separate local
+absolute-script package-path launcher error is preserved; module-context recovery
+repeats no science and changes no source/path. These are input qualifications,
+not a resonance or bound endpoint.
+
+**Continue preparation, one bounded next deliverable:** freeze only missing own
+R=3.0 thirteen-MO integrals, eight native target sectors and 48-target properties.
+Reuse qualified QC/references and geometry-independent CSFs, not old-frame
+integrals/properties/vectors. Proposed science7200s/reader600s/owner7920s needs
+native-input/runtime/decoder/no-QC-repeat/owner controls and exact public
+authentication before launch. No continuum/inner/outgoing allocation follows
+automatically. Same
 four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
