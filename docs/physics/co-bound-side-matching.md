@@ -304,3 +304,27 @@ All molecular inputs, state-assignment rules, effort/compute caps and the tested
 owner require a separately frozen release. A successful local bound candidate
 and an earlier resonance do not alone prove unique continuation between them,
 absolute attachment energy or a stable nuclear anion.
+
+## Norm from the physical-sheet energy derivative
+
+For a regular all-closed map, normalize its exterior fundamental solution by
+`U(a,E)=I`. Differentiating `U''=(V0-2E)U` in incident Hartree energy and
+integrating the Lagrange identity with fixed boundary value gives
+
+    dY(a,E)/dE_Ha = 2 integral_a^infinity U(r,E).T U(r,E) dr.
+
+The boundary term at infinity vanishes for the decaying solution. The boundary
+term at a is the derivative of Y, since `dU(a,E)/dE=0`. Thus with `v=W.T c` and
+native `u(a)=sqrt(2)*v`, the exterior probability norm is
+`v.T (dY/dE_Ha) v`; the total norm is `c.T c` plus this quantity. Equivalently,
+`-c.T F'(E)c` equals that total. Neither an extra factor two nor a radius factor
+belongs in the final expression. A negative exterior norm rejects the diagnostic.
+
+Finite differences of independently converged Y maps can estimate this norm;
+compare at least three energy steps and retain their differences and map-error
+sensitivity. They are not interval derivatives or rigorous norm enclosures.
+Free channels give exactly `dY/dE=diag(1/kappa)`; nonzero-l analytic radial
+solutions provide a quadrature comparison. The inner probability fraction
+`(c.T c)/(c.T c+norm_exterior)` is a useful finite-model localization witness,
+not an electronic-state assignment or an N+1 overlap across geometries. If it is
+unresolved, no localization claim follows from boundary amplitudes alone.

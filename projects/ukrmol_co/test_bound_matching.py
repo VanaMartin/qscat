@@ -5,7 +5,7 @@ import json
 import numpy as np
 import pytest
 from qscat.units import hartree_to_ev
-from scipy.integrate import solve_bvp
+from scipy.integrate import quad, solve_bvp
 from scipy.optimize import brentq
 
 from projects.ukrmol_co.bound_matching import BoundCaps, decaying_dtn, find_bound_state
@@ -41,6 +41,37 @@ def test_free_closed_map_is_real_negative_kappa(energy):
     assert np.isrealobj(y)
     assert report["rhs_evaluations"] > 0
     assert report["transpose_defect"] < 1e-12
+
+
+def test_native_exterior_norm_energy_derivative_and_radial_quadrature():
+    energy, radius = -0.02, 2.0
+    kappa = np.sqrt(-2 * energy)
+    v = 0.3
+
+    def normalized_radial(r):
+        return np.exp(-kappa * (r - radius)) * (1 + 1 / (kappa * r)) / (1 + 1 / (kappa * radius))
+
+    expected = 2 * v**2 * quad(lambda r: normalized_radial(r) ** 2, radius, np.inf)[0]
+    errors = []
+    for step in [1e-4, 5e-5, 2.5e-5]:
+        values = [
+            decaying_dtn(
+                energy + sign * step,
+                [0],
+                [[2]],
+                [[0]],
+                radius,
+                endpoint_bohr=20,
+                tail_order=1,
+                rtol=1e-13,
+            )[0][0, 0]
+            for sign in [-1, 1]
+        ]
+        exterior_norm = v**2 * (values[1] - values[0]) / (2 * step)
+        errors.append(abs(exterior_norm - expected))
+    assert errors[-1] < errors[1] < errors[0] and errors[-1] < 1e-6
+    # Free-channel derivative is 1/kappa in Hartree, not 1/(2*kappa).
+    np.testing.assert_allclose(v**2 / kappa, 2 * v**2 / (2 * kappa), atol=1e-15, rtol=0)
 
 
 @pytest.mark.parametrize("energy", [-0.3, -0.002, -5e-9])
