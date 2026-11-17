@@ -11,7 +11,8 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; no owner is active.** The
+qualifies; its original conditional R=3.0 QC-only release is ready for bounded
+execution.** The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
 passes original gates and remote/local/fresh-public saved reconstruction.
 It is a resonance-side endpoint, not a bound endpoint, branch bracket or fit
@@ -328,12 +329,13 @@ resonance-side condition for the pilot's single second geometry **R=3.0**, not
 R=2.65 or a third-node ladder. It does not change the delivered evaluator or its
 eight development/two validation roles.
 
-**Current bounded next deliverable:** prepare a separate R=3.0 QC-only release,
+**Current bounded next deliverable:** execute the separate R=3.0 QC-only release,
 starting from the exact accepted own R=2.8 checkpoint with unchanged electronic
 protocol and acceptance gates. Runtime/seed/explicit AO-metric projection and
-actual-owner controls, exact public inputs/source and authentication must pass
-before launch. Proposed QC7200s/reader600s/owner7920s, four cores/32 GiB and the
-same fresh absolute ceiling. No references/native/bound/pole successor is
+actual-owner controls and exact public inputs/source authentication now pass in
+the [QC-only release](https://data.qscat.org/co-crossing-r3000-qc-release-20261117/decision.7b3ea1590886.md).
+QC7200s/reader600s/owner7920s, four cores/32 GiB and the same fresh absolute
+ceiling apply. No references/native/bound/pole successor is
 automatically released by QC; no third geometry or refit is authorized.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
