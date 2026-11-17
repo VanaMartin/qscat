@@ -11,8 +11,10 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; its original conditional R=3.0 QC-only owner is active under the
-tested bounded release.** The
+qualifies; R=3.0 ordinary QC stopped at singlet B1/B2 CI nonconvergence. No
+owner is active.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
+preserves false flags and exit1; reported orbital convergence is not a qualified
+QC bundle. The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
 passes original gates and remote/local/fresh-public saved reconstruction.
 It is a resonance-side endpoint, not a bound endpoint, branch bracket or fit
@@ -29,7 +31,8 @@ attempt stopped at its real-axis flux gate. Its
 [authenticated assessment](https://data.qscat.org/co-crossing-r2800-b1-angle50-result-20261117/assessment.227fb29a1c88.md)
 preserves the failure before any complex map. Saved Y agrees with the earlier
 passing maps, but the full Jost-amplitude identity fails. The fresh authorized
-window permits reassessment, not an automatic retry. No new endpoint qualifies.
+window permits reassessment, not an automatic retry. Those original failures
+qualified no endpoint; the later R=2.8 pair above does qualify separately.
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -329,14 +332,21 @@ resonance-side condition for the pilot's single second geometry **R=3.0**, not
 R=2.65 or a third-node ladder. It does not change the delivered evaluator or its
 eight development/two validation roles.
 
-**Current bounded next deliverable:** execute the separate R=3.0 QC-only release,
-starting from the exact accepted own R=2.8 checkpoint with unchanged electronic
-protocol and acceptance gates. Runtime/seed/explicit AO-metric projection and
-actual-owner controls and exact public inputs/source authentication now pass in
-the [QC-only release](https://data.qscat.org/co-crossing-r3000-qc-release-20261117/decision.7b3ea1590886.md).
-QC7200s/reader600s/owner7920s, four cores/32 GiB and the same fresh absolute
-ceiling apply. No references/native/bound/pole successor is
-automatically released by QC; no third geometry or refit is authorized.
+**Redirect after the R=3.0 QC terminal event:** original QC/owner exit1, not a
+timeout/OOM. Fifteen orbital macros report convergence, but singlet B1/B2 CI
+flags are false, so fresh audits/export and every downstream stage correctly
+did not run. About2056s science wall/6892CPU-s and the immutable partial checkpoint
+are preserved; printed energies remain unqualified. This is not sweep progress
+or evidence that a physical endpoint is absent.
+
+**One bounded next deliverable:** assess a separate fixed-orbital completion
+using that exact checkpoint, no SCF or orbital optimization restart. The historical
+split recipe required all parent CI flags true and is not directly applicable.
+A changed CI driver must qualify physical/penalized action, spin, lowest roots
+and the actual equal-40 orbital gradient, preserving original false flags/exit1.
+No execution before its own frozen card, synthetic/runtime/owner controls and
+public authentication. Same four cores/32 GiB and absolute deadline apply; no
+third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
