@@ -13,7 +13,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
-No owner is active; no R=3.0 bound/resonance endpoint yet qualifies.** The
+The separate B1 bound-side release is ready; no R=3.0 bound/resonance endpoint
+yet qualifies.** The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
 passes remote/local/fresh-public raw replay. The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
 passes remote/local/fresh-public raw reading, with original collector failure
@@ -393,9 +394,17 @@ pass. The failed radius-field saved-reader wrapper and rejection are preserved.
 **Redirect preparation, one bounded next deliverable:** derive/test an explicitly
 selected positive-form endpoint criterion, then freeze one B1 all-closed matching
 attempt with D/N controls and localization/state checks using the accepted D/W.
-Implementation cap45min from20:54UTC; no molecular ODE/root before its own tested
-full-size caps, frozen selection/uncertainty/owner and public authentication.
-The default Gershgorin behavior and all accuracy budgets stay unchanged. This is
+Implementation cap45min from20:54UTC. The
+[B1 bound-side release](https://data.qscat.org/co-crossing-r3000-b1-bound-v2-release-20261117/decision.f0033cbab6f1.md)
+now passes 68 local analytic/synthetic tests, pinned-runtime full298-channel
+decaying/D/N maps, a full2048-root generated matching test, norm quadrature and
+actual-owner controls, with exact public authentication. It fixes mode0 and one
+negative interval, nine decaying/D/N root controls, Q/F, localization and trace
+character gates. Science7200s/reader600s/owner7920s, not an automatic B2 release.
+The first preparation stopped before run creation at its 30-GiB initial-free
+check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
+initial free; cumulative20-GiB/10-GiB free-stop remain unchanged. No deletion or
+scientific repeat. The default Gershgorin behavior and accuracy budgets stay unchanged. This is
 the shortest test of binding sign, not another input-acquisition stage. Failure
 stops for reassessment; B2 remains unreleased until B1 evidence justifies it.
 Same four cores/32 GiB and absolute deadline; no third geometry, model/basis/root/
