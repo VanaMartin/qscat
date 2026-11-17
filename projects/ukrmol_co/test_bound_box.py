@@ -7,7 +7,11 @@ import pytest
 from scipy.integrate import solve_bvp
 from scipy.special import iv, ivp, kv, kvp
 
-from projects.ukrmol_co.bound_box import finite_box_dtn, nonnegative_exterior_witness
+from projects.ukrmol_co.bound_box import (
+    finite_box_dtn,
+    nonnegative_exterior_witness,
+    positive_exterior_witness,
+)
 from projects.ukrmol_co.bound_matching import BoundCaps, find_bound_state
 from projects.ukrmol_co.test_bound_matching import free_map, well_spectrum
 
@@ -212,6 +216,65 @@ def test_nonnegative_exterior_sufficient_witness_and_inconclusive_negative():
     # of the sufficient witness is deliberately not a negativity diagnosis.
     with pytest.raises(ValueError, match="not established"):
         nonnegative_exterior_witness([0, 0], [[1, 2], [2, 5]], np.zeros((2, 2)), 1)
+
+
+def test_positive_form_witness_without_diagonal_dominance():
+    c2 = np.array([[1.0, 2.0], [2.0, 5.0]])
+    report = positive_exterior_witness([0, 0], c2, np.zeros((2, 2)), 1)
+    expected = 3 - np.sqrt(8)
+    for endpoint in report["endpoints"]:
+        np.testing.assert_allclose(endpoint["minimum_eigenvalue"], expected, atol=1e-14, rtol=0)
+        assert 0 < endpoint["positive_lower_bound"] <= expected + 1e-14
+    assert report["nonnegative_established"] and not report["roundoff_certified"]
+    # The old API remains conservative; there is no automatic fallback.
+    with pytest.raises(ValueError, match="not established"):
+        nonnegative_exterior_witness([0, 0], c2, np.zeros((2, 2)), 1)
+
+
+@pytest.mark.parametrize("scale", [1e-6, 1.0, 1e6])
+def test_positive_form_rotation_and_whole_radial_domain(scale):
+    rotation = np.array([[0.6, -0.8], [0.8, 0.6]])
+    c2 = scale * rotation @ np.diag([0.2, 3.0]) @ rotation.T
+    c2 = (c2 + c2.T) / 2  # Construct exactly symmetric synthetic input.
+    c3 = -0.1 * c2
+    report = positive_exterior_witness([0, 0.4 * scale], c2, c3, 2)
+    assert all(row["positive_lower_bound"] > 0 for row in report["endpoints"])
+    for radius in np.geomspace(2, 1e5, 31):
+        potential = np.diag([0, 0.4 * scale]) + c2 / radius**2 + c3 / radius**3
+        assert np.linalg.eigvalsh(potential)[0] > 0
+
+
+@pytest.mark.parametrize("c2,c3", [([[0]], [[0]]), ([[-1]], [[0]]), ([[1]], [[-2]])])
+def test_positive_form_rejects_unresolved_or_negative_endpoint(c2, c3):
+    with pytest.raises(ValueError, match="not established"):
+        positive_exterior_witness([0], c2, c3, 1)
+
+
+@pytest.mark.parametrize("defect", ["residual", "orthogonality"])
+def test_positive_form_does_not_trust_eigensolver_values_alone(monkeypatch, defect):
+    from projects.ukrmol_co import bound_box
+
+    def bad_eigh(matrix):
+        return np.ones(2) * 2, np.eye(2) * (2 if defect == "orthogonality" else 1)
+
+    monkeypatch.setattr(bound_box.np.linalg, "eigh", bad_eigh)
+    with pytest.raises(ValueError, match="not established"):
+        positive_exterior_witness([0, 0], np.diag([-1.0, 1.0]), np.zeros((2, 2)), 1)
+
+
+def test_positive_form_caps_and_full_channel_synthetic_input():
+    n = 298
+    thresholds = np.linspace(0, 1, n)
+    c2 = 2 * np.eye(n)
+    c3 = np.zeros((n, n))
+    with pytest.raises(ValueError, match="cap"):
+        positive_exterior_witness(thresholds, c2, c3, 18)
+    report = positive_exterior_witness(thresholds, c2, c3, 18, caps=BoundCaps(max_channels=n))
+    assert min(row["positive_lower_bound"] for row in report["endpoints"]) > 1.99
+    with pytest.raises(TimeoutError, match="cap"):
+        positive_exterior_witness([0], [[1]], [[0]], 1, caps=BoundCaps(timeout_seconds=1e-12))
+    with pytest.raises(ValueError, match="symmetric"):
+        positive_exterior_witness([0, 0], [[1, 0.1], [0, 1]], np.zeros((2, 2)), 1)
 
 
 @pytest.mark.parametrize("boundary", ["dirichlet", "neumann"])

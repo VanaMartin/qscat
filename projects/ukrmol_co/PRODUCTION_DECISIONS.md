@@ -52,7 +52,11 @@ bounds a separately frozen corrective refinement, not an automatic optimizer
 restart or gate relaxation. That correction now qualifies after two new macros,
 with no SCF restart and independent new-frame stationarity/public replay. Its
 sixteen fixed-orbital references and native 48-target/property bundle now also
-qualify. Own continuum/inner/exterior stages remain missing. No bound endpoint, branch
+qualify, as does the own continuum/B1 boundary with independent public replay.
+One negative retained inner level motivates bound-side qualification, not a
+binding claim. The original sufficient Gershgorin witness rejects; a separate
+positive-form criterion needs derivation/tests and a frozen selection. Exterior
+matching and B2 remain missing. No bound endpoint, branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain/roles remain unchanged; the handoff bounds the next stage.
 This disposition and the handoff govern current local work; earlier affinity-only

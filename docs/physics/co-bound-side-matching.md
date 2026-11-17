@@ -126,6 +126,34 @@ is inconclusive, including for positive matrices that are not diagonally dominan
 The witness covers only the supplied finite-channel native multipole operator;
 it adds no polarization tail or omitted-channel/electronic error bound.
 
+An explicitly selected alternative, `positive_exterior_witness`, tests the same
+two endpoint matrices without requiring diagonal dominance. It does not replace
+or automatically retry the Gershgorin API. For each symmetric endpoint B, compute
+a full real eigendecomposition `(Q, lambda)` and reconstruct
+
+    R = B - Q diag(lambda) Q.T,
+    delta = ||Q.T Q - I||_infinity,
+    rho = max(||R||_infinity, ||R||_1).
+
+If `lambda_min>0` and `delta<1`, the square Q is nonsingular and
+`lambda_min(Q diag(lambda) Q.T) >= lambda_min*(1-delta)`. The spectral norm of R
+is at most `sqrt(||R||_1 ||R||_infinity) <= rho`. Thus, in exact arithmetic,
+
+    lambda_min(B) >= lambda_min*(1-delta) - rho.
+
+Require this lower bound to exceed a floating safety allowance based on
+uncancelled input and reconstruction row scales, and report all terms. Zero or
+unresolved margins reject rather than inheriting the free-zero exception of the
+Gershgorin API. This is an algebraic positive-form test with numerical padding,
+**not interval-certified roundoff**. Small individual eigenpair residuals alone
+do not certify the full minimum eigenvalue; the full reconstruction and
+orthogonality defects matter. Convexity then gives positive B(1/r) and the same
+nonnegative exterior form needed for detached-Neumann D/N ordering. Negative or
+inconclusive endpoints stop this criterion; no model term or tolerance is changed.
+Analytic rotated spectra, non-diagonally-dominant positive matrices, corrupted
+decompositions and explicit full-channel synthetic controls test this alternative.
+Its availability does not release a molecular calculation.
+
 Analytic tanh/coth and modified-Bessel controls, independent second-order coupled
 collocation, three-level tolerance/radius refinements and a shallow finite-inner
 well test exercise these APIs. D/N ordering is an exact quadratic-form statement,

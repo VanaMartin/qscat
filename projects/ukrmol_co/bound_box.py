@@ -72,6 +72,63 @@ def nonnegative_exterior_witness(thresholds_rydberg, c2, c3, radius_bohr, *, cap
     )
 
 
+def positive_exterior_witness(thresholds_rydberg, c2, c3, radius_bohr, *, caps=_DEFAULT_CAPS):
+    """Explicit positive-form endpoint test, not a Gershgorin fallback.
+
+    Full reconstruction and orthogonality defects pad the computed spectrum.
+    The resulting safety margin is not interval-certified roundoff. Rejection
+    says nothing about binding or actual exterior negativity.
+    """
+    started = monotonic()
+    thresholds, c2, c3, radius = _exterior_inputs(thresholds_rydberg, c2, c3, radius_bohr, caps)
+    n = len(thresholds)
+    base = radius**2 * np.diag(thresholds) + c2
+    input_scale = radius**2 * np.diag(thresholds) + abs(c2) + abs(c3) / radius
+    endpoints = []
+    for matrix in [base, base + c3 / radius]:
+        if monotonic() - started >= caps.timeout_seconds:
+            raise TimeoutError("Positive-form witness time cap reached")
+        if not np.isfinite(matrix).all():
+            raise ValueError("Positive-form witness matrix is nonfinite")
+        values, vectors = np.linalg.eigh(matrix)
+        reconstructed = (vectors * values) @ vectors.T
+        residual = matrix - reconstructed
+        orthogonality = float(np.linalg.norm(vectors.T @ vectors - np.eye(n), ord=np.inf))
+        residual_bound = float(
+            max(np.linalg.norm(residual, ord=1), np.linalg.norm(residual, ord=np.inf))
+        )
+        scale = float(np.max(np.sum(input_scale + abs(reconstructed), axis=1)))
+        allowance = 64 * (n + 1) * np.finfo(float).eps * scale
+        lower = float(values[0]) * (1 - orthogonality) - residual_bound
+        if (
+            not np.isfinite([values[0], orthogonality, residual_bound, lower, allowance]).all()
+            or values[0] <= 0
+            or orthogonality >= 1
+            or lower <= allowance
+        ):
+            raise ValueError("Positive exterior not established by positive-form endpoint test")
+        endpoints.append(
+            dict(
+                minimum_eigenvalue=float(values[0]),
+                orthogonality_bound=orthogonality,
+                reconstruction_residual_bound=residual_bound,
+                floating_safety_allowance=allowance,
+                positive_lower_bound=lower - allowance,
+            )
+        )
+    if monotonic() - started >= caps.timeout_seconds:
+        raise TimeoutError("Positive-form witness time cap reached")
+    return dict(
+        nonnegative_established=True,
+        criterion="positive-form-endpoints",
+        radius_bohr=radius,
+        endpoints=endpoints,
+        roundoff_certified=False,
+        scope="Sufficient finite-input algebraic witness, not an electronic or ODE error bound",
+        wall_seconds=monotonic() - started,
+    )
+
+
 def finite_box_dtn(
     incident_hartree,
     thresholds_rydberg,

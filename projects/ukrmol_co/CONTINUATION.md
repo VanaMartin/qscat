@@ -12,8 +12,10 @@ scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
-qualify, and the native 48-target/property bundle now also qualifies. Only the
-continuum/B1 boundary owner is active under its tested release.** The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
+qualify, together with the native targets/properties and continuum/B1 boundary.
+No owner is active; no R=3.0 bound/resonance endpoint yet qualifies.** The
+[B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
+passes remote/local/fresh-public raw replay. The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
 passes remote/local/fresh-public raw reading, with original collector failure
 and contained-link metadata preserved. The [reference result](https://data.qscat.org/co-crossing-r3000-reference-result-20261117/assessment.1f0b98b55f3d.md)
 passes remote/local/fresh-public saved reading. The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
@@ -379,17 +381,24 @@ public replay. The collector's separate link rejection happened before archive
 creation; bounded recovery archived verified contained payloads plus original
 link metadata, changing no run data and repeating no science.
 
-**Continue preparation, one bounded next deliverable:** freeze only missing own
-R=3.0 continuum integrals and the B1 2048-root boundary. Reuse qualified targets/
-properties/QC/references and geometry-independent CSFs, not old-frame integrals.
-Actual target-consumer phase/integral equivalence must pass before B1 allocation.
-Science7200s/reader600s/owner7920s apply in the
-[B1 boundary release](https://data.qscat.org/co-crossing-r3000-b1-boundary-release-20261117/decision.e8b4f70a4ef7.md).
-Engine/client/saved-layout/closed-loader/decoder/actual-owner controls and public
-authentication pass. The absolute deadline is unchanged; no expired historical
-boundary clock is reused and no B2 or exterior map is yet released. Same
-four cores/32 GiB and absolute deadline apply; no
-third geometry, model/basis/root/channel ladder, refit or automatic successor.
-Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
-protections and accepted development/validation roles are unchanged. The
-[catalogue](experiments.md) preserves both original failures and exact records.
+Own continuum/B1 boundary now qualifies: all six native/consumer exits0,
+27818 dimensions/2048 roots/298 channels, residual1.2144e-10Ha; about5028s
+science wall/20087CPU-s. Independent raw and fresh-public replay passes. Saved
+inner spectrum has one negative level, -0.01231571974Ha. That is not proof of
+binding: decaying matching, numerical sign uncertainty, localization and state
+witnesses remain missing. The original sufficient Gershgorin exterior check
+rejects; positive endpoint eigenvalues are separate diagnostics, not a relabelled
+pass. The failed radius-field saved-reader wrapper and rejection are preserved.
+
+**Redirect preparation, one bounded next deliverable:** derive/test an explicitly
+selected positive-form endpoint criterion, then freeze one B1 all-closed matching
+attempt with D/N controls and localization/state checks using the accepted D/W.
+Implementation cap45min from20:54UTC; no molecular ODE/root before its own tested
+full-size caps, frozen selection/uncertainty/owner and public authentication.
+The default Gershgorin behavior and all accuracy budgets stay unchanged. This is
+the shortest test of binding sign, not another input-acquisition stage. Failure
+stops for reassessment; B2 remains unreleased until B1 evidence justifies it.
+Same four cores/32 GiB and absolute deadline; no third geometry, model/basis/root/
+channel ladder, refit, successful-stage repeat or automatic successor. All
+protections and development/validation roles remain unchanged; the
+[catalogue](experiments.md) preserves original failures and exact records.
