@@ -10,12 +10,12 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the separately frozen joint-domain B1 attempt is ready for
-bounded execution.** The
-[release](https://data.qscat.org/co-crossing-r2800-b1-jointdomain-release-20261117/decision.cfe43ff1d0de.md)
-passes joint exposure/dual-transport, analytic/BVP and actual-owner controls;
-exact public bytes authenticate. The first angle-only attempt stopped at its
-real-axis flux gate. Its
+**Current decision: joint-domain real controls qualify, but the original seeded
+local search stopped at its frozen box; no owner is active.** The
+[terminal assessment](https://data.qscat.org/co-crossing-r2800-b1-jointdomain-result-20261117/assessment.718fac37cf51.md)
+preserves sixteen successful exposed complex maps, passing new native/real
+controls and the nonzero search stop. No root qualifies. The first angle-only
+attempt stopped at its real-axis flux gate. Its
 [authenticated assessment](https://data.qscat.org/co-crossing-r2800-b1-angle50-result-20261117/assessment.227fb29a1c88.md)
 preserves the failure before any complex map. Saved Y agrees with the earlier
 passing maps, but the full Jost-amplitude identity fails. The fresh authorized
@@ -280,15 +280,20 @@ The existing exact dual-transport control explains why outgoing exposure alone
 does not suppress finite-tail contamination in amplitude rows. A change of
 amplitude variables alone cannot remove that finite-tail error.
 
-The bounded next deliverable is the separately frozen joint-domain attempt: require both
-outgoing exposure and asymptotic closed-dual attenuation across the box; select
-real guards inside that same low-energy regime, using only two new native real
-energies rather than repeating accepted ones. Retain the original seeds/box,
-electronic model, kernels and all accuracy/residue/character gates. Its release
-uses50/55-degree contours and two new real energies0.01/0.04Ry, with fresh
-grid-control IDs0/1, not reassigned historical rows. It adds no QC/inner repeat.
-The900s science/300s reader/1320s owner caps and first-failure stop apply.
-No B2 or second geometry is released.
+The joint-domain attempt resolves the real-control blocker: both new native
+energies0.01/0.04Ry and all four50/55-degree maps pass unchanged gates. Reuse these
+exact controls, not another R_SOLVE. Its sixteen complex maps are exposed, but
+the local Newton direction eventually leaves the box under every permitted
+backtrack. This is a seed/localization failure, not resonance absence.
+
+**Continue preparation only:** a saved fixed-exterior spectral review supplies
+a state-relevant seed independently reproduced through raw boundary matching.
+It is not the nonlinear pole or a unique N+1 identity. The bounded next deliverable
+is one separately frozen seed-based qualification attempt, with unchanged box,
+50/55-degree settings, kernels and all numerical/character budgets, reusing the
+accepted native/real controls. The900s science/300s reader/1320s owner caps and
+first-failure stop remain; public exact-source/seed/owner authentication precedes
+launch. No B2 or second geometry is released.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
