@@ -10,8 +10,12 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: joint-domain real controls qualify, but the original seeded
-local search stopped at its frozen box; no owner is active.** The
+**Current decision: one separately frozen saved-spectral-seed B1 attempt is ready
+for bounded execution.** Its
+[release](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-release-20261117/decision.ae125ac09e92.md)
+authenticates the independently reproduced seed, exact native/real-control reuse,
+joint-domain and actual-owner controls. The original seeded local search stopped
+at its frozen box. The
 [terminal assessment](https://data.qscat.org/co-crossing-r2800-b1-jointdomain-result-20261117/assessment.718fac37cf51.md)
 preserves sixteen successful exposed complex maps, passing new native/real
 controls and the nonzero search stop. No root qualifies. The first angle-only
@@ -286,14 +290,15 @@ exact controls, not another R_SOLVE. Its sixteen complex maps are exposed, but
 the local Newton direction eventually leaves the box under every permitted
 backtrack. This is a seed/localization failure, not resonance absence.
 
-**Continue preparation only:** a saved fixed-exterior spectral review supplies
+**Continue within the new bounded release:** a saved fixed-exterior spectral review supplies
 a state-relevant seed independently reproduced through raw boundary matching.
 It is not the nonlinear pole or a unique N+1 identity. The bounded next deliverable
 is one separately frozen seed-based qualification attempt, with unchanged box,
 50/55-degree settings, kernels and all numerical/character budgets, reusing the
 accepted native/real controls. The900s science/300s reader/1320s owner caps and
-first-failure stop remain; public exact-source/seed/owner authentication precedes
-launch. No B2 or second geometry is released.
+first-failure stop remain; public exact-source/seed/owner authentication passes.
+No native/real map or successful QC stage is repeated. No B2 or second geometry
+is released.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
