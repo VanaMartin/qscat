@@ -12,7 +12,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; R=3.0 fixed-orbital completion converges CI but rejects unchanged-frame
-stationarity. No owner is active.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
+stationarity. A separate three-macro corrective release is ready for bounded
+execution.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
 QC bundle. The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
@@ -357,7 +358,10 @@ macros from the exact saved frame with the now-qualified spin1 numerical route,
 reusing RHF/CI vectors, not restarting SCF or repeating fifteen completed macros.
 The prior stationarity report cannot be inherited as a pass. Fresh CI/action/spin,
 actual recomputed gradient/occupation and independent export gates must qualify
-the corrected frame under a separate frozen source/owner/public release. Same
+the corrected frame under the [separate corrective release](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-release-20261117/decision.e2e612bbe7d5.md).
+Exact expanded-source/initial-CI/RHF energy-residual controls, generated gradient
+and actual-owner controls pass; fresh public bytes authenticate. At most three
+new macros, science1800s/reader600s/owner2520s; no SCF restart. Same
 four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
