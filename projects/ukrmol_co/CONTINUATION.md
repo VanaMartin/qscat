@@ -11,8 +11,8 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; its original conditional R=3.0 QC-only release is ready for bounded
-execution.** The
+qualifies; its original conditional R=3.0 QC-only owner is active under the
+tested bounded release.** The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
 passes original gates and remote/local/fresh-public saved reconstruction.
 It is a resonance-side endpoint, not a bound endpoint, branch bracket or fit
