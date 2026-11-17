@@ -10,8 +10,12 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the fresh angle-only attempt stopped at its first real-axis
-flux gate; no owner is active.** Its
+**Current decision: the separately frozen joint-domain B1 attempt is ready for
+bounded execution.** The
+[release](https://data.qscat.org/co-crossing-r2800-b1-jointdomain-release-20261117/decision.cfe43ff1d0de.md)
+passes joint exposure/dual-transport, analytic/BVP and actual-owner controls;
+exact public bytes authenticate. The first angle-only attempt stopped at its
+real-axis flux gate. Its
 [authenticated assessment](https://data.qscat.org/co-crossing-r2800-b1-angle50-result-20261117/assessment.227fb29a1c88.md)
 preserves the failure before any complex map. Saved Y agrees with the earlier
 passing maps, but the full Jost-amplitude identity fails. The fresh authorized
@@ -276,13 +280,15 @@ The existing exact dual-transport control explains why outgoing exposure alone
 does not suppress finite-tail contamination in amplitude rows. A change of
 amplitude variables alone cannot remove that finite-tail error.
 
-One bounded next deliverable is a separate joint-domain release: require both
+The bounded next deliverable is the separately frozen joint-domain attempt: require both
 outgoing exposure and asymptotic closed-dual attenuation across the box; select
 real guards inside that same low-energy regime, using only two new native real
 energies rather than repeating accepted ones. Retain the original seeds/box,
-electronic model, kernels and all accuracy/residue/character gates. New execution
-still requires a frozen external card, analytic/BVP/domain and actual-owner
-controls and public authentication. No B2 or second geometry is released.
+electronic model, kernels and all accuracy/residue/character gates. Its release
+uses50/55-degree contours and two new real energies0.01/0.04Ry, with fresh
+grid-control IDs0/1, not reassigned historical rows. It adds no QC/inner repeat.
+The900s science/300s reader/1320s owner caps and first-failure stop apply.
+No B2 or second geometry is released.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
