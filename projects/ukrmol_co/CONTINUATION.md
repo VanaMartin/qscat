@@ -11,7 +11,7 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 B1 finite-model resonance qualifies; the
-missing-only B2 boundary release is ready for bounded execution.** The
+missing-only B2 boundary owner is active under its bounded release.** The
 [authenticated result](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-result-20261117/assessment.4f7040434bdf.md)
 passes original numerical/isolation/residue/Π-character gates and remote/local/
 fresh-public saved reconstruction. It is one component, not a qualified pair,
@@ -309,6 +309,11 @@ reader600s,owner7920s remain inside the same fresh absolute ceiling. The
 passes saved layout, engine/client/runtime, generated decoder and actual-owner
 first-B2-failure controls; exact public bytes authenticate. No continuum/target/
 QC/B1 repeat, automatic B2 outgoing or second geometry is released.
+The [public replay and initial-allocation receipt](https://data.qscat.org/co-crossing-reopening-verification-20261117/verification.368051ab68cf.json)
+preserves both new failures, independent fresh-public B1 reconstruction and actual
+B2 four-core/32-GiB launch checks; it claims no terminal B2 result. Assess the
+native boundary and independent raw reader at its terminal event before releasing
+any outgoing counterpart work.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
