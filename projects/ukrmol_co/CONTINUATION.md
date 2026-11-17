@@ -12,7 +12,7 @@ scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; the separately corrected R=3.0 QC bundle now qualifies. No owner is
-active.** The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
+active; the separate reference-only release is ready for bounded execution.** The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
 passes new-frame action/stationarity and remote/local/fresh-public saved reading.
 It is not an endpoint or crossing bracket. The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
@@ -365,8 +365,12 @@ needs its own frame-specific references, integrals and native data.
 sixteen twelve-root fixed-orbital probes at spaces160/240 on that corrected frame.
 They test lowest-root/action/spin/projection coverage and ground dipole, not a
 resonance or bound endpoint. Reuse exact qualified QC; no QC/SCF/optimizer repeat.
-Proposed science2400s/reader600s/owner3120s needs its own tested source/owner and
-fresh public release before launch. Same
+Science2400s/reader600s/owner3120s apply. The
+[reference-only release](https://data.qscat.org/co-crossing-r3000-reference-release-20261117/decision.37a2fdd3543c.md)
+passes strict six-file QC authentication, unchanged recipe/runtime/owner and
+first-probe failure controls, with exact public authentication. Its additive
+metadata note distinguishes historical seed/container fields from the actual
+command and corrected QC manifest; no old record or clock is edited. Same
 four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
