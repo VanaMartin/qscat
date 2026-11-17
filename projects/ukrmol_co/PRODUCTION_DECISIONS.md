@@ -36,8 +36,10 @@ the [current handoff](CONTINUATION.md) does not enlarge the delivered fit's scop
 no further acquisition, refit, other cleanup or merge follows from unused time.
 That original bounded pilot stopped INCONCLUSIVE at its first contour-domain search
 qualification failure. A fresh explicit user window now permits the separately
-frozen angle-only reopening in the handoff; the original failure and accepted
-local domain remain unchanged. No endpoint beyond R=2.5 is yet qualified.
+frozen reopening in the handoff. Its first angle-only attempt also stopped before
+search at a full-flux guard; joint exposure/dual-transport reassessment remains
+bounded by that fresh window. Both failures and the accepted local domain remain
+unchanged. No endpoint beyond R=2.5 is yet qualified.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 

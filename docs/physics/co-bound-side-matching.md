@@ -170,6 +170,28 @@ That rejection qualifies neither a root nor absence of a resonance. Revising the
 domain, angle or seed after a frozen first-failure stop requires a separate
 experiment decision; it is not grounds to remove the exposure guard.
 
+Exposure alone also does not control **inverse-Jost row contamination**. The
+[exact dual-transport control](inverse-jost-dual-transport-control.md) distinguishes
+outgoing-subspace decay from backward attenuation of an unwanted closed dual in
+an open row. With native radial energy `E=x-i eta`, write the ground-open momentum
+`k_o=a-i b` and a closed momentum `k_c=-c+i d`, where all four quantities are
+nonnegative. Since `a*b=c*d=eta/2`,
+
+    Im(exp(i theta) (k_c-k_o)) = (d+b) (cos(theta) - a/d sin(theta)).
+
+A positive value damps that asymptotic relative error during backward transport;
+a negative one amplifies it. This is a sensitivity test, not an error bound on
+the coupled tail. For a whole rectangle `0<x0<=x<=x1`, `0<=eta<=eta1` below the
+lowest closed threshold `T`, sufficient bounds are
+`a<=sqrt((sqrt(x1*x1+eta1*eta1)+x1)/2)` and `d>=sqrt(T-x1)`.
+Thus `sqrt(T-x1)*cos(theta)-a_max*sin(theta)>0` is a conservative joint-domain
+condition, alongside outgoing exposure. Apply it separately to the actual
+real-axis controls and every complex-amplitude evaluation. A contour suitable
+for a low-energy pole need not be suitable for higher-energy real controls.
+An exponential change of amplitude variables cannot remove finite-tail
+contamination already present in the initial data. Keep the full flux/Wronskian
+gates, including closed columns; never project or whiten them into agreement.
+
     decaying_dtn(incident_hartree, thresholds_rydberg, c2, c3, radius_bohr,
                  *, endpoint_bohr, tail_order=8, rtol=1e-11, caps=...)
     find_bound_state(poles_hartree, amplitudes, ground_hartree,

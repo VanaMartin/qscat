@@ -10,12 +10,12 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: a fresh user-authorized window reopens the stopped crossing
-pilot with one bounded, angle-only B1 attempt.** The
-[new release](https://data.qscat.org/co-crossing-r2800-b1-angle50-release-20261117/decision.9d065aaef475.md)
-reuses accepted R=2.8 inputs and native real-axis results. Whole-box exposure,
-analytic/BVP and actual-owner controls pass; exact public bytes authenticate.
-No new endpoint is yet qualified. The original failure remains INCONCLUSIVE.
+**Current decision: the fresh angle-only attempt stopped at its first real-axis
+flux gate; no owner is active.** Its
+[authenticated assessment](https://data.qscat.org/co-crossing-r2800-b1-angle50-result-20261117/assessment.227fb29a1c88.md)
+preserves the failure before any complex map. Saved Y agrees with the earlier
+passing maps, but the full Jost-amplitude identity fails. The fresh authorized
+window permits reassessment, not an automatic retry. No new endpoint qualifies.
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -268,15 +268,21 @@ of **18 November 2026, 05:44:25 UTC**; historical molecular/boundary clocks abov
 remain original evidence, not the new owner's deadline. This is not permission
 to change electronic models, repeat accepted stages or enlarge the delivered fit.
 
-**Continue:** attempt only the missing R=2.8 B1 resonance qualification using
-50/60-degree contours, unchanged seeds/box/kernels/budgets and exact reused native
-K/boundary inputs. Analytic momentum bounds cover the entire closed search box
-for every actual threshold; generated exact/BVP controls qualify the new angles,
-not a molecular endpoint. Four new angle-specific real-map comparisons precede
-the unchanged root/refinement/residue/character gates and saved-only reading.
-Four physical cores/32 GiB, science900s, reader300s, owner1320s and first-failure
-stop bound this attempt. No B2, second geometry or automatic retry is released.
-Assess evidence/cost at its terminal event; a different approach requires a
-separate frozen decision inside the same fresh ceiling. All protections and
-accepted development/validation roles remain unchanged. The
-[catalogue](experiments.md) identifies exact source, inputs and tested owner.
+**Redirect:** the first angle-only attempt spent about10s of science and stopped
+before searching. Independent raw/saved reading and public authentication confirm
+the failed flux gate, passing S/phase and unchanged inputs; no accepted native/QC
+stage was repeated. This is numerical-method evidence, not sweep progress.
+The existing exact dual-transport control explains why outgoing exposure alone
+does not suppress finite-tail contamination in amplitude rows. A change of
+amplitude variables alone cannot remove that finite-tail error.
+
+One bounded next deliverable is a separate joint-domain release: require both
+outgoing exposure and asymptotic closed-dual attenuation across the box; select
+real guards inside that same low-energy regime, using only two new native real
+energies rather than repeating accepted ones. Retain the original seeds/box,
+electronic model, kernels and all accuracy/residue/character gates. New execution
+still requires a frozen external card, analytic/BVP/domain and actual-owner
+controls and public authentication. No B2 or second geometry is released.
+Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
+protections and accepted development/validation roles are unchanged. The
+[catalogue](experiments.md) preserves both original failures and exact records.
