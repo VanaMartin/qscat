@@ -90,6 +90,67 @@ def test_p_wave_decaying_log_derivative(energy, record_property):
     record_property("tolerance_errors", json.dumps(errors))
 
 
+def test_direct_log_tail_three_orders_against_exact_p_wave():
+    e, radius = -0.02, 2.0
+    k = np.sqrt(-2 * e)
+    exact = -k - 1 / (radius * (k * radius + 1))
+    errors = []
+    for order in [4, 8, 12]:
+        y, d = decaying_dtn(
+            e,
+            [0],
+            [[2]],
+            [[0]],
+            radius,
+            endpoint_bohr=20,
+            tail_order=order,
+            tail_representation="log-derivative",
+            rtol=1e-12,
+        )
+        errors.append(abs(y[0, 0] - exact))
+        assert d["initial_transpose_defect"] == 0 and d["tail_representation"] == "log-derivative"
+    assert errors[-1] < errors[1] < errors[0] and errors[-1] < 1e-10
+
+
+def test_log_tail_rejects_unknown_representation_and_unresolved_branch():
+    with pytest.raises(ValueError, match="representation"):
+        decaying_dtn(-0.02, [0], [[2]], [[0]], 2, endpoint_bohr=20, tail_representation="fallback")
+    with pytest.raises(ValueError, match="branch"):
+        decaying_dtn(
+            -0.02,
+            [0],
+            [[-100]],
+            [[0]],
+            2,
+            endpoint_bohr=3,
+            tail_order=2,
+            tail_representation="log-derivative",
+        )
+
+
+def test_log_tail_coupled_independent_bvp_and_three_endpoints():
+    thresholds = np.array([0.0, 0.3])
+    c2 = np.array([[2.0, 0.25], [0.25, 6.0]])
+    c3 = np.array([[0.1, 0.07], [0.07, -0.15]])
+    expected = bvp_dtn(-0.0001, thresholds, c2, c3, 2.0, 2000.0)
+    errors = []
+    for endpoint, order, tolerance in [(60, 6, 1e-8), (120, 8, 1e-10), (240, 10, 1e-12)]:
+        y, d = decaying_dtn(
+            -0.0001,
+            thresholds,
+            c2,
+            c3,
+            2.0,
+            endpoint_bohr=endpoint,
+            tail_order=order,
+            tail_representation="log-derivative",
+            rtol=tolerance,
+        )
+        errors.append(float(np.max(abs(y - expected))))
+        assert d["transpose_defect"] < 1e-10
+    assert errors[-1] < errors[0] and errors[-1] < 1e-9
+
+
 def bvp_dtn(energy, thresholds, c2, c3, radius, endpoint):
     """Independent second-order equation with leading Robin data far away."""
     n = len(thresholds)

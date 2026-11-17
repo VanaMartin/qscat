@@ -235,6 +235,30 @@ code, not that code's sheet/angle interface. It rejects nonnegative/complex
 incident energies, invalid dimensions/symmetry, unresolved tail/DtN charts and
 time/RHS exhaustion. No projection repairs a failed symmetry check.
 
+The default `tail_representation="fundamental"` retains that original recurrence
+and behavior. An explicitly selected `"log-derivative"` alternative instead
+expands the physical-sheet Riccati solution directly:
+
+    Y(r) = -K + sum_(q=1)^N A_q/r^q,    K=diag(kappa), A_0=-K,
+    (kappa_i+kappa_j) (A_q)_ij = [-(q-1) A_(q-1) - V_q
+                                      + sum_(p=1)^(q-1) A_p A_(q-p)]_ij,
+    V_2=C2, V_3=C3, otherwise V_q=0.
+
+This follows by equating powers in `Y'=K^2+C2/r^2+C3/r^3-Y^2`; in particular
+`A_1=0` and `A_2,ij=-C2_ij/(kappa_i+kappa_j)`. Coefficients are symmetric in
+exact arithmetic because each product is paired with its transpose. The code
+does not symmetrize coefficients, initial data or the propagated result: raw
+symmetry checks still apply. It additionally requires a negative-definite initial
+Y to resolve the decaying branch. Neither construction repairs a previously
+failed map. A new choice needs its own frozen endpoint/order/tolerance family.
+
+Unlike the free p-wave fundamental solution, whose inverse-r series terminates,
+its logarithmic derivative has an infinite expansion. Low kappa*R or excessively
+high orders may therefore be poor initial data. Move to prospectively justified
+farther endpoints and test convergence; the last term is not a tail enclosure.
+Analytic free/p-wave and independent second-order coupled BVP comparisons, with
+three orders/endpoints, qualify the alternative only in their tested regimes.
+
 `find_bound_state` brackets one prospectively selected **ordered eigenvalue**
 of F using Brent's method. It checks the raw matrix residual, local isolation,
 unchanged inner inputs and identical-energy map replay. It returns the energy,

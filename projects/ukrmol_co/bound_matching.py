@@ -58,6 +58,25 @@ def _symmetric(matrix, name):
         raise ValueError(f"{name} must be real symmetric within numerical tolerance")
 
 
+def _riccati_tail(kappa, c2, c3, endpoint, order):
+    """Expand Y itself; no projection of a propagated or fundamental-series map."""
+    coefficients = [-np.diag(kappa)]
+    denominator = kappa[:, None] + kappa[None, :]
+    for q in range(1, order + 1):
+        forcing = c2 if q == 2 else c3 if q == 3 else np.zeros_like(c2)
+        products = sum(
+            (coefficients[p] @ coefficients[q - p] for p in range(1, q)),
+            start=np.zeros_like(c2),
+        )
+        coefficients.append((-(q - 1) * coefficients[q - 1] - forcing + products) / denominator)
+    terms = np.asarray(coefficients) * endpoint ** -np.arange(order + 1, dtype=float)[:, None, None]
+    initial = np.sum(terms, axis=0)
+    _symmetric(initial, "Log-derivative tail")
+    if np.linalg.eigvalsh(initial)[-1] >= 0:
+        raise ValueError("Log-derivative tail does not resolve the negative decaying branch")
+    return initial, float(np.linalg.norm(terms[-1]))
+
+
 def decaying_dtn(
     incident_hartree,
     thresholds_rydberg,
@@ -67,6 +86,7 @@ def decaying_dtn(
     *,
     endpoint_bohr,
     tail_order=8,
+    tail_representation="fundamental",
     rtol=1e-11,
     caps=_DEFAULT_CAPS,
 ):
@@ -96,15 +116,23 @@ def decaying_dtn(
     if type(tail_order) is not int or not 0 <= tail_order <= 16:
         raise ValueError("Tail order must be an integer from zero through sixteen")
     kappa = np.sqrt(thresholds - 2 * energy)
-    coefficients = _tail_series(thresholds, c2, c3, -kappa, tail_order).real
-    powers = endpoint ** -np.arange(tail_order + 1, dtype=float)
-    series = np.einsum("p,pij->ij", powers, coefficients)
-    derivative = -np.einsum(
-        "p,pij->ij", np.arange(tail_order + 1) * powers / endpoint, coefficients
-    )
-    if not np.isfinite(series).all() or np.linalg.cond(series) > 1e10:
-        raise ValueError("Singular or unresolved decaying tail chart")
-    initial = solve(series.T, (derivative - series * kappa).T).T
+    if tail_representation == "fundamental":
+        coefficients = _tail_series(thresholds, c2, c3, -kappa, tail_order).real
+        powers = endpoint ** -np.arange(tail_order + 1, dtype=float)
+        series = np.einsum("p,pij->ij", powers, coefficients)
+        derivative = -np.einsum(
+            "p,pij->ij", np.arange(tail_order + 1) * powers / endpoint, coefficients
+        )
+        if not np.isfinite(series).all() or np.linalg.cond(series) > 1e10:
+            raise ValueError("Singular or unresolved decaying tail chart")
+        initial = solve(series.T, (derivative - series * kappa).T).T
+        last_term = float(np.linalg.norm(coefficients[-1] * powers[-1]))
+    elif tail_representation == "log-derivative":
+        initial, last_term = _riccati_tail(kappa, c2, c3, endpoint, tail_order)
+    else:
+        raise ValueError(
+            "An explicit fundamental or log-derivative tail representation is required"
+        )
     diagonal = np.diag(thresholds - 2 * energy)
     calls = 0
 
@@ -144,7 +172,9 @@ def decaying_dtn(
         transpose_defect=float(np.max(abs(y - y.T))),
         endpoint_bohr=float(endpoint),
         tail_order=tail_order,
-        tail_last_term_norm=float(np.linalg.norm(coefficients[-1] * powers[-1])),
+        tail_representation=tail_representation,
+        initial_transpose_defect=float(np.max(abs(initial - initial.T))),
+        tail_last_term_norm=last_term,
         total_error_bound=None,
     )
 
