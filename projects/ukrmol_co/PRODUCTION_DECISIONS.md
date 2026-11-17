@@ -46,8 +46,10 @@ giving a compatible finite-model resonance endpoint pair at R=2.8 outside the
 delivered fit's domain. The original conditional second node is therefore R=3.0,
 starting with a separately frozen QC-only release. That ordinary QC stops at
 singlet B1/B2 CI nonconvergence despite reported orbital convergence; no target
-bundle or downstream stage qualifies. The handoff bounds fixed-orbital review,
-not an automatic optimizer restart. No bound endpoint, branch
+bundle or downstream stage qualifies. Fixed-orbital spin1 completion then converges
+all CI sectors but rejects unchanged-frame gradient/occupation gates. The handoff
+bounds assessment of a small corrective refinement, not an automatic optimizer
+restart or gate relaxation. No bound endpoint, branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain/roles remain unchanged; the handoff bounds the next stage.
 This disposition and the handoff govern current local work; earlier affinity-only

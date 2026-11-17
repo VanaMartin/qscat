@@ -11,8 +11,8 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; R=3.0 ordinary QC stopped at singlet B1/B2 CI nonconvergence. A
-separate fixed-orbital completion release is ready for bounded execution.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
+qualifies; R=3.0 fixed-orbital completion converges CI but rejects unchanged-frame
+stationarity. No owner is active.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
 QC bundle. The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
@@ -344,13 +344,21 @@ using that exact checkpoint, no SCF or orbital optimization restart. The histori
 split recipe required all parent CI flags true and is not directly applicable.
 A changed CI driver must qualify physical/penalized action, spin, lowest roots
 and the actual equal-40 orbital gradient, preserving original false flags/exit1.
-The [separate completion release](https://data.qscat.org/co-crossing-r3000-cicompletion-v3-release-20261117/decision.92d3af418714.md)
-now passes synthetic spin/three-step gradient, runtime/frame and actual-owner
-first-failure controls, with exact public authentication. It uses five-root
-spin1 CI at unchanged space/cycle/tolerance caps and recomputes the equal-40
-gradient without any SCF or orbital optimization. Science3600s/reader600s/
-owner4320s; original false flags and both failed generated preflights remain
-separate immutable records in the release. Same four cores/32 GiB and absolute deadline apply; no
+The [fixed-frame result](https://data.qscat.org/co-crossing-r3000-cicompletion-v3-result-20261117/assessment.f6a89eed39ab.md)
+converges all eight five-root spin1 sectors at unchanged caps, but the actual
+equal-40 gradient is1.49038e-7 and occupation error5.50903e-7, exceeding their
+unchanged1e-7 gates. Independent saved RDM/integral reconstruction confirms the
+gradient failure; eight CI arrays are reusable partials, not a qualified QC bundle.
+Science46.3s, no SCF or orbital optimization, original exit1/false flags and two
+failed generated preflights preserved. Export-only recovery is rejected.
+
+**Redirect, one bounded next deliverable:** assess at most three corrective orbital
+macros from the exact saved frame with the now-qualified spin1 numerical route,
+reusing RHF/CI vectors, not restarting SCF or repeating fifteen completed macros.
+The prior stationarity report cannot be inherited as a pass. Fresh CI/action/spin,
+actual recomputed gradient/occupation and independent export gates must qualify
+the corrected frame under a separate frozen source/owner/public release. Same
+four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
