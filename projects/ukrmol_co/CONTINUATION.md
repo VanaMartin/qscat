@@ -12,7 +12,7 @@ scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
-qualify. No owner is active.** The [reference result](https://data.qscat.org/co-crossing-r3000-reference-result-20261117/assessment.1f0b98b55f3d.md)
+qualify. The native 48-target/property release is ready for bounded execution.** The [reference result](https://data.qscat.org/co-crossing-r3000-reference-result-20261117/assessment.1f0b98b55f3d.md)
 passes remote/local/fresh-public saved reading. The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
 passes new-frame action/stationarity and remote/local/fresh-public saved reading.
 It is not an endpoint or crossing bracket. The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
@@ -372,9 +372,10 @@ not a resonance or bound endpoint.
 **Continue preparation, one bounded next deliverable:** freeze only missing own
 R=3.0 thirteen-MO integrals, eight native target sectors and 48-target properties.
 Reuse qualified QC/references and geometry-independent CSFs, not old-frame
-integrals/properties/vectors. Proposed science7200s/reader600s/owner7920s needs
-native-input/runtime/decoder/no-QC-repeat/owner controls and exact public
-authentication before launch. No continuum/inner/outgoing allocation follows
+integrals/properties/vectors. Science7200s/reader600s/owner7920s apply in the
+[target-only release](https://data.qscat.org/co-crossing-r3000-target-release-20261117/decision.51e73e921d3b.md).
+Native-input/Molden-checkpoint/runtime/decoder/no-QC-repeat/actual-owner controls
+and exact public authentication pass. No continuum/inner/outgoing allocation follows
 automatically. Same
 four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
