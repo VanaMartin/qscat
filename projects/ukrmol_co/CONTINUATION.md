@@ -12,8 +12,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
-qualify, and the native 48-target/property bundle now also qualifies. No owner
-is active; the continuum/B1 boundary release is ready for bounded execution.** The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
+qualify, and the native 48-target/property bundle now also qualifies. Only the
+continuum/B1 boundary owner is active under its tested release.** The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
 passes remote/local/fresh-public raw reading, with original collector failure
 and contained-link metadata preserved. The [reference result](https://data.qscat.org/co-crossing-r3000-reference-result-20261117/assessment.1f0b98b55f3d.md)
 passes remote/local/fresh-public saved reading. The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
