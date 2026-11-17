@@ -13,8 +13,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
-The first B1 bound-side attempt stopped at its unchanged symmetry gate. No owner
-is active and no R=3.0 bound/resonance endpoint qualifies.** The
+The first B1 bound-side attempt stopped at its unchanged symmetry gate; a
+separate log-tail release is ready. No R=3.0 bound/resonance endpoint qualifies.** The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
 passes remote/local/fresh-public raw replay. The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
 passes remote/local/fresh-public raw reading, with original collector failure
@@ -405,6 +405,12 @@ and original numerical gates. This constructs an asymptotic Riccati solution;
 it must not symmetrize a failed map or inherit the failed root qualification.
 Implementation cap remains45min from20:54UTC; science7200s/reader600s/owner7920s
 still subject to the same absolute ceiling, not an automatic B2 release.
+The [explicit log-tail release](https://data.qscat.org/co-crossing-r3000-b1-logtail-release-20261117/decision.4edc3abca07a.md)
+now passes 71 local tests and pinned-runtime full298 free/p-wave/D/N, full2048
+generated root, norm quadrature, actual-owner and shallow coupled independent
+BVP convergence controls (errors1.04e-5/5.05e-9/6.98e-13). Public bytes authenticate.
+It selects endpoints240/360/540 and direct Riccati asymptotics without projection;
+all symmetry, interval/mode, numerical uncertainty and state gates are unchanged.
 The first preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
 initial free; cumulative20-GiB/10-GiB free-stop remain unchanged. No deletion or
