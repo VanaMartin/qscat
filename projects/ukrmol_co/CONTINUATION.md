@@ -11,8 +11,8 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; the separately corrected R=3.0 QC bundle now qualifies. No owner is
-active; the separate reference-only release is ready for bounded execution.** The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
+qualifies; the separately corrected R=3.0 QC bundle now qualifies. The separate
+reference-only owner is active under its tested release.** The [corrected result](https://data.qscat.org/co-crossing-r3000-orbitalcorrection-result-20261117/assessment.3d4a3fcd321d.md)
 passes new-frame action/stationarity and remote/local/fresh-public saved reading.
 It is not an endpoint or crossing bracket. The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
