@@ -59,11 +59,13 @@ positive-form criterion is derived/tested and explicitly selected. Exterior
 matching first stops at the unchanged fundamental-tail symmetry gate. A separate
 derived/tested direct-Riccati-tail calculation then qualifies a localized B1
 finite-model bound candidate, including D/N/norm/QF/trace controls and public
-replay. The missing-only B2 native boundary now also qualifies with public replay;
-its bound counterpart and pair comparison remain separately bounded in the handoff.
-No compatible bound pair, unique-branch
-bracket, fit extension or electronic accuracy follows. Failures and the accepted
-local domain/roles remain unchanged; the handoff bounds the next stage.
+replay. The missing-only B2 native boundary and separately frozen bound counterpart
+now also qualify, including same-R pair gates and independent public arithmetic.
+The scoped two-geometry finite-model pilot is complete: compatible positive
+resonance and negative localized-bound endpoint coverage, not strict unique-branch
+identity, crossing location, fit extension or electronic accuracy. Acquisition is
+stopped; no owner remains active. Failures and the accepted local domain/roles
+remain unchanged. Unused time releases no third geometry, refit, cleanup or merge.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 

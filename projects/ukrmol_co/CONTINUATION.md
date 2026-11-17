@@ -10,12 +10,17 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
-qualify, together with the native targets/properties and continuum/B1 boundary.
-The separately released log-tail calculation qualifies a localized B1 finite-model
-bound candidate at R=3.0; both native boundaries now qualify. The separate B2
-bound-counterpart/pair owner is active under its tested release.** The
+**Current decision: the scoped finite-model two-geometry pilot is complete;
+scientific acquisition is stopped and no owner is active.** The own R=2.8
+primary-CAS11 resonance pair and R=3.0 localized bound-candidate pair qualify.
+The [compatible bound-pair result](https://data.qscat.org/co-crossing-r3000-b2-bound-result-20261117/assessment.038491642ccd.md)
+passes all nine B2 witnesses, same-R counterpart gates and remote/local/fresh-public
+Q/F/norm/angular arithmetic. The
+[terminal verification](https://data.qscat.org/co-crossing-pilot-terminal-20261117/verification.a44cdc42efe2.json)
+authenticates public replay and confirms no owned scientific container remains
+active. This is endpoint coverage, not strict unique N+1 continuation, a continuous
+crossing location or electronic accuracy. The delivered 1.9–2.5 evaluator,
+coefficients and validation roles are unchanged. The
 [B2 native result](https://data.qscat.org/co-crossing-r3000-b2-boundary-v2-result-20261117/assessment.c50f0d9c004e.md)
 passes remote/local/fresh-public raw replay. The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
 passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
@@ -47,7 +52,8 @@ preserves the failure before any complex map. Saved Y agrees with the earlier
 passing maps, but the full Jost-amplitude identity fails. The fresh authorized
 window permits reassessment, not an automatic retry. Those original failures
 qualified no endpoint; the later R=2.8 pair above does qualify separately.
-Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
+Ten original local pairs qualify; the pilot endpoints are separate, not refit rows.
+Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
 packaged in the [delivery report](https://data.qscat.org/co-local-representation-delivery-20261115T2020/REPORT.641961a5eed3.md),
@@ -440,9 +446,9 @@ science4888s/19528CPU-s, independent remote/local/public raw replay. Accepted
 continuum/target/QC/B1 work was not repeated. Original pre-container resource stop
 and initial-observer assertion remain separate, not retrospective allocation passes.
 
-**Continue preparation, final bounded pilot deliverable:** freeze the missing B2
-all-closed counterpart using the accepted B1 method/family and exact B1 interval,
-then compare the same-R pair with accepted B1 evidence, not another B1 solve.
+**Final bounded pilot deliverable — now complete:** the separately frozen B2
+all-closed counterpart uses the accepted B1 method/family and exact B1 interval,
+then compares the same-R pair with accepted B1 evidence, not another B1 solve.
 Position/negative-interval/norm gates and permutation/phase-invariant angular
 trace profiles must pass. Preparation30min from23:12UTC; science7200s/reader600s/
 owner7920s within the same absolute ceiling. Numeric-only2-GiB new-run cap,
@@ -451,8 +457,9 @@ are copied into this matching capsule. Synthetic/runtime/owner and public
 authentication now pass in the
 [B2 counterpart release](https://data.qscat.org/co-crossing-r3000-b2-bound-release-20261117/decision.1d8c54fa07a3.md),
 including generated phase/permutation invariance and bad energy/profile rejection.
-PASS completes the scoped two-endpoint pilot,
-not strict unique-branch identity, crossing location, physical accuracy or a refit.
+All component/pair gates and independent fresh-public reconstruction now pass.
+The scoped two-endpoint pilot is complete, not strict unique-branch identity,
+crossing location, physical accuracy or a refit.
 
 The first bound preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
@@ -464,3 +471,21 @@ Same four cores/32 GiB and absolute deadline; no third geometry, model/basis/roo
 channel ladder, refit, successful-stage repeat or automatic successor. All
 protections and development/validation roles remain unchanged; the
 [catalogue](experiments.md) preserves original failures and exact records.
+
+## Terminal checkpoint — scoped endpoint coverage
+
+The compatible R=3.0 B1/B2 bound-candidate pair qualifies at about -0.334297838 eV
+relative to its own native neutral threshold. Both negative padded intervals,
+localization/trace witnesses and counterpart comparisons pass the original
+numerical budget; padding is not interval-certified ODE/electronic uncertainty.
+The earlier compatible R=2.8 positive resonance pair remains separate accepted
+finite-model evidence. No outgoing-width floor was used to manufacture binding.
+
+**STOP acquisition.** All owners ended before the unchanged18November05:44UTC
+ceiling. No third geometry, refit, new training row, global curve, merge, deletion
+or unrelated cleanup follows from unused time. The remaining strict state-continuation,
+crossing-location, electronic/reference/hybrid-joining and nuclear-dynamics
+questions require a distinct user scope decision, not an automatic next job.
+All 114 S holdouts, reserved equilibrium pole, original failures/partials/costs and
+eight-development/two-validation roles remain protected. The bounded next action
+is only to review the delivered endpoint evidence and choose any further scope.

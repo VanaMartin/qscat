@@ -1,12 +1,14 @@
-# Finite CO bound-side matching: synthetic Python prototype
+# Finite CO bound-side matching: project-stage Python prototype
 
 ## Purpose and scope
 
 Test for a normalizable fixed-nuclei N+1 state below the native neutral ground
 threshold using the same finite inner spectrum and closed-channel exterior as
 the local resonance calculation. The project-level Python prototype
-`projects.ukrmol_co.bound_matching` is tested on analytic/synthetic cases only;
-it is not a qualified molecular solver or promoted QSCAT capability. It does not
+`projects.ukrmol_co.bound_matching` has analytic/synthetic regression controls
+and separately frozen finite-CO applications in the
+[experiment catalogue](../../projects/ukrmol_co/experiments.md). The API alone
+is not a generally qualified molecular solver or promoted QSCAT capability. It does not
 establish electronic convergence, unique multi-R identity or attachment dynamics.
 The [local representation](co-results-and-rejected-routes.md#local-representations-accepted-scope)
 and its real-R domain remain unchanged.

@@ -161,6 +161,13 @@ qualified neutral coverage; separate MR endpoints cannot be spliced into the CC
 fit. Internuclear R is distinct from the electronic sphere radius a and exterior
 endpoint; changing one does not automatically justify changing the others.
 
+The separately bounded two-geometry pilot now supplies compatible finite-model
+resonance-side and localized bound-side endpoint pairs; see the
+[terminal handoff and evidence](CONTINUATION.md). That scoped pilot is complete
+and acquisition stopped. These endpoints do not prove unique N+1 continuation,
+locate a continuous crossing or extend the delivered evaluator. Further state/
+model/reference/joining questions need a distinct bounded scope decision.
+
 ## Validity gates by stage
 
 The operative checklist is [sweep readiness](SWEEP_READINESS.md):
@@ -186,8 +193,8 @@ lower-accuracy production or exploratory tier is silently adopted.
 The first-dataset milestones below are complete, not a current acquisition queue.
 Before any new task, name the distinct physical decision it can change; more
 interpolation points alone do not qualify electronic accuracy. Documentation
-integration and one saved-evidence pilot proposal are complete; proposal review,
-not execution, is the next scope decision.
+integration and the later separately released two-endpoint pilot are complete;
+the terminal handoff, not historical proposals, governs any next scope decision.
 
 | Order | Task | Completion test / bound |
 |---|---|---|
