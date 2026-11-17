@@ -10,12 +10,13 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: one separately frozen saved-spectral-seed B1 attempt is ready
-for bounded execution.** Its
-[release](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-release-20261117/decision.ae125ac09e92.md)
-authenticates the independently reproduced seed, exact native/real-control reuse,
-joint-domain and actual-owner controls. The original seeded local search stopped
-at its frozen box. The
+**Current decision: the own R=2.8 B1 finite-model resonance qualifies; B2 remains
+missing and no owner is active.** The
+[authenticated result](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-result-20261117/assessment.4f7040434bdf.md)
+passes original numerical/isolation/residue/Π-character gates and remote/local/
+fresh-public saved reconstruction. It is one component, not a qualified pair,
+crossing bracket or electronic-accuracy result. The original seeded local search
+stopped at its frozen box. The
 [terminal assessment](https://data.qscat.org/co-crossing-r2800-b1-jointdomain-result-20261117/assessment.718fac37cf51.md)
 preserves sixteen successful exposed complex maps, passing new native/real
 controls and the nonzero search stop. No root qualifies. The first angle-only
@@ -290,15 +291,22 @@ exact controls, not another R_SOLVE. Its sixteen complex maps are exposed, but
 the local Newton direction eventually leaves the box under every permitted
 backtrack. This is a seed/localization failure, not resonance absence.
 
-**Continue within the new bounded release:** a saved fixed-exterior spectral review supplies
-a state-relevant seed independently reproduced through raw boundary matching.
-It is not the nonlinear pole or a unique N+1 identity. The bounded next deliverable
-is one separately frozen seed-based qualification attempt, with unchanged box,
-50/55-degree settings, kernels and all numerical/character budgets, reusing the
-accepted native/real controls. The900s science/300s reader/1320s owner caps and
-first-failure stop remain; public exact-source/seed/owner authentication passes.
-No native/real map or successful QC stage is repeated. No B2 or second geometry
-is released.
+The independently reproduced fixed-exterior spectral seed resolves the local
+starting-point failure without changing the model, nonlinear kernels, box or
+budgets. The resulting B1 pole is **0.1079443434 eV**, full width **11.7460546 meV**,
+above its own neutral ground. All58complex maps and original qualification gates
+pass; same coordinates across settings do not imply zero uncertainty. Science
+costs about249s wall/544CPU-s, with no native/QC/real-map repeat. Independent
+saved-array reading shares exterior maps, not an independent physical oracle.
+
+**Continue preparation:** the missing-only own B2 boundary is now the shortest
+dependency to a compatible R=2.8 counterpart pair. Reuse qualified continuum
+integrals, target/property/transport/layout data and B1; freeze exactly one B2
+2048-root native solve and independent raw reader. Conditional cost uses the
+measured ownB1native4983s, not a guaranteed B2 forecast. Proposed hard science7200s,
+reader600s,owner7920s remain inside the same fresh absolute ceiling. A tested
+owner and exact public source/input release must precede launch; no automatic
+B2 outgoing or second geometry is released by the B1 result.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.

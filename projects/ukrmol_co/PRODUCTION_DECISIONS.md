@@ -39,9 +39,11 @@ qualification failure. A fresh explicit user window now permits the separately
 frozen reopening in the handoff. Its first angle-only attempt also stopped before
 search at a full-flux guard; joint exposure/dual-transport reassessment remains
 bounded by that fresh window. The later joint-domain real controls pass, while
-its original seed search stops at the box; saved spectral-seed reassessment in
-the handoff releases no automatic retry. Failures and the accepted local domain
-remain unchanged. No endpoint beyond R=2.5 is yet qualified.
+its original seed search stops at the box. A separately released saved-spectral
+seed now qualifies the own R=2.8 B1 finite-model resonance, including independent
+public replay. B2/counterpart qualification is still missing; no new pair, branch
+bracket, fit extension or electronic accuracy follows. Failures and the accepted
+local domain remain unchanged; the handoff bounds missing-only preparation.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 
