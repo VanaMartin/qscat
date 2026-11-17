@@ -13,8 +13,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
-The first B1 bound-side attempt stopped at its unchanged symmetry gate; a
-separate log-tail release is ready. No R=3.0 bound/resonance endpoint qualifies.** The
+The first B1 bound-side attempt stopped at its unchanged symmetry gate; the
+separate log-tail owner is now active. No R=3.0 bound/resonance endpoint qualifies.** The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
 passes remote/local/fresh-public raw replay. The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
 passes remote/local/fresh-public raw reading, with original collector failure
