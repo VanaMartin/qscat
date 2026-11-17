@@ -429,6 +429,11 @@ cap with the same24-GiB initial free,20-GiB cumulative pilot/10-GiB free-stop,
 four cores/32GiB and absolute deadline. Retain/count the failed preparation;
 no B2 scientific stage or successful peer is repeated. Original estimate omitted
 large CSF/preflight inputs and is explicitly rejected, not silently reclassified.
+The separate [resource-corrected B2 release](https://data.qscat.org/co-crossing-r3000-b2-boundary-v2-release-20261117/decision.e3598c85fb2b.md)
+now passes all original engine/client/layout/decoder/first-failure controls and
+fresh public authentication. It retains the failed preparation in cumulative
+usage, enforces4GiB only for this native run, and changes no science/accuracy cap.
+Ready for one missing B2 solve; matching still needs a separate release.
 The first preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
 initial free; cumulative20-GiB/10-GiB free-stop remain unchanged. No deletion or
