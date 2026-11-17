@@ -10,8 +10,8 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the own R=2.8 B1 finite-model resonance qualifies; the
-missing-only B2 boundary owner is active under its bounded release.** The
+**Current decision: own R=2.8 B1 resonance and both native boundaries qualify;
+the B2 outgoing counterpart is still missing and no owner is active.** The
 [authenticated result](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-result-20261117/assessment.4f7040434bdf.md)
 passes original numerical/isolation/residue/Π-character gates and remote/local/
 fresh-public saved reconstruction. It is one component, not a qualified pair,
@@ -311,9 +311,18 @@ first-B2-failure controls; exact public bytes authenticate. No continuum/target/
 QC/B1 repeat, automatic B2 outgoing or second geometry is released.
 The [public replay and initial-allocation receipt](https://data.qscat.org/co-crossing-reopening-verification-20261117/verification.368051ab68cf.json)
 preserves both new failures, independent fresh-public B1 reconstruction and actual
-B2 four-core/32-GiB launch checks; it claims no terminal B2 result. Assess the
-native boundary and independent raw reader at its terminal event before releasing
-any outgoing counterpart work.
+B2 four-core/32-GiB launch checks. The later
+[B2 native result](https://data.qscat.org/co-crossing-r2800-b2-boundary-result-20261117/assessment.4e3e6c417068.md)
+passes original native and remote/local raw gates: one new stage, no accepted
+integral/target/QC/B1 repeat, about5638s science wall. Original archive-collection
+timeout and bounded same-archiver recovery remain separate from scientific exits0.
+
+**Current bounded next deliverable:** freeze only missing B2 real/pole/residue/
+character/counterpart work, seeded by the qualified own B1 pole and retaining
+joint-domain/real/0.1-meV/Π/profile/norm gates. Reuse both accepted boundaries and
+all successful peers. Proposed science900s/reader300s/owner1320s, four cores/32 GiB
+and the same fresh absolute ceiling. No outgoing launch until exact source/input/
+owner release and public authentication pass; no second geometry is yet released.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.

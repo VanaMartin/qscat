@@ -41,7 +41,8 @@ search at a full-flux guard; joint exposure/dual-transport reassessment remains
 bounded by that fresh window. The later joint-domain real controls pass, while
 its original seed search stops at the box. A separately released saved-spectral
 seed now qualifies the own R=2.8 B1 finite-model resonance, including independent
-public replay. B2/counterpart qualification is still missing; no new pair, branch
+public replay. The missing-only B2 native boundary also qualifies; its outgoing
+counterpart is still missing. No new pair, branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain remain unchanged; the handoff bounds missing-only preparation.
 This disposition and the handoff govern current local work; earlier affinity-only
