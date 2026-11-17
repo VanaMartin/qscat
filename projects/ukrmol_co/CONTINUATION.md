@@ -10,8 +10,12 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: crossing pilot stopped INCONCLUSIVE at its first search
-qualification failure. Completed local representations are preserved; no owner is active.**
+**Current decision: a fresh user-authorized window reopens the stopped crossing
+pilot with one bounded, angle-only B1 attempt.** The
+[new release](https://data.qscat.org/co-crossing-r2800-b1-angle50-release-20261117/decision.9d065aaef475.md)
+reuses accepted R=2.8 inputs and native real-axis results. Whole-box exposure,
+analytic/BVP and actual-owner controls pass; exact public bytes authenticate.
+No new endpoint is yet qualified. The original failure remains INCONCLUSIVE.
 Ten pairs qualify. Both frozen C2 prospective tests pass, including fresh-public
 replay, without changing eight development nodes, coefficients, predictions or
 budgets. The accepted neutral fit and scoped local resonance representation are
@@ -168,7 +172,7 @@ failed attempts, successful partials and measured costs. The lower-R runtime
 timeout and later successful QC/post-QC consumer failure remain different records,
 not failed physical predictions or a retrospectively all-zero process.
 
-## Current bounded next deliverable
+## Original crossing pilot and terminal stop
 
 Local representation packaging and approved documentation integration are complete.
 The user explicitly approved a shared **16-hour** crossing pilot, starting at
@@ -225,7 +229,7 @@ trace, exact source/inputs and costs are preserved and publicly authenticated.
 The [fresh-public saved-only replay and terminal receipts](https://data.qscat.org/co-crossing-terminal-verification-20261116/verification.111d231729a9.json)
 verify preservation and partials, not a retrospective scientific pass.
 
-**Stop compute.** No retry, reseed, angle/box change, B2 solve, R=2.65/R=3.0,
+**Original terminal stop.** No retry, reseed, angle/box change, B2 solve, R=2.65/R=3.0,
 refit or successful-peer repetition follows from the unused sixteen-hour window.
 There is no newly qualified resonance/bound endpoint beyond R=2.5 or crossing
 bracket. The bounded terminal preservation/handoff deliverable is complete.
@@ -255,3 +259,24 @@ Do not fund a dense curve, extrapolate/refit the delivered evaluator or require
 the separate 2.5-bohr basis sentinel to solve every accuracy question first.
 Successful work, failures, coefficients and validation roles remain preserved;
 all 114 S holdouts and the reserved equilibrium outgoing pole remain unread.
+
+## Current goal checkpoint and bounded next deliverable
+
+The user explicitly renewed approximately sixteen hours and permitted different
+numerical approaches. The new immutable release fixes a fresh absolute ceiling
+of **18 November 2026, 05:44:25 UTC**; historical molecular/boundary clocks above
+remain original evidence, not the new owner's deadline. This is not permission
+to change electronic models, repeat accepted stages or enlarge the delivered fit.
+
+**Continue:** attempt only the missing R=2.8 B1 resonance qualification using
+50/60-degree contours, unchanged seeds/box/kernels/budgets and exact reused native
+K/boundary inputs. Analytic momentum bounds cover the entire closed search box
+for every actual threshold; generated exact/BVP controls qualify the new angles,
+not a molecular endpoint. Four new angle-specific real-map comparisons precede
+the unchanged root/refinement/residue/character gates and saved-only reading.
+Four physical cores/32 GiB, science900s, reader300s, owner1320s and first-failure
+stop bound this attempt. No B2, second geometry or automatic retry is released.
+Assess evidence/cost at its terminal event; a different approach requires a
+separate frozen decision inside the same fresh ceiling. All protections and
+accepted development/validation roles remain unchanged. The
+[catalogue](experiments.md) identifies exact source, inputs and tested owner.

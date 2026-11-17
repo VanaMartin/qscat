@@ -116,7 +116,8 @@ CO_LOCAL_REPRESENTATION_CAPSULE="$WORK/delivery-capsule.tar.gz" \
 The [local representations are complete for their declared scope](../../docs/physics/co-results-and-rejected-routes.md#local-representations-accepted-scope).
 Use the evaluator above; the canonical conclusion retains the earlier recipe
 rejections, physical limitations and authenticated evidence/history pointers.
-Stop compute; the [current handoff](CONTINUATION.md) releases no new scientific stage.
+The [current handoff](CONTINUATION.md) distinguishes the original terminal stop
+from the fresh, separately bounded crossing reopening; neither extends this evaluator.
 All 114 S-matrix holdouts and the specified equilibrium
 outgoing-pole exclusion remain protected. Nine is the working channel reference;
 new50 is parked and the qualified 2048-root baseline is retained.
