@@ -14,8 +14,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
 The separately released log-tail calculation qualifies a localized B1 finite-model
-bound candidate at R=3.0; no owner is active. A compatible B2 endpoint remains
-missing.** The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
+bound candidate at R=3.0; the missing-only B2 boundary release is ready. A
+compatible B2 endpoint remains missing.** The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
 passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
 replay. It is not electronic accuracy or unique multi-R continuation. The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
@@ -414,7 +414,10 @@ public replay shares saved Y, not an independent molecular exterior solve.
 R=3.0 B2 native2048-root boundary, reusing exact accepted continuum/targets/CSFs
 and B1 evidence. Proposed science7200s/reader600s/owner7920s; preparation30min
 from21:24UTC. Actual layout/engine/client/decoder/owner/first-B2-failure controls
-and public authentication precede allocation. No integral/target/QC/B1 repeat,
+and public authentication now pass in the
+[B2-only release](https://data.qscat.org/co-crossing-r3000-b2-boundary-release-20261117/decision.173780090ed5.md).
+The additive metadata note distinguishes inherited parent-B1 D/W hashes from
+the actual reused continuum/B2 CSF and unknown future output. No integral/target/QC/B1 repeat,
 automatic B2 bound maps, third geometry, refit or strict crossing-identity claim.
 The first preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
