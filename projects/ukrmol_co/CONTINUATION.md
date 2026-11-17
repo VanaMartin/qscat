@@ -10,8 +10,8 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the own R=2.8 B1 finite-model resonance qualifies; B2 remains
-missing and no owner is active.** The
+**Current decision: the own R=2.8 B1 finite-model resonance qualifies; the
+missing-only B2 boundary release is ready for bounded execution.** The
 [authenticated result](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-result-20261117/assessment.4f7040434bdf.md)
 passes original numerical/isolation/residue/Π-character gates and remote/local/
 fresh-public saved reconstruction. It is one component, not a qualified pair,
@@ -299,14 +299,16 @@ pass; same coordinates across settings do not imply zero uncertainty. Science
 costs about249s wall/544CPU-s, with no native/QC/real-map repeat. Independent
 saved-array reading shares exterior maps, not an independent physical oracle.
 
-**Continue preparation:** the missing-only own B2 boundary is now the shortest
+**Continue within the separate release:** the missing-only own B2 boundary is now the shortest
 dependency to a compatible R=2.8 counterpart pair. Reuse qualified continuum
 integrals, target/property/transport/layout data and B1; freeze exactly one B2
 2048-root native solve and independent raw reader. Conditional cost uses the
 measured ownB1native4983s, not a guaranteed B2 forecast. Proposed hard science7200s,
-reader600s,owner7920s remain inside the same fresh absolute ceiling. A tested
-owner and exact public source/input release must precede launch; no automatic
-B2 outgoing or second geometry is released by the B1 result.
+reader600s,owner7920s remain inside the same fresh absolute ceiling. The
+[B2-only release](https://data.qscat.org/co-crossing-r2800-b2-boundary-release-20261117/decision.5f9cf5bed8f7.md)
+passes saved layout, engine/client/runtime, generated decoder and actual-owner
+first-B2-failure controls; exact public bytes authenticate. No continuum/target/
+QC/B1 repeat, automatic B2 outgoing or second geometry is released.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
