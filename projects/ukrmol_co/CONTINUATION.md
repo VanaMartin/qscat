@@ -11,8 +11,8 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
-qualifies; R=3.0 ordinary QC stopped at singlet B1/B2 CI nonconvergence. No
-owner is active.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
+qualifies; R=3.0 ordinary QC stopped at singlet B1/B2 CI nonconvergence. A
+separate fixed-orbital completion release is ready for bounded execution.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
 QC bundle. The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
@@ -344,8 +344,13 @@ using that exact checkpoint, no SCF or orbital optimization restart. The histori
 split recipe required all parent CI flags true and is not directly applicable.
 A changed CI driver must qualify physical/penalized action, spin, lowest roots
 and the actual equal-40 orbital gradient, preserving original false flags/exit1.
-No execution before its own frozen card, synthetic/runtime/owner controls and
-public authentication. Same four cores/32 GiB and absolute deadline apply; no
+The [separate completion release](https://data.qscat.org/co-crossing-r3000-cicompletion-v3-release-20261117/decision.92d3af418714.md)
+now passes synthetic spin/three-step gradient, runtime/frame and actual-owner
+first-failure controls, with exact public authentication. It uses five-root
+spin1 CI at unchanged space/cycle/tolerance caps and recomputes the equal-40
+gradient without any SCF or orbital optimization. Science3600s/reader600s/
+owner4320s; original false flags and both failed generated preflights remain
+separate immutable records in the release. Same four cores/32 GiB and absolute deadline apply; no
 third geometry, model/basis/root/channel ladder, refit or automatic successor.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
