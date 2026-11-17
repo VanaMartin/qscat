@@ -14,9 +14,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
 The separately released log-tail calculation qualifies a localized B1 finite-model
-bound candidate at R=3.0; both native boundaries now qualify. No owner is active;
-the B2 bound counterpart and pair comparison remain missing, with their separate
-release now ready.** The
+bound candidate at R=3.0; both native boundaries now qualify. The separate B2
+bound-counterpart/pair owner is active under its tested release.** The
 [B2 native result](https://data.qscat.org/co-crossing-r3000-b2-boundary-v2-result-20261117/assessment.c50f0d9c004e.md)
 passes remote/local/fresh-public raw replay. The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
 passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
