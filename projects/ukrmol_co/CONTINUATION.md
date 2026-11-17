@@ -14,8 +14,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
 The separately released log-tail calculation qualifies a localized B1 finite-model
-bound candidate at R=3.0; the missing-only B2 boundary release is ready. A
-compatible B2 endpoint remains missing.** The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
+bound candidate at R=3.0. The B2 owner stopped before container launch at its
+per-run disk cap; no owner is active. A compatible B2 endpoint remains missing.** The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
 passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
 replay. It is not electronic accuracy or unique multi-R continuation. The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
@@ -419,6 +419,16 @@ and public authentication now pass in the
 The additive metadata note distinguishes inherited parent-B1 D/W hashes from
 the actual reused continuum/B2 CSF and unknown future output. No integral/target/QC/B1 repeat,
 automatic B2 bound maps, third geometry, refit or strict crossing-identity claim.
+That first owner stopped at the 2-GiB new-run cap before container creation;
+prepared inputs/preflight already occupy2.50GiB. The
+[resource stop](https://data.qscat.org/co-crossing-r3000-b2-boundary-stop-20261117/assessment.56761bfcb904.md)
+preserves original exit1/steps[], all frozen inputs and read-only verification.
+The initial allocation observer's assertion supplied no actual allocation pass.
+**Redirect resource preparation:** assess a separate4-GiB native-specific per-run
+cap with the same24-GiB initial free,20-GiB cumulative pilot/10-GiB free-stop,
+four cores/32GiB and absolute deadline. Retain/count the failed preparation;
+no B2 scientific stage or successful peer is repeated. Original estimate omitted
+large CSF/preflight inputs and is explicitly rejected, not silently reclassified.
 The first preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
 initial free; cumulative20-GiB/10-GiB free-stop remain unchanged. No deletion or
