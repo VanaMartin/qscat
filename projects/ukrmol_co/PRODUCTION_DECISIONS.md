@@ -41,10 +41,12 @@ search at a full-flux guard; joint exposure/dual-transport reassessment remains
 bounded by that fresh window. The later joint-domain real controls pass, while
 its original seed search stops at the box. A separately released saved-spectral
 seed now qualifies the own R=2.8 B1 finite-model resonance, including independent
-public replay. The missing-only B2 native boundary also qualifies; its outgoing
-counterpart is still missing. No new pair, branch
+public replay. The missing-only B2 boundary and outgoing counterpart also qualify,
+giving a compatible finite-model resonance endpoint pair at R=2.8 outside the
+delivered fit's domain. The original conditional second node is therefore R=3.0,
+starting with a separately frozen QC-only release. No bound endpoint, branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
-local domain remain unchanged; the handoff bounds missing-only preparation.
+local domain/roles remain unchanged; the handoff bounds the next stage.
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 

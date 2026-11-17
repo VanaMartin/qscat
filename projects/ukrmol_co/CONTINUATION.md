@@ -10,9 +10,12 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: own R=2.8 B1 resonance and both native boundaries qualify;
-the separately frozen B2 outgoing/counterpart attempt is ready for bounded
-execution.** The
+**Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
+qualifies; no owner is active.** The
+[compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
+passes original gates and remote/local/fresh-public saved reconstruction.
+It is a resonance-side endpoint, not a bound endpoint, branch bracket or fit
+extension. The earlier
 [authenticated result](https://data.qscat.org/co-crossing-r2800-b1-spectralseed-result-20261117/assessment.4f7040434bdf.md)
 passes original numerical/isolation/residue/Π-character gates and remote/local/
 fresh-public saved reconstruction. It is one component, not a qualified pair,
@@ -318,14 +321,20 @@ passes original native and remote/local raw gates: one new stage, no accepted
 integral/target/QC/B1 repeat, about5638s science wall. Original archive-collection
 timeout and bounded same-archiver recovery remain separate from scientific exits0.
 
-**Current bounded next deliverable:** execute only missing B2 real/pole/residue/
-character/counterpart work, seeded by the qualified own B1 pole and retaining
-joint-domain/real/0.1-meV/Π/profile/norm gates. Reuse both accepted boundaries and
-all successful peers. Proposed science900s/reader300s/owner1320s, four cores/32 GiB
-and the same fresh absolute ceiling. The
-[B2 outgoing release](https://data.qscat.org/co-crossing-r2800-b2-pole-release-20261117/decision.01555bbd5cba.md)
-passes actual-domain/analytic/BVP/source/owner controls and public authentication;
-it reuses B1 and both native boundaries. No second geometry is yet released.
+The B2 outgoing result and counterpart comparison now pass, reusing B1 and both
+native boundaries. Independent public reconstruction confirms the compatible
+R=2.8 endpoint; all original stops remain separate. This answers the original
+resonance-side condition for the pilot's single second geometry **R=3.0**, not
+R=2.65 or a third-node ladder. It does not change the delivered evaluator or its
+eight development/two validation roles.
+
+**Current bounded next deliverable:** prepare a separate R=3.0 QC-only release,
+starting from the exact accepted own R=2.8 checkpoint with unchanged electronic
+protocol and acceptance gates. Runtime/seed/explicit AO-metric projection and
+actual-owner controls, exact public inputs/source and authentication must pass
+before launch. Proposed QC7200s/reader600s/owner7920s, four cores/32 GiB and the
+same fresh absolute ceiling. No references/native/bound/pole successor is
+automatically released by QC; no third geometry or refit is authorized.
 Four physical cores/32 GiB and the same fresh absolute ceiling remain; all
 protections and accepted development/validation roles are unchanged. The
 [catalogue](experiments.md) preserves both original failures and exact records.
