@@ -65,7 +65,11 @@ Use exactly the optimizer's independent, symmetry-allowed orbital-rotation mask
 and gradient norm convention; do not include redundant active rotations or omit
 allowed core/active/virtual rotations. Check the gradient assembly against an
 independent integral/RDM contraction and a generated finite-difference energy
-control. Preserve densities, integrals, mask and gradient for saved-only replay.
+control. In PySCF's one-step convention the packed generalized-Fock difference
+`g` is half the energy derivative for its antisymmetric exponential rotation:
+compare a directional energy difference with `2*g.dot(direction)`, not `g`.
+The optimizer's stationarity limit still applies to `norm(g)`. Preserve densities,
+integrals, mask and gradient for saved-only replay.
 If the original stationarity, residual, spin, root-coverage or occupation gates
 fail, stop; neither a changed variable representation nor exported metadata repairs
 the orbitals. A successful new bundle identifies its own completion source and
