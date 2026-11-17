@@ -15,7 +15,8 @@ qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
 The separately released log-tail calculation qualifies a localized B1 finite-model
 bound candidate at R=3.0; both native boundaries now qualify. No owner is active;
-the B2 bound counterpart and pair comparison remain missing.** The
+the B2 bound counterpart and pair comparison remain missing, with their separate
+release now ready.** The
 [B2 native result](https://data.qscat.org/co-crossing-r3000-b2-boundary-v2-result-20261117/assessment.c50f0d9c004e.md)
 passes remote/local/fresh-public raw replay. The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
 passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
@@ -448,7 +449,10 @@ trace profiles must pass. Preparation30min from23:12UTC; science7200s/reader600s
 owner7920s within the same absolute ceiling. Numeric-only2-GiB new-run cap,
 18-GiB initial free and unchanged20-GiB cumulative/10-GiB free-stop; no large CSFs
 are copied into this matching capsule. Synthetic/runtime/owner and public
-authentication precede launch. PASS completes the scoped two-endpoint pilot,
+authentication now pass in the
+[B2 counterpart release](https://data.qscat.org/co-crossing-r3000-b2-bound-release-20261117/decision.1d8c54fa07a3.md),
+including generated phase/permutation invariance and bad energy/profile rejection.
+PASS completes the scoped two-endpoint pilot,
 not strict unique-branch identity, crossing location, physical accuracy or a refit.
 
 The first bound preparation stopped before run creation at its 30-GiB initial-free
