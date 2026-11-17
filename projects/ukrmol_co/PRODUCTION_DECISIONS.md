@@ -57,8 +57,10 @@ One negative retained inner level motivates bound-side qualification, not a
 binding claim. The original sufficient Gershgorin witness rejects; a separate
 positive-form criterion needs derivation/tests and a frozen selection. Exterior
 matching first stops at the unchanged fundamental-tail symmetry gate. A separate
-derived/tested direct-Riccati-tail release is bounded in the handoff; B2 remains
-unreleased. No bound endpoint, branch
+derived/tested direct-Riccati-tail calculation then qualifies a localized B1
+finite-model bound candidate, including D/N/norm/QF/trace controls and public
+replay. The missing B2 boundary/counterpart is separately bounded in the handoff.
+No compatible bound pair, unique-branch
 bracket, fit extension or electronic accuracy follows. Failures and the accepted
 local domain/roles remain unchanged; the handoff bounds the next stage.
 This disposition and the handoff govern current local work; earlier affinity-only

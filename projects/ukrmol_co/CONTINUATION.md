@@ -13,8 +13,11 @@ scope; no failed physical diagnostic is promoted to a pass.
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; corrected R=3.0 QC and all sixteen fixed-orbital reference probes now
 qualify, together with the native targets/properties and continuum/B1 boundary.
-The first B1 bound-side attempt stopped at its unchanged symmetry gate; the
-separate log-tail owner is now active. No R=3.0 bound/resonance endpoint qualifies.** The
+The separately released log-tail calculation qualifies a localized B1 finite-model
+bound candidate at R=3.0; no owner is active. A compatible B2 endpoint remains
+missing.** The [B1 bound result](https://data.qscat.org/co-crossing-r3000-b1-logtail-result-20261117/assessment.bb2f5352aca7.md)
+passes all nine decaying/D/N witnesses and remote/local/fresh-public Q/F/norm
+replay. It is not electronic accuracy or unique multi-R continuation. The
 [B1 boundary result](https://data.qscat.org/co-crossing-r3000-b1-boundary-result-20261117/assessment.a004a42117ba.md)
 passes remote/local/fresh-public raw replay. The [target result](https://data.qscat.org/co-crossing-r3000-target-result-20261117/assessment.ee6c64f4f0d2.md)
 passes remote/local/fresh-public raw reading, with original collector failure
@@ -398,19 +401,21 @@ fails the unchanged DtN symmetry check at the shallow interval endpoint. No root
 or bound claim follows; science2.02s/5.33CPU-s, original exit1/partials and
 independent local/fresh-public failure replay preserved. No QC/native repeat.
 
-**Redirect preparation, one bounded next deliverable:** derive/test a separately
-selected direct-log-derivative tail with farther endpoints, then freeze one
-all-closed attempt retaining the interval/mode, D/N, Q/F, localization/character
-and original numerical gates. This constructs an asymptotic Riccati solution;
-it must not symmetrize a failed map or inherit the failed root qualification.
-Implementation cap remains45min from20:54UTC; science7200s/reader600s/owner7920s
-still subject to the same absolute ceiling, not an automatic B2 release.
-The [explicit log-tail release](https://data.qscat.org/co-crossing-r3000-b1-logtail-release-20261117/decision.4edc3abca07a.md)
-now passes 71 local tests and pinned-runtime full298 free/p-wave/D/N, full2048
-generated root, norm quadrature, actual-owner and shallow coupled independent
-BVP convergence controls (errors1.04e-5/5.05e-9/6.98e-13). Public bytes authenticate.
-It selects endpoints240/360/540 and direct Riccati asymptotics without projection;
-all symmetry, interval/mode, numerical uncertainty and state gates are unchanged.
+The separately frozen direct-Riccati-tail calculation now qualifies B1 at
+-0.012285218946727Ha (-0.334297838eV) relative to its own neutral threshold.
+Three decaying and three D/N pairs agree, with prescribed padded negative interval
+[-0.012285220793,-0.012285217101]Ha within the0.1meV numerical budget. This is
+controlled numerical padding, not interval-certified ODE/electronic uncertainty.
+Inner fraction0.9995588975 and boundary-trace ground/Π/p witnesses pass; these
+are not full N+1 overlaps. Science92.6s/284CPU-s, no native/QC repeat. Independent
+public replay shares saved Y, not an independent molecular exterior solve.
+
+**Continue preparation, one bounded next deliverable:** freeze only the missing
+R=3.0 B2 native2048-root boundary, reusing exact accepted continuum/targets/CSFs
+and B1 evidence. Proposed science7200s/reader600s/owner7920s; preparation30min
+from21:24UTC. Actual layout/engine/client/decoder/owner/first-B2-failure controls
+and public authentication precede allocation. No integral/target/QC/B1 repeat,
+automatic B2 bound maps, third geometry, refit or strict crossing-identity claim.
 The first preparation stopped before run creation at its 30-GiB initial-free
 check. New resource selection enforces a stricter 2-GiB per-run cap with 24-GiB
 initial free; cumulative20-GiB/10-GiB free-stop remain unchanged. No deletion or
