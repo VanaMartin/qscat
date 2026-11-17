@@ -12,8 +12,8 @@ scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the own R=2.8 primary-CAS11 B1/B2 resonance endpoint pair
 qualifies; R=3.0 fixed-orbital completion converges CI but rejects unchanged-frame
-stationarity. A separate three-macro corrective release is ready for bounded
-execution.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
+stationarity. The separate three-macro corrective owner is active under its
+tested release.** The [original failure](https://data.qscat.org/co-crossing-r3000-qc-result-20261117/assessment.154ef24ceb88.md)
 preserves false flags and exit1; reported orbital convergence is not a qualified
 QC bundle. The
 [compatible-pair result](https://data.qscat.org/co-crossing-r2800-b2-pole-result-20261117/assessment.e2e79c48c8c4.md)
