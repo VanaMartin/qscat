@@ -95,6 +95,11 @@ not orthonormal there, evaluate the complete state's self norm with the same
 four-block formula. Do not use `c†c` as an unverified physical normalization or
 whiten a failed metric into agreement.
 
+The [common-domain orbital-metric toy and admission contract](co-common-domain-orbital-metric.md)
+defines a positive finite-ball construction, independent analytic controls,
+coefficient-aware tail limitations and the native normalization/angular gates.
+It is not a native CGTO adapter or a measured molecular cross metric.
+
 Required before molecular use: independent small determinant/minor tests of all
 four many-electron blocks; complex phases and spin coupling; singular cross
 metrics; core removal; native target/continuum contraction and phase agreement;
