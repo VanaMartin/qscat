@@ -118,3 +118,27 @@ the declared embedding and that the native orthonormal-complement convention is
 consistent. GBTO tail approximations and finite-sphere versus all-space target
 conventions must not be silently exchanged. If these conditions are unresolved,
 the output remains conditional model-character evidence, not a physical overlap.
+
+### Screen information content before recovering vectors
+
+If the complete native spectral frame is orthonormal, saved continuum rows
+`U_P` and an accepted coherent spectral coefficient vector `c` already give
+the complementary L² fraction
+
+    A = 1 - ||U_P.T c||² / (c†c).
+
+This is a model configuration-sector fraction, not spatial localization,
+detachment probability or outgoing flux. Validate the native frame convention,
+coefficient ordering, matching residual and all input hashes before using it.
+For a complex resonance use the Hermitian interior norm here, not `c.T c`.
+
+For captures `A,B`, even optimistic zero cross-subspace leakage and the largest
+possible partial overlap cannot make this enclosure's lower endpoint exceed
+
+    max(0, sqrt(A B) - sqrt((1-A)(1-B)) - numerical_allowance)**2.
+
+If that ceiling cannot meet the prospectively frozen support threshold, stop
+this recovery route before an expensive eigensolve. It does not reject the
+states or measure their actual overlap. It says that the omitted continuum
+sector needs additional cross-geometry information; retaining more bound-sector
+coefficients alone cannot make this particular enclosure informative enough.

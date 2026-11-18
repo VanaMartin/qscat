@@ -69,6 +69,12 @@ remain unchanged. Unused time releases no third geometry, refit, cleanup or merg
 This disposition and the handoff govern current local work; earlier affinity-only
 restart proposals are historical, not a renewed queue.
 
+The later [saved-state projection information screen](CONTINUATION.md#goal-checkpoint--18-november-2026-projection-information-stop)
+stops before native vector recovery under its frozen allocation gate. It does
+not reject either accepted endpoint or measure their full overlap. A usable
+continuum-aware N+1 metric, not more scalar endpoints or an unused compute
+allowance, is the next dependency. No native stage follows automatically.
+
 ## Decisions that remain closed
 
 - Atomic QZ→5Z insensitivity and molecular-reference-offset diagnostics failed;

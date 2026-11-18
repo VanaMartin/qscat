@@ -77,23 +77,30 @@ physical observable and bounded decision, or retain this completed local milesto
 That packaging checkpoint released no scientific branch. Earlier preparation/goal checkpoints are
 historical context, not a current queue. Unrelated dirty work remains outside this task.
 
-## Goal checkpoint — 18 November 2026: saved-state feasibility
+## Goal checkpoint — 18 November 2026: projection information stop
 
-The [bounded saved-data/source assessment](https://data.qscat.org/co-state-continuation-feasibility-20261118/assessment.0099ae6f7215.md)
+The [original saved-data/source assessment](https://data.qscat.org/co-state-continuation-feasibility-20261118/assessment.0099ae6f7215.md)
 identifies missing full interior vectors and an unqualified cross-R metric, not a
-failed physical continuation. Pinned writer semantics and all four accepted
-endpoint layouts agree; fresh-public byte/inventory replay passes. The accepted
-pairs, evaluator, roles, budgets and protections remain unchanged. No scientific
-calculation ran. The **05:44:25 UTC scientific deadline has expired**; generic
-continuation does not renew it or authorize a native recovery.
+failed physical continuation. The user then explicitly approved six hours,
+**09:39:03–15:39:03 UTC**, including a two-hour method/support cap and conditional
+B1 recovery at the existing two geometries. This does not reset the earlier
+expired deadline or release native acquisition without the method gate.
 
-**Stop acquisition.** One bounded prospective deliverable is a synthetic-qualified
-finite-interior comparison or rigorous projection bound, before deciding whether
-missing vectors must be recovered. The external assessment proposes effort/cost
-caps and a conditional B1-only recovery at the existing two geometries; none is
-released. Native rebuild/eigensolve would require explicit fresh authorization
-even when reusing all accepted electronic inputs. No B2 repeat, new geometry,
-refit, merge or automatic resource increase follows.
+The [frozen saved-projection screen](https://data.qscat.org/co-interior-comparison-qualification-20261118/assessment.0f802a86c08f.md)
+stops before native recovery: omitted continuum-sector weight prevents this
+enclosure from reaching its support threshold even optimistically. Synthetic
+algebra/basis checks, independent saved replay and
+[fresh-public verification](https://data.qscat.org/co-interior-comparison-qualification-20261118/public-authentication.06e0d6d4475b.json)
+pass; the original consumer failure and successful partial remain preserved.
+This is not a measured weak full overlap or a rejected endpoint. No native job,
+new geometry, map, matching root, refit or protected-data access occurred.
+
+**Stop this recovery route despite unused time.** One bounded prospective
+deliverable is a feasibility decision for a continuum-aware N+1 metric, reusing
+accepted inputs and the saved basis conversion. Do not buy missing vectors until
+a comparator can use them. No such new method campaign or molecular stage is
+released here. Accepted pairs, evaluator, roles, budgets and protections remain
+unchanged; no B2 repeat, merge, deletion or automatic resource increase follows.
 
 ## Reuse, do not restart
 
