@@ -95,12 +95,22 @@ pass; the original consumer failure and successful partial remain preserved.
 This is not a measured weak full overlap or a rejected endpoint. No native job,
 new geometry, map, matching root, refit or protected-data access occurred.
 
-**Stop this recovery route despite unused time.** One bounded prospective
-deliverable is a feasibility decision for a continuum-aware N+1 metric, reusing
-accepted inputs and the saved basis conversion. Do not buy missing vectors until
-a comparator can use them. No such new method campaign or molecular stage is
-released here. Accepted pairs, evaluator, roles, budgets and protections remain
-unchanged; no B2 repeat, merge, deletion or automatic resource increase follows.
+**Projection-only recovery remains stopped.** The subsequent
+[full-metric source feasibility pass](https://data.qscat.org/co-full-interior-metric-feasibility-20261118/assessment.bf3035d170df.md)
+identifies a conditional route through target/removal-state overlaps and four
+one-electron metric blocks. The [durable derivation](../../docs/physics/co-full-interior-metric.md)
+is design only, not a validated comparator. Pinned source supports read-only
+orbital export from saved integrals; spin/phase, domain/tail and performance gates
+remain unresolved. No native program, export or molecular overlap ran.
+
+Permission for that source pass arrived at 15:21:07 UTC; its requested 45 minutes
+were clipped to the existing **15:39:03 UTC ceiling**, not restarted. Next is a
+separately bounded synthetic four-block validation and one read-only saved-basis
+export/self-metric qualification. Do not buy missing vectors until a comparator
+can use them. Further work after the ceiling needs a fresh allowance; no native
+recovery or new geometry is released. Accepted pairs, evaluator, roles, budgets
+and protections remain unchanged; no B2 repeat, merge, deletion or automatic
+resource increase follows.
 
 ## Reuse, do not restart
 

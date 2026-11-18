@@ -74,6 +74,9 @@ stops before native vector recovery under its frozen allocation gate. It does
 not reject either accepted endpoint or measure their full overlap. A usable
 continuum-aware N+1 metric, not more scalar endpoints or an unused compute
 allowance, is the next dependency. No native stage follows automatically.
+The later source-only pass identifies a conditional
+[four-block design](../../docs/physics/co-full-interior-metric.md) and saved-orbital
+export path, not an implemented physical metric or a native recovery release.
 
 ## Decisions that remain closed
 
