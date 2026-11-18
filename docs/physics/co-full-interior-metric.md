@@ -1,7 +1,8 @@
 # Full interior comparison with one continuum electron
 
-**Design only.** The factorization below is not a qualified native decoder,
-cross-geometry orbital integrator or molecular state-assignment implementation.
+**Synthetic-stage prototype.** The factorization below has a bounded Python
+oracle, not a qualified native decoder, cross-geometry orbital integrator or
+molecular state-assignment implementation.
 It addresses the continuum information omitted by the
 [bound-sector enclosure](co-interior-state-comparison.md), without constructing
 the entire cross-geometry N+1 CI Gram matrix.
@@ -106,3 +107,26 @@ native eigensolve to recover them is a separately authorized calculation, not a
 read-only export. Even a qualified full interior overlap would be an endpoint
 character comparison, not proof of unique continuation throughout an unsampled
 interval, a continuous crossing location or electronic accuracy.
+
+## Prototype and read-only export interfaces
+
+`four_block_overlap.py` exposes `InteriorExpansion`, signed
+`coefficient_removal` and `four_block_overlap`. Sparse determinant dictionaries
+and target-by-continuum amplitudes define the two states. It returns complex
+QQ/PQ/QP/PP/total amplitudes without normalization or phase projection. The
+direct oracle is deliberately capped at five target electrons, ten bound spin
+orbitals, six targets/continuum orbitals and one million total determinant pairs;
+it is not a molecular FCI implementation. Tests compare all blocks with explicit
+antisymmetrized exterior coordinates for orthonormal/nonorthogonal frames,
+vacuum through three-electron targets, singular metrics, spin coupling, core
+removal, phase/order changes and a complete-state self norm.
+
+`native_orbital_io.f90` is a prospective saved-basis reader only. It copies MO
+coefficients, stored native overlaps, AO shell/function addresses, geometry and
+CGTO exponents/contractions/normalizations; it does not normalize or evaluate
+orbitals/integrals. Its generated `--self-test` checks the double/int64 writer
+layout without reading a molecule. `orbital_export.read_orbital_export` validates
+the complete export and returns unchanged coefficients/metadata. Stored overlaps
+are explicitly not a newly computed common-domain self or cross metric. A
+matching compiler/module/library runtime and actual saved read still require
+their own bounded execution gate; unsupported BTO input is rejected.
