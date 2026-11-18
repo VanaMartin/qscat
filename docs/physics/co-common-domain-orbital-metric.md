@@ -117,16 +117,21 @@ does not justify an inverse or an unbounded relative determinant tolerance.
 
 The exported schema provides centers, angular degree, primitive exponents,
 contractions, primitive norms, shell norm, addressing and unchanged MO
-coefficients. It does **not** itself establish how to multiply those factors,
-which normalized real solid harmonics are used, or which native integrals were
-restricted to a sphere. Do not silently identify these with the toy convention.
-Stored native overlaps may mix all-space target/mixed and finite-sphere cc
-conventions; a uniform physical D metric need not reproduce that hybrid identity.
+coefficients. The [source-resolved native contract](co-native-orbital-conventions.md)
+specifies the point-value factors and signs, but also identifies a critical
+read-versus-generator normalization distinction: the convenience reader
+reconstructs all-space CGTO norms. Its output must not be assumed to preserve
+raw stored sphere factors. The source's hybrid domain applies to **AO shell
+pairs**, not directly to MO sector labels. A uniform physical D metric need not
+reproduce the stored native identity, even after the AO scale is restored.
 
 A separately released saved-basis self-metric sentinel is justified only after:
 
 - pinned, read-only convention evidence maps the primitive/shell normalization,
   real solid harmonic scale/order/sign, AO/MO addressing and coordinate frame;
+- the saved-reader reconstruction is distinguished from the coefficient
+  generator's AO scale, with any continuum restoration tagged and independently
+  validated rather than silently reapplied to the old export;
 - independent pointwise analytic s/p/d controls test absolute amplitude and
   signs, not only an identity Gram (which is invariant under orbital signs);
 - native reference quantities are classified by integration domain; expected

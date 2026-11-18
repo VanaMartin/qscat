@@ -126,10 +126,13 @@ antisymmetrized exterior coordinates for orthonormal/nonorthogonal frames,
 vacuum through three-electron targets, singular metrics, spin coupling, core
 removal, phase/order changes and a complete-state self norm.
 
-`native_orbital_io.f90` is a prospective saved-basis reader only. It copies MO
-coefficients, stored native overlaps, AO shell/function addresses, geometry and
-CGTO exponents/contractions/normalizations; it does not normalize or evaluate
-orbitals/integrals. Its generated `--self-test` checks the double/int64 writer
+`native_orbital_io.f90` copies MO coefficients, stored native overlaps,
+AO shell/function addresses, geometry and the **post-read reconstructed** CGTO
+object. Its convenience native loader recomputes CGTO normalization during shell
+insertion; this is not a lossless export of all file normalization fields. The
+[native convention contract](co-native-orbital-conventions.md) explains the
+unresolved generator-scale restoration. No point evaluation or new integral
+generation is performed. The generated `--self-test` checks the double/int64 writer
 layout without reading a molecule. `orbital_export.read_orbital_export` validates
 the complete export and returns unchanged coefficients/metadata. Stored overlaps
 are explicitly not a newly computed common-domain self or cross metric. A
