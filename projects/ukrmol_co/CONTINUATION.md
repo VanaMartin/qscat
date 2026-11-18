@@ -77,6 +77,24 @@ physical observable and bounded decision, or retain this completed local milesto
 That packaging checkpoint released no scientific branch. Earlier preparation/goal checkpoints are
 historical context, not a current queue. Unrelated dirty work remains outside this task.
 
+## Goal checkpoint — 18 November 2026: saved-state feasibility
+
+The [bounded saved-data/source assessment](https://data.qscat.org/co-state-continuation-feasibility-20261118/assessment.0099ae6f7215.md)
+identifies missing full interior vectors and an unqualified cross-R metric, not a
+failed physical continuation. Pinned writer semantics and all four accepted
+endpoint layouts agree; fresh-public byte/inventory replay passes. The accepted
+pairs, evaluator, roles, budgets and protections remain unchanged. No scientific
+calculation ran. The **05:44:25 UTC scientific deadline has expired**; generic
+continuation does not renew it or authorize a native recovery.
+
+**Stop acquisition.** One bounded prospective deliverable is a synthetic-qualified
+finite-interior comparison or rigorous projection bound, before deciding whether
+missing vectors must be recovered. The external assessment proposes effort/cost
+caps and a conditional B1-only recovery at the existing two geometries; none is
+released. Native rebuild/eigensolve would require explicit fresh authorization
+even when reusing all accepted electronic inputs. No B2 repeat, new geometry,
+refit, merge or automatic resource increase follows.
+
 ## Reuse, do not restart
 
 - 52 accepted QZ/5Z CCSD(T) well energies at 26 distinct geometries, 1.9–2.5 bohr.
