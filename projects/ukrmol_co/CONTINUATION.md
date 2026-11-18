@@ -11,7 +11,8 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the scoped finite-model two-geometry pilot is complete;
-scientific acquisition is stopped and no owner is active.** The own R=2.8
+scientific acquisition remains stopped.** Method-only work is bounded by the
+current checkpoint below. The own R=2.8
 primary-CAS11 resonance pair and R=3.0 localized bound-candidate pair qualify.
 The [compatible bound-pair result](https://data.qscat.org/co-crossing-r3000-b2-bound-result-20261117/assessment.038491642ccd.md)
 passes all nine B2 witnesses, same-R counterpart gates and remote/local/fresh-public
@@ -79,6 +80,29 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 18 November 2026: projection information stop
 
+**Method-only unit complete:** the
+[saved-orbital result](https://data.qscat.org/co-four-block-orbital-export-result-20261118/assessment.17366c7c268f.md)
+passes synthetic four-block validation and the sole native compile/generated/read
+test. Independent decoding and
+[fresh-public saved replay](https://data.qscat.org/co-four-block-orbital-export-receipt-20261118/result-public-authentication.32fd1737dc9b.json)
+pass; original consumer/publication failures and exact corrected readers remain
+preserved. No owned reader is active. This qualifies extraction and the stored
+native Gram, **not** an independently integrated physical self/cross metric or
+cross-R N+1 state identity. It is method support, not additional sweep coverage.
+No SCF/CI, integral regeneration, Hamiltonian action/eigensolve, vector recovery,
+new geometry, map, root or fit ran. The first ninety-minute ceiling remains
+**18 November, 19:01:39 UTC**, within the user-renewed overall ceiling
+**19 November, 05:31:39 UTC**; neither resets or automatically releases a successor.
+
+**Redirect / next bounded deliverable:** propose a separately frozen,
+at-most-ninety-minute common-domain CGTO metric design with synthetic analytic/toy
+controls and explicit domain/tail/native-convention gates. Use the existing
+export as schema evidence, not as a physical metric. Decide whether one saved-basis
+integrated self-metric test is justified before acquiring other-R data or missing
+vectors. No second native export, molecular overlap or electronic recovery is
+released. Accepted endpoints, evaluator, roles, budgets and protections stand;
+preserve the original disk stops and unrelated workloads.
+
 The [original saved-data/source assessment](https://data.qscat.org/co-state-continuation-feasibility-20261118/assessment.0099ae6f7215.md)
 identifies missing full interior vectors and an unqualified cross-R metric, not a
 failed physical continuation. The user then explicitly approved six hours,
@@ -99,18 +123,17 @@ new geometry, map, matching root, refit or protected-data access occurred.
 [full-metric source feasibility pass](https://data.qscat.org/co-full-interior-metric-feasibility-20261118/assessment.bf3035d170df.md)
 identifies a conditional route through target/removal-state overlaps and four
 one-electron metric blocks. The [durable derivation](../../docs/physics/co-full-interior-metric.md)
-is design only, not a validated comparator. Pinned source supports read-only
-orbital export from saved integrals; spin/phase, domain/tail and performance gates
-remain unresolved. No native program, export or molecular overlap ran.
+now has a bounded synthetic oracle, not a validated molecular comparator. That
+source-only pass ran no native program or export; the later single saved read
+above qualifies extraction only. Spin/phase, domain/tail and performance gates
+remain unresolved, and no molecular overlap has been measured.
 
 Permission for that source pass arrived at 15:21:07 UTC; its requested 45 minutes
-were clipped to the existing **15:39:03 UTC ceiling**, not restarted. Next is a
-separately bounded synthetic four-block validation and one read-only saved-basis
-export/self-metric qualification. Do not buy missing vectors until a comparator
-can use them. Further work after the ceiling needs a fresh allowance; no native
-recovery or new geometry is released. Accepted pairs, evaluator, roles, budgets
-and protections remain unchanged; no B2 repeat, merge, deletion or automatic
-resource increase follows.
+were clipped to the existing **15:39:03 UTC ceiling**, not restarted. Its proposed
+synthetic/export successor is the completed unit above; an independently
+integrated self-metric remains missing. Do not buy missing vectors until a
+comparator can use them. No native recovery or new geometry is released; no B2
+repeat, merge, deletion or automatic resource increase follows.
 
 ## Reuse, do not restart
 
