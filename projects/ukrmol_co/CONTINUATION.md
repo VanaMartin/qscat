@@ -80,7 +80,31 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 18 November 2026: projection information stop
 
-**Method-only unit complete:** the
+**Current method checkpoint — common-domain toy complete:** the
+[finite-ball metric result](https://data.qscat.org/co-common-domain-metric-toy-20261118/assessment.0e68bdb95b90.md)
+passes analytic three-level and independent integration controls, plus
+[fresh-public synthetic replay](https://data.qscat.org/co-common-domain-metric-toy-20261118/public-authentication.e5bda599eb81.json).
+The original source-capsule metadata failure and missing-only repair remain
+preserved. The [durable domain/native admission contract](../../docs/physics/co-common-domain-orbital-metric.md)
+defines consistent orbital blocks and complete-state self norms; it does not
+decode native CGTO conventions or qualify a molecular metric. No molecular
+coefficient read, native job or electronic calculation ran; no owner is active.
+The approved unit began **18 November, 22:27:53 UTC**, with a ninety-minute ceiling
+of **23:57:53 UTC** inside the unchanged overall **19 November, 05:31:39 UTC**
+ceiling. Neither earlier unit nor the overall clock resets.
+
+**Redirect / next bounded deliverable:** after two support units, do not add
+generic toy controls or recover unused vectors. Propose an at-most-forty-five-minute
+read-only audit of already pinned native primitive/shell normalization, real
+solid-harmonic scale/order/sign, frame/addressing and overlap-block domains.
+Require an implementable point-value contract and an explicit decision on whether
+one existing-export self-metric sentinel is justified. That sentinel is **not yet
+released**; neither are another export, other-R data, molecular overlap or vector
+recovery. Stop if the convention contract cannot be established within its cap.
+This is method support, not additional sweep coverage; all protections and
+accepted endpoints/representations remain unchanged.
+
+**Previous saved-extraction unit complete:** the
 [saved-orbital result](https://data.qscat.org/co-four-block-orbital-export-result-20261118/assessment.17366c7c268f.md)
 passes synthetic four-block validation and the sole native compile/generated/read
 test. Independent decoding and
@@ -93,15 +117,6 @@ No SCF/CI, integral regeneration, Hamiltonian action/eigensolve, vector recovery
 new geometry, map, root or fit ran. The first ninety-minute ceiling remains
 **18 November, 19:01:39 UTC**, within the user-renewed overall ceiling
 **19 November, 05:31:39 UTC**; neither resets or automatically releases a successor.
-
-**Redirect / next bounded deliverable:** propose a separately frozen,
-at-most-ninety-minute common-domain CGTO metric design with synthetic analytic/toy
-controls and explicit domain/tail/native-convention gates. Use the existing
-export as schema evidence, not as a physical metric. Decide whether one saved-basis
-integrated self-metric test is justified before acquiring other-R data or missing
-vectors. No second native export, molecular overlap or electronic recovery is
-released. Accepted endpoints, evaluator, roles, budgets and protections stand;
-preserve the original disk stops and unrelated workloads.
 
 The [original saved-data/source assessment](https://data.qscat.org/co-state-continuation-feasibility-20261118/assessment.0099ae6f7215.md)
 identifies missing full interior vectors and an unqualified cross-R metric, not a

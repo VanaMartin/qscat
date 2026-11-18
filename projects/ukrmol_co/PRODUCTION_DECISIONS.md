@@ -77,6 +77,10 @@ allowance, is the next dependency. No native stage follows automatically.
 The later source-only pass identifies a conditional
 [four-block design](../../docs/physics/co-full-interior-metric.md) and saved-orbital
 export path, not an implemented physical metric or a native recovery release.
+The subsequent [common-domain Gaussian toy](../../docs/physics/co-common-domain-orbital-metric.md)
+validates a consistent finite-domain construction, not native normalization,
+harmonic phases or molecular comparison. A physical self-metric sentinel remains
+unreleased pending those convention/domain gates; see the current handoff.
 
 ## Decisions that remain closed
 
