@@ -80,7 +80,39 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 18 November 2026: projection information stop
 
-**Current method checkpoint — common-domain toy complete:** the
+**Current method checkpoint — native conventions resolved, export-scale gate
+rejected:** the
+[read-only source audit](https://data.qscat.org/co-native-orbital-conventions-20261118/assessment.90c9d5391f6a.md)
+resolves point values, harmonic signs/order, addressing and native AO-domain
+rules, but finds that the convenience saved reader reconstructs all-space CGTO
+normalization. The stronger claim that the previous export preserves raw saved
+normalization factors is withdrawn; its bytes, layout and stored-Gram checks
+remain valid. The [durable native contract](../../docs/physics/co-native-orbital-conventions.md)
+separates post-read values from the coefficient generator's continuum sphere
+scale. Unchanged-export molecular integration is **not admitted**. No native
+execution, molecular coefficient read, integration or recovery ran. The audit's
+forty-five-minute window is **18 November, 23:43:37 UTC–19 November, 00:28:37 UTC**;
+the overall **19 November, 05:31:39 UTC** ceiling is unchanged.
+
+**Next proposed method deliverable:** one bounded loader-aware existing-export
+self-metric sentinel, with generated analytic restoration/absolute point-value
+controls before any saved-array integration, separate native-hybrid and uniform
+physical-domain predictions, three-level quadrature and domain sensitivity.
+Freeze implementation/work/memory/error caps first. No new native export, other-R
+input, electronic solve or vector recovery follows automatically. Reject a scale
+or domain mismatch rather than whiten/fix/refit it. Accepted endpoints and local
+representations are unchanged.
+
+**Disk request — assessment only:** the
+[one-route reclamation proposal](https://data.qscat.org/co-sadaharu-cleanup-assessment-20261118/assessment.cca9967454fb.md)
+identifies a named two-CSF-file archive-first candidate. The older pilot had
+successful numerical partials; do not delete its directory as an unproductive
+failure. Full portable coverage and consumers/open-file status are unresolved,
+so no deletion occurred or is released. Archive/dependency verification of the
+exact proposed batch requires approval; active/shared data, qualified inputs,
+runtime source, holdouts and reserved equilibrium evidence remain excluded.
+
+**Previous method checkpoint — common-domain toy complete:** the
 [finite-ball metric result](https://data.qscat.org/co-common-domain-metric-toy-20261118/assessment.0e68bdb95b90.md)
 passes analytic three-level and independent integration controls, plus
 [fresh-public synthetic replay](https://data.qscat.org/co-common-domain-metric-toy-20261118/public-authentication.e5bda599eb81.json).
@@ -93,16 +125,10 @@ The approved unit began **18 November, 22:27:53 UTC**, with a ninety-minute ceil
 of **23:57:53 UTC** inside the unchanged overall **19 November, 05:31:39 UTC**
 ceiling. Neither earlier unit nor the overall clock resets.
 
-**Redirect / next bounded deliverable:** after two support units, do not add
-generic toy controls or recover unused vectors. Propose an at-most-forty-five-minute
-read-only audit of already pinned native primitive/shell normalization, real
-solid-harmonic scale/order/sign, frame/addressing and overlap-block domains.
-Require an implementable point-value contract and an explicit decision on whether
-one existing-export self-metric sentinel is justified. That sentinel is **not yet
-released**; neither are another export, other-R data, molecular overlap or vector
-recovery. Stop if the convention contract cannot be established within its cap.
-This is method support, not additional sweep coverage; all protections and
-accepted endpoints/representations remain unchanged.
+Its proposed source-audit successor is the completed audit above. This remains
+method support, not additional sweep coverage; all protections and accepted
+endpoints/representations remain unchanged. Do not add generic toy controls or
+recover unused vectors instead of resolving the identified normalization gate.
 
 **Previous saved-extraction unit complete:** the
 [saved-orbital result](https://data.qscat.org/co-four-block-orbital-export-result-20261118/assessment.17366c7c268f.md)
@@ -110,8 +136,9 @@ passes synthetic four-block validation and the sole native compile/generated/rea
 test. Independent decoding and
 [fresh-public saved replay](https://data.qscat.org/co-four-block-orbital-export-receipt-20261118/result-public-authentication.32fd1737dc9b.json)
 pass; original consumer/publication failures and exact corrected readers remain
-preserved. No owned reader is active. This qualifies extraction and the stored
-native Gram, **not** an independently integrated physical self/cross metric or
+preserved. No owned reader is active. This qualifies the post-read live-object
+extraction and stored native Gram, **not** preservation of all raw file norms,
+an independently integrated physical self/cross metric or
 cross-R N+1 state identity. It is method support, not additional sweep coverage.
 No SCF/CI, integral regeneration, Hamiltonian action/eigensolve, vector recovery,
 new geometry, map, root or fit ran. The first ninety-minute ceiling remains

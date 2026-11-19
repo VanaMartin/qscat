@@ -81,6 +81,10 @@ The subsequent [common-domain Gaussian toy](../../docs/physics/co-common-domain-
 validates a consistent finite-domain construction, not native normalization,
 harmonic phases or molecular comparison. A physical self-metric sentinel remains
 unreleased pending those convention/domain gates; see the current handoff.
+The [native point-value audit](../../docs/physics/co-native-orbital-conventions.md)
+resolves the source convention but identifies normalization reconstruction in
+the saved reader. Unchanged export scales are not admitted as generator-matched;
+source-justified restoration and independent self-metric controls are required.
 
 ## Decisions that remain closed
 
