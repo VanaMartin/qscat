@@ -141,6 +141,11 @@ three-level quadrature, domain sensitivity, state-level error allocation and
 hard work/memory caps. No additional native export, other-R input, molecular
 integration or vector recovery is released by this source contract.
 
+The [loader-aware one-body implementation](co-loader-aware-self-metric.md)
+provides generated-control-tested point values, independent all-space Gaussian
+algorithms and a contraction-aware uniform-ball tail witness. Its saved-data
+admission still requires a separately frozen one-export sentinel.
+
 Source anchors are GBTO `gto_routines` (`eval_cgto`, `normalize_cgto`, `dngto`,
 `cms_gto_norm`), `special_functions` (`cfp_solh`), `basis_data_generic`,
 `atomic_basis` and `cgto_integrals` (`GG_shell_integrals`). Their exact source
