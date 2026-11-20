@@ -80,8 +80,9 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
-**Current decision: native selected mapping and generated coherent kernel qualify;
-physical endpoint comparison remains blocked by missing inputs/admission.**
+**Current decision: selected native mapping, generated coherent kernel and common-ball
+cross-frame orbital blocks qualify; physical endpoint comparison remains blocked
+by complete native conversion and unsaved Q coefficients.**
 The user renewed work for four to six hours and requested continuation between
 passing bounded units. The conservative overall window is **20 November,
 12:16:48–16:16:48 UTC**; earlier expired windows are not renewed. The
@@ -139,15 +140,28 @@ and independent saved-block arithmetic without repeating the large benchmark.
 The combined targeted suite passes 191 tests. No successful native stage was
 repeated and no native scientific owner is active.
 
-**One proposed next deliverable, not released:** qualify a complete source-matched
-native consumer and common-domain cross-frame orbital blocks/self norms from the
-existing accepted endpoint inputs before deciding on missing-only Q recovery.
-The current scope admits neither additional native saved-basis exports nor
-other-R acquisition. Complete interior Q coefficients remain unsaved; their
+The user explicitly approved **one missing R=3.0 saved-basis export** and bounded
+cross-frame/native-adapter checks, without a solve or recovery. The
+[cross-frame one-body result](https://data.qscat.org/co-cross-orbital-metric-20261120/assessment.30819adddbaa.md)
+qualifies new R3 self and directed cross metrics on the same 18-bohr ball, reusing
+the qualified R2.8 self arrays without recomputation. All bb/bc/cb/cc orbital blocks
+are retained; nonzero mixed blocks are not discarded. The joint308MO Gram passes
+the frozen spectral budget without clipping or whitening. Independent decoding,
+radial restoration and
+[fresh-public saved replay](https://data.qscat.org/co-cross-orbital-metric-receipt-20261120/public-authentication.be3399486c30.json)
+pass; original missing-psutil/HTTP403 consumer failures and missing-only corrections
+remain archived. The sole native export exited0 with input/client unchanged;
+no compilation, native self-test or electronic stage was repeated. This unit is
+**15:10:39–16:00:39 UTC**, inside the unchanged overall ceiling. The reusable
+cross-metric code is committed as `f347323`; 140 selected regressions pass.
+
+**One bounded remaining deliverable:** check the source-matched native consumer
+using existing accepted saved inputs within that same admission, before deciding
+whether missing-only Q recovery is justified. No further native export is released.
+Complete interior Q coefficients remain unsaved; their
 recovery is a separately authorized eigensolve, not a read-only operation.
 Do not substitute generated Q or projection-only character for the full physical
-state. Further work needs an explicit input/acquisition admission; unused time
-before 16:16:48 UTC does not supply it.
+state. Unused time before 16:16:48 UTC supplies no acquisition or recovery release.
 No molecular cross-R N+1 overlap or unique branch continuation has been measured.
 Endpoints, delivered coefficients, budgets and eight-development/two-validation
 roles are unchanged; 114 S holdouts and the reserved equilibrium pole stay untouched.
