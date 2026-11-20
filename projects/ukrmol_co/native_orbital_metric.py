@@ -273,6 +273,20 @@ def generator_scales(shells, radius):
     return np.array(scales)
 
 
+def _scaled_tail_roots(shells, radius, scales):
+    roots = []
+    for shell in shells:
+        h, degree = shell.angular + 1.5, 2 * shell.angular + 1
+        lower = max(0.0, radius - np.linalg.norm(shell.center))
+        root = sum(
+            abs(c)
+            * np.sqrt(2 * pi / degree * gamma(h) / (2 * e) ** h * gammaincc(h, 2 * e * lower**2))
+            for e, c in zip(shell.exponents, shell.amplitudes, strict=True)
+        )
+        roots.extend([root] * degree)
+    return np.array(roots) * scales
+
+
 def uniform_ball_witness(shells, all_space, radius, scales):
     """Return restored hybrid Gram and conservative bound on its uniform-ball error.
 
@@ -295,16 +309,9 @@ def uniform_ball_witness(shells, all_space, radius, scales):
     ):
         raise ValueError("Matching finite Gram, positive AO scales and sphere required")
     hybrid = matrix.copy()
-    tail_roots, continuum = [], []
+    continuum = []
     for i, shell in enumerate(shells):
-        h, degree = shell.angular + 1.5, 2 * shell.angular + 1
-        lower = max(0.0, radius - np.linalg.norm(shell.center))
-        root = sum(
-            abs(c)
-            * np.sqrt(2 * pi / degree * gamma(h) / (2 * e) ** h * gammaincc(h, 2 * e * lower**2))
-            for e, c in zip(shell.exponents, shell.amplitudes, strict=True)
-        )
-        tail_roots.extend([root] * degree)
+        degree = 2 * shell.angular + 1
         continuum.extend([shell.continuum] * degree)
         if not shell.continuum:
             continue
@@ -317,7 +324,7 @@ def uniform_ball_witness(shells, all_space, radius, scales):
                 block = np.eye(degree) * radial_overlap(shell, other, radius)
             rows, columns = slice(offsets[i], offsets[i + 1]), slice(offsets[j], offsets[j + 1])
             hybrid[rows, columns], hybrid[columns, rows] = block, block.conj().T
-    tail_roots = np.array(tail_roots) * scales
+    tail_roots = _scaled_tail_roots(shells, radius, scales)
     error = np.outer(tail_roots, tail_roots)
     mask = np.logical_and.outer(continuum, continuum)
     error[mask] = 0.0
