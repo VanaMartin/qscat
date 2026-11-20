@@ -20,7 +20,7 @@ from projects.ukrmol_co.native_l2_determinants import _record_locations, l2_dete
 def read_primary_cidata(path: Path) -> tuple[dict, ...]:
     """Eight A1/B1/B2/A2 singlet/triplet sets, configuration-by-state raw C.
 
-    Accept at most eight retained states and 50000 configurations per sector.
+    Accept at most nine retained states and 50000 configurations per sector.
     No phase application, target selection, sorting, normalization or solve.
     """
     if not 0 < path.stat().st_size <= 64 * 1024**2:
@@ -54,7 +54,7 @@ def read_primary_cidata(path: Path) -> tuple[dict, ...]:
                     and 2 <= nuclei <= 3
                     and count == nuclei + roots + 1
                     and 1 <= dimension <= 50_000
-                    and 1 <= roots <= 8
+                    and 1 <= roots <= 9
                     and symmetry == irrep
                     and struct.unpack_from("<2d", header, 168) == (float(spin), float(spin))
                     and struct.unpack_from("<q", header, 184)[0] == 14
@@ -109,7 +109,7 @@ def expand_primary_target(path: Path, coefficients, phases, spin: int) -> CoreSe
         or spin not in (0, 1)
         or c.ndim != 2
         or not 1 <= c.shape[0] <= 50_000
-        or not 1 <= c.shape[1] <= 8
+        or not 1 <= c.shape[1] <= 9
         or p.shape != (len(c),)
         or not np.isin(p, [-1, 1]).all()
         or not np.isfinite(c).all()

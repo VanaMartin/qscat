@@ -18,14 +18,14 @@ def framed(stream, body):
     stream.write(marker + body + marker)
 
 
-def write_cidata(path, *, phases=(1, -1), charge=8.0, bad_order=False, trailing=False):
+def write_cidata(path, *, phases=(1, -1), charge=8.0, bad_order=False, trailing=False, roots=2):
     with path.open("xb") as stream:
         for irrep in range(4):
             for spin in range(2):
                 framed(stream, b"********                CIDATA  ")
                 header = bytearray(208)
-                struct.pack_into("<2q", header, 0, 2 * irrep + spin + 1, 5)
-                struct.pack_into("<4q", header, 136, 2, 2, 2, irrep)
+                struct.pack_into("<2q", header, 0, 2 * irrep + spin + 1, roots + 3)
+                struct.pack_into("<4q", header, 136, 2, roots, roots, irrep)
                 struct.pack_into("<2d", header, 168, spin, spin)
                 struct.pack_into("<q", header, 184, 14)
                 framed(stream, header)
@@ -34,14 +34,14 @@ def write_cidata(path, *, phases=(1, -1), charge=8.0, bad_order=False, trailing=
                 framed(
                     stream,
                     np.array(phases, "<i8").tobytes()
-                    + np.array([0.1, 0.2], "<f8").tobytes()
-                    + bytes(16),
+                    + np.linspace(0.1, 0.2, roots, dtype="<f8").tobytes()
+                    + bytes(8 * roots),
                 )
-                for root in range(2):
+                for root in range(roots):
                     framed(
                         stream,
                         struct.pack("<q", 2 if bad_order else root + 1)
-                        + np.eye(2, dtype="<f8")[:, root].tobytes(),
+                        + np.eye(roots, dtype="<f8")[:, root].tobytes(),
                     )
         if trailing:
             stream.write(b"x")
@@ -81,6 +81,13 @@ def test_cidata_preserves_raw_configuration_state_axes_and_phases(tmp_path):
     for sector in sectors:
         np.testing.assert_array_equal(sector["phases"], [1, -1])
         np.testing.assert_allclose(sector["coefficients"], np.eye(2), rtol=0, atol=0)
+
+
+def test_primary_nine_root_inventory_is_not_the_cas12_eight_root_layout(tmp_path):
+    path = tmp_path / "cidata"
+    write_cidata(path, phases=(1,) * 9, roots=9)
+    for sector in read_primary_cidata(path):
+        np.testing.assert_allclose(sector["coefficients"], np.eye(9), rtol=0, atol=0)
 
 
 @pytest.mark.parametrize(
