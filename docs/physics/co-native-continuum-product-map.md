@@ -155,3 +155,22 @@ cross-frame one-body metric, spin-changing removal contractions and coherent
 PP/PQ/QP/QQ assembly remain necessary. The generated real-CI benchmark establishes
 one ingredient's scale only. It does not authorize native recovery, other-R
 acquisition, another geometry, refitting or promotion to qscat.
+
+## Raw-target consumer
+
+`native_target_products.read_primary_cidata` preserves the eight source-order
+singlet/triplet sets and configuration-by-state raw coefficients. The bounded
+`expand_primary_target` admits only the primary13spatial/two-core/eleven-active
+target inventory, requires exact raw-CSF/CIDATA phase agreement and uses the
+existing sparse bound-CSF transformation with no discarded prefix. It checks
+the determinant-to-CSF roundtrip and root Gram without renormalizing either.
+It must not substitute the CAS12-specific target expansion.
+
+`native_target_products` accepts explicit source-order sectors and per-sector
+continuum indices. Its one-dimensional native channel vector is sector-outer,
+state-next, continuum-inner. It returns coherent alpha and beta `TargetProducts`,
+combining all M0 targets and the triplet M1 targets separately, with the signed
+factors above and normalized spin lowering. It does not infer native row metadata,
+apply delta again to raw targets, recover channel amplitudes, or manufacture Q.
+Providing these products is not enough to create a physical `CoreInteriorExpansion`:
+that still requires the complete actual bound-only Qroot and qualified self norms.
