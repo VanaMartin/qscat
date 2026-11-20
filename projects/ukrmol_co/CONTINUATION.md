@@ -80,9 +80,10 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
-**Current decision: selected native mapping, generated coherent kernel and common-ball
-cross-frame orbital blocks qualify; physical endpoint comparison remains blocked
-by complete native conversion and unsaved Q coefficients.**
+**Current decision: selected native mapping, generated coherent kernel, common-ball
+cross-frame orbital blocks and the saved raw-target consumer qualify. Physical
+endpoint comparison remains blocked by complete physical interior coefficients
+and end-to-end native conversion/self norms.**
 The user renewed work for four to six hours and requested continuation between
 passing bounded units. The conservative overall window is **20 November,
 12:16:48–16:16:48 UTC**; earlier expired windows are not renewed. The
@@ -155,11 +156,27 @@ no compilation, native self-test or electronic stage was repeated. This unit is
 **15:10:39–16:00:39 UTC**, inside the unchanged overall ceiling. The reusable
 cross-metric code is committed as `f347323`; 140 selected regressions pass.
 
-**One bounded remaining deliverable:** check the source-matched native consumer
-using existing accepted saved inputs within that same admission, before deciding
-whether missing-only Q recovery is justified. No further native export is released.
-Complete interior Q coefficients remain unsaved; their
-recovery is a separately authorized eigensolve, not a read-only operation.
+The [saved raw-target consumer](https://data.qscat.org/co-native-target-consumer-20261120/assessment.0b04d3f46bee.md)
+now converts all 48 actual R=3.0 target roots with unchanged raw phases/C. It reuses
+the existing accepted local terminal, acquiring/copying no new whole input. An
+independent scalar raw-range replay passes 384 signed root/CSF comparisons. The
+[fresh-public authentication](https://data.qscat.org/co-native-target-consumer-receipt-20261120/public-authentication.e350d01b3de4.json)
+passes exact source/array/failure integrity, fourteen small controls and the same
+independent saved replay without repeating full target contractions. The
+coherent 48 M0/24 M1 product interface passes with **generated** channel rows; that
+fully rectangular fixture is not a physical B1 row layout or recovered state.
+The original pre-contraction eight-root-reader rejection is preserved; the
+missing-only nine-A2 reader correction retains all original resource/accuracy/
+deadline gates and has its own generated regression. No successful sector was
+repeated. The corrected owner finished 15:36:58 UTC, 21.38 s wall/316 MB peak RSS.
+Reusable source is `d642f5b`; 159 selected regressions pass, not a repo-wide claim.
+
+**STOP at the physical-input authorization blocker. One proposed next deliverable,
+not released:** review a bounded missing-only native vector-recovery admission at
+the already accepted endpoints, including remaining end-to-end adapter/resource
+gates. No further native export or recovery is released. Complete interior Q
+coefficients remain unsaved; their recovery is a separately authorized eigensolve,
+not a read-only operation. Generated channel rows supply no missing physical P/Q.
 Do not substitute generated Q or projection-only character for the full physical
 state. Unused time before 16:16:48 UTC supplies no acquisition or recovery release.
 No molecular cross-R N+1 overlap or unique branch continuation has been measured.

@@ -103,6 +103,11 @@ one-R3.0 saved-export admission now qualifies the common18bohr orbital self/cros
 ingredient, including independent fresh-public replay and all mixed blocks; see
 the [current handoff](CONTINUATION.md). It is not a physical N+1 overlap. No further
 native export, recovery or other-R acquisition follows automatically.
+The subsequent saved raw-target consumer converts all 48 actual R3 target roots and
+passes independent signed raw-range replay. Its generated channel-row fixture
+does not supply the complete physical P/Q state or qualify end-to-end native
+conversion. The current admission stops at that input/authorization blocker; no
+native recovery or fresh window follows from remaining time.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
 and explicit removal approval remain missing. Both originals are retained.
 
