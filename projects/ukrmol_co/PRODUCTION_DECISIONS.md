@@ -79,12 +79,23 @@ The later source-only pass identifies a conditional
 export path, not an implemented physical metric or a native recovery release.
 The subsequent [common-domain Gaussian toy](../../docs/physics/co-common-domain-orbital-metric.md)
 validates a consistent finite-domain construction, not native normalization,
-harmonic phases or molecular comparison. A physical self-metric sentinel remains
-unreleased pending those convention/domain gates; see the current handoff.
+harmonic phases or molecular comparison. The later loader-aware existing-export
+self-metric now qualifies the declared 18-bohr one-body ingredient; see the
+[current handoff](CONTINUATION.md#goal-checkpoint--20-november-2026-one-body-and-contraction-ingredients).
 The [native point-value audit](../../docs/physics/co-native-orbital-conventions.md)
 resolves the source convention but identifies normalization reconstruction in
 the saved reader. Unchanged export scales are not admitted as generator-matched;
 source-justified restoration and independent self-metric controls are required.
+Those controls now pass, as does a generated molecular-dimension core-hole-aware
+target/removal benchmark. Native coupled-CSF phases and missing complete interior
+coefficients remain separate gates; no physical cross-R overlap or native recovery
+is released. The renewed 20 November method-only window ends 16:16:48 UTC.
+The source-only [native product-map contract](../../docs/physics/co-native-continuum-product-map.md)
+resolves ordering/prototype roles but leaves the loaded target phase boundary
+and signed primary coupled-CSF witness missing. Physical continuation stops at
+that gate; no generic support/optimization or recovery successor is released.
+The exact old two-CSF archive is freshly verified, but consumer/owner resolution
+and explicit removal approval remain missing. Both originals are retained.
 
 ## Decisions that remain closed
 

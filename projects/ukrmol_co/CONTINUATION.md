@@ -78,9 +78,69 @@ physical observable and bounded decision, or retain this completed local milesto
 That packaging checkpoint released no scientific branch. Earlier preparation/goal checkpoints are
 historical context, not a current queue. Unrelated dirty work remains outside this task.
 
+## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
+
+**Current decision: two ingredients qualify; stop physical continuation at the
+native product-phase gate.**
+The user renewed work for four to six hours and requested continuation between
+passing bounded units. The conservative overall window is **20 November,
+12:16:48–16:16:48 UTC**; earlier expired windows are not renewed. The
+[loader-aware self-metric](https://data.qscat.org/co-loader-aware-self-metric-20261120/assessment.36f9259ea6e5.md)
+qualifies the existing R=2.8 export on the declared **18-bohr** interior domain,
+including independent decoding and
+[fresh-public saved replay](https://data.qscat.org/co-loader-aware-self-metric-20261120/public-authentication.99f0dfceca01.json).
+This closes the normalization gate through tagged continuum-scale restoration,
+not whitening or changing C. Radius 20/22 probes diagnose uncontrolled Gaussian
+extension, not physical exterior convergence. No native stage was repeated.
+
+The [core-sector contraction result](https://data.qscat.org/co-core-sector-contraction-20261120/assessment.b104a3ffa847.md)
+passes generated fourteen-electron, two-core/eleven-active, 48-real-root target
+and complete one-spin removal tests within 120 s/2 GiB. It establishes a measured
+kernel scale, not native target states, coupled-CSF phases or a full complex
+resonance workload. Its unit ceiling is **14:34:59 UTC**, inside the unchanged
+overall ceiling. Independent saved-output arithmetic and
+[fresh-public verification](https://data.qscat.org/co-core-sector-contraction-receipt-20261120/public-authentication-v2.a612421bb870.json)
+pass; original HTTP consumer failure and missing-only correction are preserved.
+
+The [source-only product-map audit](https://data.qscat.org/co-native-product-phase-audit-20261120/assessment.6d59015f7a73.md)
+resolves row order, actual coefficient axes and prototype roles: adjacent native
+prototypes are continuum-orbital representatives, not alpha/beta components.
+The retained source lacks the implementation behind `CIRMAT(... phase_index ...)`
+and no direct signed primary-CAS11 coupled-CSF witness qualifies the map. Its
+45-minute source-only unit is **13:23:57–14:08:57 UTC**; no molecular payload or
+native stage ran;
+[fresh-public source-record authentication](https://data.qscat.org/co-native-product-phase-audit-20261120/public-authentication.b7847885e1d2.json)
+passes without asserting mapping qualification. The [durable admission contract](../../docs/physics/co-native-continuum-product-map.md)
+names the exact boundary rather than guessing native spin phases.
+
+**One proposed next deliverable, blocked pending separate read-only admission:**
+resolve the raw-to-loaded CI phase boundary and compare bounded selected
+singlet/triplet target CSFs with both continuum prototypes at one already
+accepted primary frame. Source-matched spin/address metadata and a primary-CAS11
+decoder are required; the CAS12-only decoder is not silently generalized.
+No successful numerical stage needs repeating. Do not add generic controls,
+optimize an adequate kernel or recover full Q vectors instead of addressing that
+map. Complete interior Q coefficients remain unsaved; recovery is a separately
+authorized eigensolve, not a saved read. No scientific owner remains active.
+No molecular cross-R N+1 overlap or unique branch continuation has been measured.
+Endpoints, delivered coefficients, budgets and eight-development/two-validation
+roles are unchanged; 114 S holdouts and the reserved equilibrium pole stay untouched.
+
+**Exact CSF archive: verified, retain originals.** The user approved publication
+of the two named old generated CSFs to existing data.qscat.org, not deletion or
+link replacement. Their [lossless archive](https://data.qscat.org/co-cas12-csf-pair-archive-20261120/assessment.6ad9a7372209.md)
+passes full fresh-download/decompressed checks in the
+[verification receipt](https://data.qscat.org/co-cas12-csf-pair-archive-receipt-20261120/bulk-public-authentication.b93ea8bb0ff7.json).
+The [bounded consumer disposition](https://data.qscat.org/co-cas12-csf-pair-archive-receipt-20261120/consumer-disposition.8637f9974ac3.md)
+finds no accessible open fd or containing running-container mount, but process
+visibility is incomplete and historical replay dependencies remain. Removal is
+blocked by owner/consumer resolution and explicit exact-file approval. Zero bytes
+were reclaimed; the successful old pilot, its partials/failures and both originals
+remain. No bulk reupload was needed to publish the small receipt.
+
 ## Goal checkpoint — 18 November 2026: projection information stop
 
-**Current method checkpoint — native conventions resolved, export-scale gate
+**Previous source-only checkpoint — native conventions resolved, export-scale gate
 rejected:** the
 [read-only source audit](https://data.qscat.org/co-native-orbital-conventions-20261118/assessment.90c9d5391f6a.md)
 resolves point values, harmonic signs/order, addressing and native AO-domain

@@ -107,6 +107,11 @@ self Gram positivity and reverse consistency; three-level orbital-metric
 convergence; numerical uncertainty and implementation/work caps. Qualify the
 saved-basis export and scalar block kernels before any full-vector recovery.
 
+The [native continuum-product map contract](co-native-continuum-product-map.md)
+separates contracted rows, paired continuum-orbital prototypes and spin
+components. Native CI phase loading and direct signed coupled-CSF agreement are
+still required; a prototype pair is not an alpha/beta spin decomposition.
+
 The missing Q coefficients remain distinct from the saved P coefficients. A
 native eigensolve to recover them is a separately authorized calculation, not a
 read-only export. Even a qualified full interior overlap would be an endpoint
@@ -126,13 +131,22 @@ antisymmetrized exterior coordinates for orthonormal/nonorthogonal frames,
 vacuum through three-electron targets, singular metrics, spin coupling, core
 removal, phase/order changes and a complete-state self norm.
 
+The [core-sector contraction kernel](co-core-sector-contractions.md) supplies
+spin-separated target/removal amplitudes with explicit core-hole sectors and
+full occupied-spin minors, without inverting a cross-core block. Generated
+molecular-dimension tests establish its real-CI working scale; native
+continuum-target contraction/phase agreement and complete interior coefficients
+remain separate admission gates.
+
 `native_orbital_io.f90` copies MO coefficients, stored native overlaps,
 AO shell/function addresses, geometry and the **post-read reconstructed** CGTO
 object. Its convenience native loader recomputes CGTO normalization during shell
 insertion; this is not a lossless export of all file normalization fields. The
-[native convention contract](co-native-orbital-conventions.md) explains the
-unresolved generator-scale restoration. No point evaluation or new integral
-generation is performed. The generated `--self-test` checks the double/int64 writer
+[native convention contract](co-native-orbital-conventions.md) and
+[loader-aware one-body implementation](co-loader-aware-self-metric.md) explain
+the tagged generator-scale restoration and its self-metric admission. The export
+performs no point evaluation or new integral generation. The generated
+`--self-test` checks the double/int64 writer
 layout without reading a molecule. `orbital_export.read_orbital_export` validates
 the complete export and returns unchanged coefficients/metadata. Stored overlaps
 are explicitly not a newly computed common-domain self or cross metric. A
