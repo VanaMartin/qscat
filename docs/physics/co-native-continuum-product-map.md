@@ -45,6 +45,20 @@ and `phase_index`, then unpacks the returned vectors into that object. Its
 `CIRMAT` phase argument is inactive. Raw CIDATA coefficients cannot be declared
 equivalent to loaded coefficients without resolving that boundary.
 
+The subsequently resolved `CIRMAT`/`CPAKPZ` implementation makes the boundary
+explicit. With continuum contraction enabled, a selected raw target coefficient
+is multiplied by the product of the corresponding target-file phase label and
+scattering-CONGEN target phase label. Both are signs. The row transformation is
+therefore `C_loaded[m,I] = p_scattering[m] p_target[m] C_raw[m,I]`, with target
+selection/order unchanged. It must be applied once; multiplying only one phase
+table or independently rephasing the resulting target changes the product basis.
+This source rule is not proof that a particular decoded pair uses matching labels.
+
+For the electron-only D2h branch, `MKORBS` gives adjacent spin addresses for
+each spatial orbital, spin0 followed by spin1, without the axial-symmetry
+fourfold pattern. This admits the interleaved-address conversion only after the
+saved header establishes that symmetry branch and electron-only case.
+
 Packed CSFs reconstruct each determinant by substitutions into its reference
 occupation. The native manager folds sorting parity into each determinant
 coefficient when converting to its ordered bit representation. Conversion to
@@ -98,12 +112,23 @@ still needs its own determinant-dependent signs.
 
 ## Boundary
 
-The retained source subset resolves row order, coefficient axes, prototype role
-and sorting behavior. It contains the `CIRMAT` call, not its implementation,
-and not the orbital-table or CONGEN coupling-generator implementations. Hence
-it does not close the native product-phase gate. A future audit may resolve
-those sources, or a direct decoded witness may establish an explicit map, but
-neither has been performed by this contract. No molecular mapping is admitted.
+The initial source subset resolved row order, coefficient axes, prototype role
+and sorting behavior but contained only the `CIRMAT` call. Subsequent inspection
+of `ci-diag/scatci_routines.f` (SHA256
+`cbbaa8e32026f3ca345c2b382ed38cdb4868a391063a963900de59e4a99f9ea6`)
+resolves `CIRMAT`/`CPAKPZ` and `MKORBS`; the orbital-table wrapper is pinned at
+`63fa977571f307432d6e8d2afe318c6a790ad0b74f176e5bf9336d698d7cc98d`.
+These are restricted source identities, not source payloads shipped here.
+
+`native_csf_selection.selected_csf_determinants` decodes bounded selected CSFs
+from the six-record int64/float64 electron-only D2h format. It preserves raw
+reference-slot substitutions and converts directly to alpha-then-beta canonical
+determinants; it does not apply a native sorting sign a second time. Unselected
+CSFs remain unexpanded read-only mappings. Explicit phase/group metadata are
+returned separately, and `corrected_target_coefficients` applies only the declared
+row-phase product. Hand-built format, slot-parity, phase-covariance and resource
+controls precede molecular use. This is not a coupled-CSF adapter; the signed
+selected-prototype witness above remains an independent admission gate.
 
 Even after that gate, complete interior Q coefficients, a consistently computed
 cross-frame one-body metric, spin-changing removal contractions and coherent
