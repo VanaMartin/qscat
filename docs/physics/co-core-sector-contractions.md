@@ -62,6 +62,10 @@ one orbital at a time, and each right root block is transformed once for a
 left-sector family. It does not recompute that transformation for every left
 orbital in the same sector. It checks the total left-removal allocation before
 building arrays; the right arrays and eight-root transforms are bounded scratch.
+An explicit `right_spin` additionally supports spin-changing deletion; the
+default retains same-spin behavior. The
+[coherent four-block consumer](co-core-sector-full-overlap.md) specifies the
+crossed deletion spins required by exchange between different continuum spins.
 
 ## Scope, controls and limits
 

@@ -80,8 +80,7 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
-**Current decision: two ingredients qualify; stop physical continuation at the
-native product-phase gate.**
+**Current decision: continue bounded method work; physical acquisition stays stopped.**
 The user renewed work for four to six hours and requested continuation between
 passing bounded units. The conservative overall window is **20 November,
 12:16:48–16:16:48 UTC**; earlier expired windows are not renewed. The
@@ -113,15 +112,26 @@ native stage ran;
 passes without asserting mapping qualification. The [durable admission contract](../../docs/physics/co-native-continuum-product-map.md)
 names the exact boundary rather than guessing native spin phases.
 
-**One proposed next deliverable, blocked pending separate read-only admission:**
-resolve the raw-to-loaded CI phase boundary and compare bounded selected
-singlet/triplet target CSFs with both continuum prototypes at one already
-accepted primary frame. Source-matched spin/address metadata and a primary-CAS11
-decoder are required; the CAS12-only decoder is not silently generalized.
-No successful numerical stage needs repeating. Do not add generic controls,
-optimize an adequate kernel or recover full Q vectors instead of addressing that
-map. Complete interior Q coefficients remain unsaved; recovery is a separately
-authorized eigensolve, not a saved read. No scientific owner remains active.
+The user's explicit **please continue** admits that proposed read-only witness
+inside the unchanged overall window. The
+[two-sector primary witness](https://data.qscat.org/co-native-product-witness-20261120/assessment.763e3c77e3c6.md)
+resolves CIRMAT's exact phase product and the D2h spin addresses, then passes
+32 signed prototype comparisons and independent raw-byte replay. The
+[missing-only six-sector remainder](https://data.qscat.org/co-native-product-remainder-ranges-20261120/assessment.9f19407f5e75.md)
+passes96new comparisons with the same frozen factors, not per-irrep rephasing.
+Together these test128selected prototypes across all8retained target sectors;
+they do not exhaust every CSF or measure a cross-R overlap. The original128MiB
+whole-input acquisition stop and five successful files are preserved; exact
+selected ranges supply only the missing sixth input without increasing the cap.
+
+**One bounded active deliverable:** generated coherent core-sector QQ/PQ/QP/PP
+contractions, including spin-changing removal, ending **15:02:57 UTC** within
+the same overall ceiling. Test all blocks against the small full determinant
+oracle, then one capped14/15-electron real-target/complex-Q/channel benchmark.
+This is the missing consumer for the newly qualified ingredients, not another
+generic control or native acquisition. No successful native stage is repeated.
+Complete interior Q coefficients remain unsaved; recovery is a separately
+authorized eigensolve, not a saved read. No native scientific owner is active.
 No molecular cross-R N+1 overlap or unique branch continuation has been measured.
 Endpoints, delivered coefficients, budgets and eight-development/two-validation
 roles are unchanged; 114 S holdouts and the reserved equilibrium pole stay untouched.

@@ -269,16 +269,20 @@ def removal_overlaps(
     metric: CoreSectorMetric,
     *,
     max_left_bytes=1024**3,
+    right_spin: int | None = None,
 ) -> np.ndarray:
-    """Complete one-spin orbital/target removal Gram, grouped by core-hole sector.
+    """Orbital/target removal Gram with optional spin-changing ket deletion.
 
     Left removal arrays are retained only within a checked byte budget; right
     arrays and transformed roots are processed one orbital/eight roots at a time.
     """
     a, b = metric._check(left), metric._check(right)
+    right_spin = spin if right_spin is None else right_spin
     if (
         type(spin) is not int
         or spin not in (0, 1)
+        or type(right_spin) is not int
+        or right_spin not in (0, 1)
         or type(max_left_bytes) is not int
         or not 1 <= max_left_bytes <= 1024**3
     ):
@@ -307,7 +311,7 @@ def removal_overlaps(
         (orbitals, len(a), orbitals, len(b)), dtype=np.result_type(a, b, metric.matrix, float)
     )
     for j in range(orbitals):
-        right_state = remove_spin_orbital(right, spin, j)
+        right_state = remove_spin_orbital(right, right_spin, j)
         if right_state is None:
             continue
         for group in groups.values():

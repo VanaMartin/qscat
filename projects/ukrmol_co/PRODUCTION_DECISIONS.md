@@ -91,9 +91,12 @@ target/removal benchmark. Native coupled-CSF phases and missing complete interio
 coefficients remain separate gates; no physical cross-R overlap or native recovery
 is released. The renewed 20 November method-only window ends 16:16:48 UTC.
 The source-only [native product-map contract](../../docs/physics/co-native-continuum-product-map.md)
-resolves ordering/prototype roles but leaves the loaded target phase boundary
-and signed primary coupled-CSF witness missing. Physical continuation stops at
-that gate; no generic support/optimization or recovery successor is released.
+initially resolved ordering/prototype roles while leaving the loaded target phase
+boundary and signed primary witness missing. The later explicitly admitted
+read-only witness resolves that boundary and passes selected signed comparisons
+across all eight retained sectors with frozen common factors. This is sampled
+mapping evidence, not a full adapter or physical cross-R overlap. The handoff
+bounds the remaining generated coherent-kernel consumer; no native recovery follows.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
 and explicit removal approval remain missing. Both originals are retained.
 

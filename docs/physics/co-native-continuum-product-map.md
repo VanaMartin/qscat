@@ -112,6 +112,26 @@ still needs its own determinant-dependent signs.
 
 ## Boundary
 
+The [initial selected native witness](https://data.qscat.org/co-native-product-witness-20261120/assessment.763e3c77e3c6.md)
+and [six-sector remainder](https://data.qscat.org/co-native-product-remainder-ranges-20261120/assessment.9f19407f5e75.md)
+test the same signed prescription across the retained singlet/triplet target
+sector inventory. In the tested canonical creation convention, the singlet
+alpha factor is +1; triplet alpha/beta factors are -1/sqrt(3) and +sqrt(2/3).
+These are source-matched native conversion factors, not per-irrep fitted phases.
+The selected evidence is not exhaustive over every configuration or a completed
+molecular overlap adapter.
+
+Let t_m denote the raw target-file CSF and delta_m the explicit target/scattering
+phase-label product. The selected native coupled prototype obeys
+`Xi_m = delta_m G(t_m)`, where G includes those signed spin-coupling factors and
+continuum creation. Since `C_loaded = delta C_raw`, contracting the native
+prototype gives `sum_m C_loaded[m,I] Xi_m = G(sum_m C_raw[m,I] t_m)`.
+Thus a product adapter using targets expanded from **raw CIDATA plus raw target
+CSFs** applies the signed spin factors to the native channel amplitudes but does
+not multiply those target roots by delta again. Other target representations
+must track their basis transformation explicitly. This cancellation does not
+permit discarding either phase table when validating the source boundary.
+
 The initial source subset resolved row order, coefficient axes, prototype role
 and sorting behavior but contained only the `CIRMAT` call. Subsequent inspection
 of `ci-diag/scatci_routines.f` (SHA256
