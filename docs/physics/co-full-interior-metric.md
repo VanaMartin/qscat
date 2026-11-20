@@ -73,9 +73,12 @@ against directly decoded coupled CSFs before using the product representation.
 
 Contract the coefficient matrices A into these blocks; do not materialize every
 pair of expanded continuum configurations or a full inner-basis Gram matrix.
-This removes a major representation explosion, but target-removal contractions
-still need an actual bounded benchmark. No laptop or four-core runtime is
-established by the algebra alone.
+This removes a major representation explosion, but each intended input type and
+dimension still needs an actual bounded benchmark. The
+[coherent core-sector consumer](co-core-sector-full-overlap.md) provides a tested
+generated-stage implementation including spin-changing removal and complex Q/A.
+Its measured admission record is in the [experiment catalogue](../../projects/ukrmol_co/experiments.md);
+no generic laptop or four-core runtime is established by the algebra alone.
 
 ## Domain and native admission gates
 

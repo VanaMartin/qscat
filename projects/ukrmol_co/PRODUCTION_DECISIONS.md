@@ -96,7 +96,10 @@ boundary and signed primary witness missing. The later explicitly admitted
 read-only witness resolves that boundary and passes selected signed comparisons
 across all eight retained sectors with frozen common factors. This is sampled
 mapping evidence, not a full adapter or physical cross-R overlap. The handoff
-bounds the remaining generated coherent-kernel consumer; no native recovery follows.
+bounds the generated coherent-kernel consumer, which now passes full-determinant
+controls and a 14/15-electron real-target/complex-state benchmark. Actual coherent
+native conversion, physical cross-frame metric/self norms and unsaved full Q
+coefficients remain missing; no native export/recovery or other-R acquisition follows.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
 and explicit removal approval remain missing. Both originals are retained.
 

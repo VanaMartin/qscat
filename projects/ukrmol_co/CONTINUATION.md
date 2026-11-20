@@ -80,7 +80,8 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
-**Current decision: continue bounded method work; physical acquisition stays stopped.**
+**Current decision: native selected mapping and generated coherent kernel qualify;
+physical endpoint comparison remains blocked by missing inputs/admission.**
 The user renewed work for four to six hours and requested continuation between
 passing bounded units. The conservative overall window is **20 November,
 12:16:48–16:16:48 UTC**; earlier expired windows are not renewed. The
@@ -118,20 +119,35 @@ inside the unchanged overall window. The
 resolves CIRMAT's exact phase product and the D2h spin addresses, then passes
 32 signed prototype comparisons and independent raw-byte replay. The
 [missing-only six-sector remainder](https://data.qscat.org/co-native-product-remainder-ranges-20261120/assessment.9f19407f5e75.md)
-passes96new comparisons with the same frozen factors, not per-irrep rephasing.
-Together these test128selected prototypes across all8retained target sectors;
-they do not exhaust every CSF or measure a cross-R overlap. The original128MiB
+passes 96 new comparisons with the same frozen factors, not per-irrep rephasing.
+Together these test 128 selected prototypes across all eight retained target sectors;
+they do not exhaust every CSF or measure a cross-R overlap. The original 128-MiB
 whole-input acquisition stop and five successful files are preserved; exact
 selected ranges supply only the missing sixth input without increasing the cap.
+Its [fresh-public independent raw replay](https://data.qscat.org/co-native-product-remainder-ranges-20261120/public-authentication.df2ee0aa2c98.json)
+passes; licensed native source/runtime and protected validation data are excluded.
 
-**One bounded active deliverable:** generated coherent core-sector QQ/PQ/QP/PP
-contractions, including spin-changing removal, ending **15:02:57 UTC** within
-the same overall ceiling. Test all blocks against the small full determinant
-oracle, then one capped14/15-electron real-target/complex-Q/channel benchmark.
-This is the missing consumer for the newly qualified ingredients, not another
-generic control or native acquisition. No successful native stage is repeated.
-Complete interior Q coefficients remain unsaved; recovery is a separately
-authorized eigensolve, not a saved read. No native scientific owner is active.
+The [coherent core-sector kernel](https://data.qscat.org/co-coherent-core-metric-20261120/assessment.1cc865002b7e.md)
+passes all four blocks against small full-determinant oracles and one bounded
+generated 14/15-electron real-target/complex-Q/channel forward/reverse benchmark,
+including spin-changing removal and core holes. Its **15:02:57 UTC** unit ceiling
+and overall ceiling are unchanged; the numerical owner finished 14:11:03 UTC.
+This supplies a measured computational consumer, not actual missing molecular
+vectors. Its [fresh-public authentication](https://data.qscat.org/co-coherent-core-metric-receipt-20261120/public-authentication.574bd2beed48.json)
+passes exact input/source/output integrity, thirteen small full-determinant tests
+and independent saved-block arithmetic without repeating the large benchmark.
+The combined targeted suite passes 191 tests. No successful native stage was
+repeated and no native scientific owner is active.
+
+**One proposed next deliverable, not released:** qualify a complete source-matched
+native consumer and common-domain cross-frame orbital blocks/self norms from the
+existing accepted endpoint inputs before deciding on missing-only Q recovery.
+The current scope admits neither additional native saved-basis exports nor
+other-R acquisition. Complete interior Q coefficients remain unsaved; their
+recovery is a separately authorized eigensolve, not a read-only operation.
+Do not substitute generated Q or projection-only character for the full physical
+state. Further work needs an explicit input/acquisition admission; unused time
+before 16:16:48 UTC does not supply it.
 No molecular cross-R N+1 overlap or unique branch continuation has been measured.
 Endpoints, delivered coefficients, budgets and eight-development/two-validation
 roles are unchanged; 114 S holdouts and the reserved equilibrium pole stay untouched.
