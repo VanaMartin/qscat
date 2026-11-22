@@ -11,8 +11,9 @@ The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
 **Current decision: the scoped finite-model two-geometry pilot is complete;
-scientific acquisition remains stopped.** Method-only work is bounded by the
-current checkpoint below. The own R=2.8
+only the later explicitly approved missing-vector recovery is active.** The
+22 November checkpoint below supersedes the earlier recovery stop, not the
+endpoint/fit limits. The own R=2.8
 primary-CAS11 resonance pair and R=3.0 localized bound-candidate pair qualify.
 The [compatible bound-pair result](https://data.qscat.org/co-crossing-r3000-b2-bound-result-20261117/assessment.038491642ccd.md)
 passes all nine B2 witnesses, same-R counterpart gates and remote/local/fresh-public
@@ -77,6 +78,34 @@ links that archive and the unchanged scientific delivery. Next: select a distinc
 physical observable and bounded decision, or retain this completed local milestone.
 That packaging checkpoint released no scientific branch. Earlier preparation/goal checkpoints are
 historical context, not a current queue. Unrelated dirty work remains outside this task.
+
+## Goal checkpoint — 22 November 2026: missing-vector recovery
+
+The user explicitly renewed **16 hours, ending 23 November at 04:19:46 UTC**;
+the clock does not restart on resumption. The
+[bounded checkpoint](https://data.qscat.org/co-b1-recovery-window-checkpoint-20261122/checkpoint.a909b1f644bb.md)
+preserves authorization, interruptions, original failures and the passing actual
+saved-P control. The [R=3.0 B1 release](https://data.qscat.org/co-b1-vector-recovery-release-20261122/decision.c097446c276d.md)
+and [fresh-public authentication](https://data.qscat.org/co-b1-recovery-window-checkpoint-20261122/release-public-authentication.e038119a88d0.json)
+cover one missing full-vector rebuild/eigensolve of the unchanged retained model.
+Its finite owner is active at the recorded observation, with four physical
+cores/32 GiB, total-host CPU below 50%, original disk guards and a 105-minute
+native cap. This is not a terminal result or a new qualified geometry.
+
+**Next bounded deliverable:** preserve the original terminal/raw full vectors;
+after native PASS, evaluate the complete physical R3 QQ/PQ/QP/PP self norm on
+the qualified 18-bohr domain. The passing partial-P norm is not a complete-state
+substitute. Only a passing full self norm plus remaining time/resource admission
+permits a separately frozen R=2.8 B1 recovery; none is scheduled automatically.
+No SCF, target/integral/CONGEN, B2, exterior/pole or new-geometry repeat is released.
+
+The separate [local Gaussian pilot](https://data.qscat.org/co-local-gaussian-fit-stop-20261122/assessment.ce64c7934917.md)
+stopped INCONCLUSIVE at its synthetic inverse before reading CO training or
+validation values. No fitted candidate exists; no changed seed/grid/solver retry
+is released. Accepted curves, endpoint prescriptions, eight-development/two-
+validation roles, 114 S holdouts and equilibrium outgoing exclusion are unchanged.
+Global neutral continuation and unique branch identity remain unqualified. Both
+archived old CSFs remain in place; no deletion, cleanup or merge is released.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
@@ -171,8 +200,9 @@ deadline gates and has its own generated regression. No successful sector was
 repeated. The corrected owner finished 15:36:58 UTC, 21.38 s wall/316 MB peak RSS.
 Reusable source is `d642f5b`; 159 selected regressions pass, not a repo-wide claim.
 
-**STOP at the physical-input authorization blocker. One proposed next deliverable,
-not released:** review a bounded missing-only native vector-recovery admission at
+**Historical stop, superseded only by the 22 November bounded release above.**
+One then-proposed next deliverable,
+not released at that checkpoint: review a bounded missing-only native vector-recovery admission at
 the already accepted endpoints, including remaining end-to-end adapter/resource
 gates. No further native export or recovery is released. Complete interior Q
 coefficients remain unsaved; their recovery is a separately authorized eigensolve,

@@ -106,8 +106,15 @@ native export, recovery or other-R acquisition follows automatically.
 The subsequent saved raw-target consumer converts all 48 actual R3 target roots and
 passes independent signed raw-range replay. Its generated channel-row fixture
 does not supply the complete physical P/Q state or qualify end-to-end native
-conversion. The current admission stops at that input/authorization blocker; no
-native recovery or fresh window follows from remaining time.
+conversion. That admission stopped at the input/authorization blocker; no
+native recovery or fresh window followed from remaining time alone. The user's
+later explicit missing-only recovery approval and renewed 16-hour window are
+bounded by the [22 November checkpoint](CONTINUATION.md#goal-checkpoint--22-november-2026-missing-vector-recovery).
+Only R3 B1 recovery is active at its recorded observation; a complete physical
+R3 self norm gates any separately frozen R2 B1 recovery. The separate local
+Gaussian inverse pilot stopped before CO data access; no fitted candidate or
+automatic retry follows. Accepted endpoint prescriptions and delivered curves
+remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
 and explicit removal approval remain missing. Both originals are retained.
 
