@@ -1,5 +1,7 @@
 """Generated native row inventories, coherent assembly and spectral-frame controls."""
 
+import struct
+
 import numpy as np
 import pytest
 from scipy.sparse import csr_matrix
@@ -8,8 +10,40 @@ from projects.ukrmol_co.core_sector_overlap import CoreSectorCI
 from projects.ukrmol_co.native_interior import (
     assemble_native_interior,
     continuum_row_layout,
+    read_retained_spectrum,
     recover_retained_state,
 )
+
+
+@pytest.mark.parametrize("payload", [2, 5])
+def test_spectrum_explicit_full_or_partial_inventory_and_exact_eof(tmp_path, payload):
+    path = tmp_path / "spectrum"
+    header = bytearray(208)
+    struct.pack_into("<4q", header, 136, 0, 5, 3, 1)
+    struct.pack_into("<d", header, 192, -2.0)
+    vectors = np.arange(3 * payload).reshape(3, payload) / 10
+    records = [
+        b"********                CIDATA  ",
+        header,
+        np.r_[np.zeros(5), [0.1, 0.2, 0.3], np.zeros(5)].astype("<f8").tobytes(),
+    ]
+    records += [struct.pack("<q", i + 1) + v.astype("<f8").tobytes() for i, v in enumerate(vectors)]
+    with path.open("xb") as stream:
+        for body in records:
+            marker = struct.pack("<I", len(body))
+            stream.write(marker + body + marker)
+    energies, actual, metadata = read_retained_spectrum(
+        path, dimension=5, roots=3, coefficients=payload
+    )
+    np.testing.assert_allclose(energies, [-1.9, -1.8, -1.7], rtol=0, atol=1e-14)
+    np.testing.assert_allclose(actual, vectors, rtol=0, atol=0)
+    assert metadata["coefficients"] == payload
+    with pytest.raises(ValueError):
+        read_retained_spectrum(path, dimension=5, roots=3, coefficients=5 if payload == 2 else 2)
+    with path.open("ab") as stream:
+        stream.write(b"x")
+    with pytest.raises(ValueError):
+        read_retained_spectrum(path, dimension=5, roots=3, coefficients=payload)
 
 
 def test_explicit_native_flags_and_sector_state_continuum_order():

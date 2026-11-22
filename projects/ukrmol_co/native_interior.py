@@ -6,8 +6,10 @@ coefficient recovery is performed. See docs/physics/co-native-interior-recovery.
 
 from __future__ import annotations
 
+import struct
 from itertools import pairwise
 from math import comb
+from pathlib import Path
 
 import numpy as np
 from scipy.sparse import isspmatrix_csr
@@ -15,6 +17,69 @@ from scipy.sparse import isspmatrix_csr
 from projects.ukrmol_co.core_sector_full_overlap import CoreInteriorExpansion
 from projects.ukrmol_co.core_sector_overlap import CoreSectorCI, _validate
 from projects.ukrmol_co.native_target_products import native_target_products
+
+
+def read_retained_spectrum(path: Path, *, dimension: int, roots: int, coefficients: int) -> tuple:
+    """Read one bounded double/int64 CIDATA set with an explicit payload inventory.
+
+    The declared full dimension does not imply that full vectors were written;
+    the caller must supply the independently established coefficient count.
+    """
+    if (
+        any(type(n) is not int for n in (dimension, roots, coefficients))
+        or not 1 <= coefficients <= dimension <= 50_000
+        or not 1 <= roots <= 4096
+        or not 0 < path.stat().st_size <= 2 * 1024**3
+    ):
+        raise ValueError("Bounded explicit native spectrum inventories required")
+    with path.open("rb") as stream:
+
+        def record():
+            marker = stream.read(4)
+            if len(marker) != 4:
+                raise ValueError("Missing native spectrum marker")
+            (length,) = struct.unpack("<I", marker)
+            if length > 8 * (2 * dimension + roots) + 2048:
+                raise ValueError("Native spectrum record cap exceeded")
+            body = stream.read(length)
+            if len(body) != length or stream.read(4) != marker:
+                raise ValueError("Truncated native spectrum record")
+            return body
+
+        if record() != b"********                CIDATA  ":
+            raise ValueError("Native spectrum set marker differs")
+        header = record()
+        if len(header) != 208:
+            raise ValueError("Native spectrum header length differs")
+        nuclei, n, k, symmetry = struct.unpack_from("<4q", header, 136)
+        if not 0 <= nuclei <= 64 or (n, k) != (dimension, roots):
+            raise ValueError("Native spectrum dimensions differ")
+        for _ in range(nuclei):
+            if len(record()) != 40:
+                raise ValueError("Native spectrum center layout differs")
+        mixed = record()
+        if len(mixed) != 8 * (2 * dimension + roots):
+            raise ValueError("Native spectrum energy/diagonal layout differs")
+        energy = np.frombuffer(mixed, "<f8", count=roots, offset=8 * dimension).copy()
+        energy += struct.unpack_from("<d", header, 192)[0]
+        vectors = np.empty((roots, coefficients))
+        for i in range(roots):
+            body = record()
+            if len(body) != 8 * (coefficients + 1) or struct.unpack_from("<q", body)[0] != i + 1:
+                raise ValueError("Native spectrum vector order or payload differs")
+            vectors[i] = np.frombuffer(body, "<f8", offset=8)
+        if (
+            stream.read(1)
+            or not np.isfinite(energy).all()
+            or not np.isfinite(vectors).all()
+            or np.any(np.diff(energy) < 0)
+        ):
+            raise ValueError("Nonfinite, unordered or trailing native spectrum data")
+    return (
+        energy,
+        vectors,
+        dict(dimension=dimension, roots=roots, coefficients=coefficients, symmetry=int(symmetry)),
+    )
 
 
 def continuum_row_layout(
