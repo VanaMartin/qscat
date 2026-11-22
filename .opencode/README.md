@@ -3,8 +3,9 @@
 The repository supports OpenCode V2 with:
 
 - `opencode.json`: the routine shell-command allowlist adapted from
-  `.claude/settings.json`, plus local code and article-note MCP mounts. Other shell
-  commands ask for approval.
+  `.claude/settings.json` and specialist lookup permissions. Search MCPs are owned
+  by the native plugin, not duplicate process definitions. Other shell commands
+  ask for approval.
 - `.opencode/agents/`: the six specialist agents adapted from `.claude/agents/`.
   Ask the primary agent to use a specialist by name, for example:
   `Use physics-reviewer to review this method and its validation evidence.`
@@ -24,45 +25,44 @@ read-only filesystem; only approve inspection commands for read-only agents.
 Maintain the Claude and OpenCode specialist prompts together when changing their
 roles. Shared workflow instructions belong in `.claude/skills/` or `CLAUDE.md`.
 
-For repository and processed-article retrieval, use `knowledge-search` and read
-[`docs/agent-search.md`](../docs/agent-search.md). `search/profiles.json` describes
-the corpus/chunking policies consumed by the MCP/indexer; it is not native
-OpenCode configuration.
-Every coding/review agent follows `CLAUDE.md`'s **Search and edit loop**. Specialist
-prompts point to that shared contract; lookup permissions include Code Mode and
-the two LanceDB query/inspection tools. Read-only specialists leave index
-maintenance to the caller. The built-in `explore` adapter also permits these
-lookups; exact searches and source reads remain available when indexes are absent.
+## Native repository search
 
-OpenCode mounts `tools.agent_search.mcp` from the isolated `search/` Python
-environment. `uv run --frozen` installs its locked dependencies on a fresh clone.
-The lightweight stdio proxy registers with one host-shared local search service,
-used by both corpus mounts and compatible worktrees/CLI commands. That service
-caches one loaded CPU embedding model; proxies import no database/model runtime.
-The startup hook fetches and indexes committed upstream `main` in the background,
-sharing one logical corpus across clones and branches of the same upstream.
-Source bytes and indexing policy come from pinned Git objects. It refreshes
-populated corpora and checks upstream every five minutes while mounted.
-`table_details` reports the indexed commit, integrity, upstream currency, and
-refresh state. Queries await first population; later refreshes retain the last
-complete main snapshot. The reader supports vector, FTS, and hybrid lookup.
+Install [opencode-repo-search](https://github.com/VanaMartin/opencode-repo-search)
+once per host if it is not already configured:
 
-Use `uv run --project .opencode/search --no-sync python -m tools.agent_search status`
-to inspect main-index status, and substitute `sync` for an immediate upstream-main
-refresh. `bootstrap` is an alias for this ensure-main operation. Resolve retrieved
-anchors locally and inspect `git diff <indexed-commit>` plus relevant untracked
-files for branch work. See the guide for identity, migration, and verification.
+```sh
+opencode plugin add 'github:VanaMartin/opencode-repo-search#latest'
+```
 
-`lancedb-articles` mounts the same reader with `--corpus articles`. It maintains
-a separate fetched-main snapshot of tracked literature notes and supports
-vector/FTS/hybrid queries with optional `paper_id` prefilters (note filename stems).
-Results identify the note, literal Source/Pagination declarations and page clauses;
-`tracked_note`/`note_fragment` describe excerpts, not fresh full-text verification.
-No PDF extraction or page-offset inference occurs. Use `--corpus articles` on the
-CLI's `status`/`sync` commands and read the note before turning a hit into a citation.
+Replace an existing target rather than adding a duplicate. The floating Git tag
+can include release candidates; immutable version/full-commit pins are optional.
+Reload the location after installing. The package owns its locked isolated runtime
+outside the numerical workspace; this repository contains no search engine or
+search dependency environment to install.
 
-`python -m tools.agent_search.service status` in the isolated environment inspects
-the shared PID, model count and mounts; `stop` releases the service. Disconnect
-older mounts before stopping it after implementation/dependency changes, then
-reconnect updated mounts. Incompatible search implementations are rejected.
-The guide covers socket/log locations, lease expiry, idle shutdown and recovery.
+`search-package/runtime.json` and `search-package/profiles.json` supply native
+defaults with two independent corpora: `lancedb` for code and `lancedb-articles`
+for committed literature notes. Source remains fetched `origin/main`; the default
+local policy is separately pinned by hash. Repository-private settings in Git
+common metadata can override these tracked templates and be inherited by linked
+worktrees. Read [`docs/agent-search.md`](../docs/agent-search.md) before changing
+policy, scope or index identity.
+
+Use `repo-knowledge-search`, or the existing `knowledge-search` guidance adapter.
+Every coding/review agent follows `CLAUDE.md`'s **Search and edit loop**. Native
+specialists and `explore` can load either skill and use Code Mode plus both
+corpora's query/inspection tools. Read-only specialists leave maintenance to the
+caller; exact search remains available without an index.
+
+Check `/mcps` and `/search-status`; connected transport alone is not readiness.
+Require `ready_for_queries: true` and inspect integrity, upstream currency and
+refresh errors separately. Request `/search-sync` for an immediate source refresh,
+or add `--corpus articles` to select literature. Note excerpts retain provenance
+and literal locators, not independently verified full-text extraction.
+
+Use OpenCode's targeted native plugin check/update for package releases. A sync
+does not install updates, and restarting OpenCode does not necessarily stop the
+separate search daemon. The operations guide covers disconnecting every affected
+location, stopping the old daemon, reloading and verifying real queries after a
+runtime-changing update. Preserve databases and caches; never reinstall an
+old repository-local runtime to repair a mismatch.

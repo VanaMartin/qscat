@@ -17,9 +17,12 @@ description: Use for coding-agent source discovery, committed-main index provena
   the tracked note and its printed-page/equation/table/figure locator. Load
   `mastering-references` when adding or changing a published citation.
 
-Read `docs/agent-search.md` and `.opencode/search/profiles.json` when configuring
-or rebuilding indexes. Profiles describe indexing policy; they are not native
-OpenCode configuration.
+This is qModeling's guidance adapter for the native **opencode-repo-search**
+package. Prefer its `repo-knowledge-search` skill when available; this entrypoint
+keeps existing specialist-agent references valid without a second search engine.
+Read `docs/agent-search.md` and `.opencode/search-package/profiles.json` when
+configuring search. Use the effective settings reported by `/search-status`;
+repository-private policy can override the tracked template.
 
 ## Runtime and freshness checks
 
@@ -32,12 +35,13 @@ later queries can use the last complete main snapshot while refresh runs or fail
 Inspect the reported refresh state. With no complete snapshot, use local search
 and report unavailable semantic retrieval.
 
-The project-local code reader (`tools.agent_search.mcp`) honors `query_type` values
-`vector`, `fts`, and `hybrid`. It selects a shared corpus by normalized upstream
-identity and committed profile path. `table_details` exposes the indexed commit,
-snapshot integrity, upstream currency, and refresh state. A complete snapshot may
-be older than upstream or have unknown remote currency; identify its commit instead
-of calling it current.
+The package-owned `lancedb` reader honors `query_type` values `vector`, `fts`, and
+`hybrid`. It selects a corpus by normalized upstream, branch, profile path and,
+for local policy, policy hash. `table_details` exposes the indexed commit, policy
+provenance, snapshot integrity, upstream currency, readiness and refresh state.
+A complete snapshot may be older than upstream or have unknown remote currency;
+identify its commit instead of calling it current. Connected transport alone is
+not query readiness: require `ready_for_queries: true`.
 
 Project code/article MCPs are corpus-bound proxies into one host-local service per
 database, shared with CLI commands and compatible worktrees. Inspect
@@ -46,8 +50,8 @@ diagnostics do not replace snapshot integrity/currency checks. After changing
 search implementation/dependencies, follow the guide's disconnect/stop/reconnect
 procedure; incompatible implementations cannot share a daemon.
 
-The project-local article reader (`tools.agent_search.mcp --corpus articles`)
-indexes committed reference notes separately from code. It supports vector, FTS,
+The package-owned `lancedb-articles` reader indexes committed reference notes
+separately from code. It supports vector, FTS,
 and hybrid queries, and `paper_id` prefilters using the note filename stem.
 Results carry the note's hash, Source/Pagination declarations, literal page/locator
 clauses, and `tracked_note` or `note_fragment` status. These describe note excerpts,
@@ -56,22 +60,20 @@ processed or inferred. A locator clause can discuss another paper; resolve it by
 reading the owning note before citing. Explicit inspection selections must match
 the mounted corpus/database; mismatches raise errors.
 
-An older basic connector may still be mounted outside this project. It ignores
-`query_type` and inspection selection arguments, and is vector-only. Inspect the
-runtime catalog/behavior before assuming article filters or hybrid lookup there.
+Use `/search-status` to inspect the enabled corpora and `/search-sync` only when
+an immediate refresh is requested. Add `--corpus articles` to select the independent
+literature-note snapshot. Direct CLI operations use the exact package launcher
+supplied by these commands or the plugin context, followed by the command and
+`--root /path/to/worktree`; do not guess a cache path or install a local runtime.
+Source always comes from fetched committed `origin/main`, never branch edits,
+staged/unstaged changes or untracked files. Local policy is an explicitly hashed
+snapshot, not permission to index working-tree source. A branch-only or dirty
+literature note needs local lookup.
 
-The main-only writer provides a supported status interface:
-`uv run --project .opencode/search --no-sync python -m tools.agent_search status`.
-The caller can request an immediate upstream-main refresh by substituting `sync`
-for `status`. This fetches main and reads Git blobs and committed indexing policy;
-it never ingests branch commits, staged/unstaged edits, or untracked files.
-Run from a checkout with the intended upstream configured. See the operational
-guide for setup and shared table selection. The CLI also supports FTS/hybrid
-lookup; inspect the mounted reader before assuming those modes elsewhere.
-
-Add `--corpus articles` to inspect or refresh the independent literature-note
-snapshot. Its source commit and upstream currency have the same reporting contract
-as the code snapshot. A branch-only or dirty literature note needs local lookup.
+Use OpenCode's native targeted plugin check/update for package releases. A sync
+refreshes source, not the installed package or daemon. Never automatically restart
+services, change revision/policy, or delete caches/indexes; use the documented
+disconnect/stop/update/reconnect handover when runtime compatibility changes.
 
 ## Bounded retrieval
 

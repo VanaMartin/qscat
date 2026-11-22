@@ -12,6 +12,12 @@ installed package.
 ## [Unreleased]
 
 ### Changed
+- **Repository search is provided by the native `opencode-repo-search` plugin**,
+  following its promoted `#latest` channel through OpenCode's updater. Package-owned
+  launchers replace the vendored Python engine, dependency lock and static MCP
+  commands. Native policy/settings keep code and literature independent; existing
+  repository-private settings and indexes are retained. The `knowledge-search`
+  guidance adapter remains available to existing specialist agents.
 - **Search MCPs and CLI commands share a host-local runtime** across compatible
   worktrees, retaining independent code/article corpora and publication ownership.
   Lightweight proxies reuse one strongly cached CPU transformer, with process/model
@@ -19,10 +25,11 @@ installed package.
   check metadata and Git blobs before loading rows or vectors.
 - **Code search now indexes committed upstream `main` only.** Clones share an
   upstream-owned corpus; the MCP refreshes on mount and at bounded intervals.
-  Source and policy come from pinned Git blobs, and completed generations are
+  Source comes from pinned Git blobs; local policy is separately pinned by hash,
+  while shared policy comes from the same upstream snapshot. Complete generations are
   published atomically with explicit commit provenance, integrity, and upstream
-  currency. Branch changes are resolved through local source and Git; legacy
-  payload/model vectors can be reused during migration.
+  currency. Branch changes are resolved through local source and Git. Compatible
+  package indexes are retained; older index formats may require a separate rebuild.
 - **Assistant skill contracts** now distinguish Hermitian conservation from ECS
   validation, history reconstruction from upstream integration, production grid
   convergence from proxy evidence, and read-only reports from caller-owned storage.
@@ -35,15 +42,6 @@ installed package.
   prefilters, literal edition/page/locator metadata, note-source hashes, and
   inspectable refresh health. Reconciliation reuses embeddings and retires removed
   notes; whole-block chunks and marked fragments keep citation limits explicit.
-- **Checkpoint code-index writer** in `tools/agent_search`, with an isolated
-  Python environment, Python/Rust/Markdown anchors, complete tokenizer budgets,
-  payload-keyed embedding reuse, changed/deleted source reconciliation, upstream
-  ownership, main-snapshot provenance, and vector/BM25/hybrid CLI queries.
-- **Code-search MCP mount hook** ensures committed main is indexed on fresh clones
-  and existing corpora, with locked dependency setup, background refresh,
-  shared-upstream selection, concurrent-mount deduplication, and visible failures.
-  The project reader reports snapshot integrity and upstream currency and supports
-  all three query modes.
 - **Repository and processed-article search guidance**, with a `knowledge-search`
   skill and separate LanceDB corpus policies, tokenizer-aware chunk budgets, and
   source/locator verification requirements. Coding agents share a live-source

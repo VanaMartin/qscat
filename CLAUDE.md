@@ -917,8 +917,10 @@ docker/     layered CPU images: base (architecture/vendor) + app (build/
 ## Search and edit loop
 
 Every coding and review agent follows this contract, including delegated specialists.
-Use `.claude/skills/knowledge-search/SKILL.md` for the detailed retrieval procedure
-and `docs/agent-search.md` for the index design and implementation references.
+Use the native package's `repo-knowledge-search` skill for retrieval, or the
+`.claude/skills/knowledge-search/SKILL.md` adapter for existing agent references.
+Read `docs/agent-search.md` for setup and operations. The package owns MCPs,
+runtime provisioning and updates; do not install another repository-local engine.
 
 1. **Discover.** Search known paths/symbols locally; use semantic retrieval for
    conceptual discovery against committed upstream `main` when the intended
@@ -949,10 +951,11 @@ and `docs/agent-search.md` for the index design and implementation references.
 
 Logical documents use repository/path plus a qualified symbol or heading anchor.
 Content/model keys identify reusable embeddings; line numbers are derived locations.
-Agents edit source files; one managed indexer per upstream owns derived main-search
-documents. Source and indexing policy come from the same fetched Git commit, and
-clones share the corpus. Before an edit or final handoff, re-read relevant source if
-another agent or tool may have changed it.
+Agents edit source files; one managed indexer per corpus owns derived main-search
+documents. Source comes from the fetched upstream commit. Shared policy comes
+from that commit; local policy is pinned separately by hash. Compatible clones
+and worktrees share the corresponding corpus. Before an edit or final handoff,
+re-read relevant source if another agent or tool may have changed it.
 
 The separate article mount indexes committed `reference/literature/*.md` notes,
 excluding their inventory README, with the same immutable-main publication and
@@ -986,7 +989,7 @@ See the search guide for runtime inspection, restart and compatibility rules.
 | `code-mapping` | skill | Structure must be known as measured fact — the AST inventory behind release-review's structure mode. |
 | `code-quality-judging` | skill | Grading files and functions against a fixed rubric: whose chair a comment is written from, unit size, naming, annotation. |
 | `code-consolidation` | skill | Ruling on whether code that looks alike is the same thing twice, and what replaces it. |
-| `knowledge-search` | skill | Committed-main discovery, local branch-delta resolution, and processed-article evidence; routes exact/semantic searches, resolves current anchors, and checks provenance at handoff. |
+| `knowledge-search` | skill | qModeling adapter for the native `repo-knowledge-search` skill: committed-main discovery, local branch-delta resolution and literature-note evidence. |
 | `port-scout` | agent | Before porting anything from `reference/eMoScat` or `reference/libXcuda` — read-only archaeologist that extracts the math/algorithm, not the C++. |
 | `physics-reviewer` | agent | Before promoting a method into `qscat` — reviews for physical/numerical correctness (units, conservation, boundary conditions, ECS handling, convergence), not style. |
 | `rust-kernel-engineer` | agent | During the optimize-in-Rust stage — builds PyO3/Rust kernels in `native/` mirroring a validated Python API, with benchmarks and differential tests. |
