@@ -49,8 +49,11 @@ def read_retained_spectrum(path: Path, *, dimension: int, roots: int, coefficien
         if record() != b"********                CIDATA  ":
             raise ValueError("Native spectrum set marker differs")
         header = record()
-        if len(header) != 208:
+        if len(header) < 208:
             raise ValueError("Native spectrum header length differs")
+        groups = struct.unpack_from("<q", header, 200)[0]
+        if not 0 <= groups <= 8 or len(header) != 208 + 16 * groups:
+            raise ValueError("Native spectrum target-sector header layout differs")
         nuclei, n, k, symmetry = struct.unpack_from("<4q", header, 136)
         if not 0 <= nuclei <= 64 or (n, k) != (dimension, roots):
             raise ValueError("Native spectrum dimensions differ")
@@ -222,7 +225,7 @@ def recover_retained_state(
         if error > component_tolerance:
             raise ValueError("Recovered continuum components fail spectral alignment")
         maximum = max(maximum, error)
-        clusters.append(stop - start)
+        clusters.append(int(stop - start))
         result += new_u[start:stop].T @ (rotation.T @ c[start:stop])
     return result, dict(
         clusters=clusters,

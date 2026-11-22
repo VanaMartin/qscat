@@ -15,10 +15,11 @@ from projects.ukrmol_co.native_interior import (
 )
 
 
-@pytest.mark.parametrize("payload", [2, 5])
-def test_spectrum_explicit_full_or_partial_inventory_and_exact_eof(tmp_path, payload):
+@pytest.mark.parametrize("payload,groups", [(2, 0), (5, 0), (2, 8), (5, 8)])
+def test_spectrum_explicit_full_or_partial_inventory_and_exact_eof(tmp_path, payload, groups):
     path = tmp_path / "spectrum"
-    header = bytearray(208)
+    header = bytearray(208 + 16 * groups)
+    struct.pack_into("<q", header, 200, groups)
     struct.pack_into("<4q", header, 136, 0, 5, 3, 1)
     struct.pack_into("<d", header, 192, -2.0)
     vectors = np.arange(3 * payload).reshape(3, payload) / 10
