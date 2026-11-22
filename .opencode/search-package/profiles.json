@@ -1,0 +1,95 @@
+{
+  "format": "repo-search-profiles-v1",
+  "embedding": {
+    "registry": "sentence-transformers",
+    "model": "all-MiniLM-L6-v2",
+    "device": "cpu",
+    "dimensions": 384,
+    "chunk_target_tokens": 160,
+    "chunk_max_tokens": 220,
+    "total_input_max_tokens": 256,
+    "overlap_tokens": 24
+  },
+  "corpora": {
+    "repository": {
+      "enabled": true,
+      "server": "lancedb",
+      "description": "qModeling owned source, tests, projects, validation and durable documentation",
+      "parser": "source",
+      "include": [
+        "libs/**",
+        "apps/**",
+        "projects/**",
+        "validation/**",
+        "benchmarks/**",
+        "tests/**",
+        "native/**",
+        "docs/**",
+        "tools/**",
+        "docker/**",
+        ".github/**",
+        ".claude/skills/**",
+        ".claude/agents/**",
+        ".opencode/agents/**",
+        ".opencode/README.md",
+        ".opencode/search/*.json",
+        ".opencode/search/*.toml",
+        "opencode.json",
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "CONTRIBUTING.md",
+        "pyproject.toml"
+      ],
+      "exclude": [
+        "reference/eMoScat/**",
+        "reference/libXcuda/**",
+        "reference/literature/**",
+        "docs/superpowers/**",
+        ".superpowers/**",
+        ".claude/worktrees/**",
+        ".git/**",
+        ".venv/**",
+        "**/target/**",
+        "**/__pycache__/**",
+        "docs/_build/**",
+        "runs/**",
+        "**/results/**",
+        "tests/fixtures/**",
+        "uv.lock",
+        "Cargo.lock"
+      ],
+      "extensions": [
+        ".py",
+        ".rs",
+        ".md",
+        ".rst",
+        ".toml",
+        ".yaml",
+        ".yml",
+        ".json",
+        ".jsonc",
+        ".sh"
+      ],
+      "extensionless_files": [
+        "docker/Dockerfile",
+        "docker/*.Dockerfile"
+      ]
+    },
+    "articles": {
+      "enabled": true,
+      "server": "lancedb-articles",
+      "description": "qModeling committed literature notes, separate from owned source",
+      "parser": "reference_note",
+      "include": [
+        "reference/literature/*.md"
+      ],
+      "exclude": [
+        "reference/literature/README.md"
+      ],
+      "extensions": [
+        ".md"
+      ]
+    }
+  }
+}

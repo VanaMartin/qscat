@@ -20,6 +20,9 @@ permissions:
   - action: skill
     resource: knowledge-search
     effect: allow
+  - action: skill
+    resource: repo-knowledge-search
+    effect: allow
   - action: execute
     resource: "*"
     effect: allow
