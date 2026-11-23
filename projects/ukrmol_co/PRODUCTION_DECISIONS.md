@@ -115,7 +115,10 @@ forward/reverse 18-bohr comparison has an INCONCLUSIVE frozen endpoint-character
 decision, not a numerical failure or unique branch assignment. Both native owners
 ended; this calculation branch is stopped. No automatic competitor/geometry or
 model ladder follows. The separate local Gaussian inverse pilot stopped before
-CO data access; no fitted candidate or automatic retry follows.
+CO data access. The later explicitly approved local-only synthetic diagnosis
+and minimal candidate-admission repair pass their controls; see the handoff.
+Midpoint-gradient consistency and forward resolution remain separate fit gates;
+no CO data access, fitted candidate or automatic fitting retry follows.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

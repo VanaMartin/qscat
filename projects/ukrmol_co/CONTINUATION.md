@@ -104,10 +104,10 @@ or a B2/Pi-pair subspace. No unique continuation, crossing or fit extension foll
 The missing-coefficient/physical-adapter blocker is closed, not the global
 neutral/resonance or electronic-accuracy question.
 
-**STOP this calculation branch. One proposed next deliverable, not released:**
-review a new bounded synthetic-only inverse-fitter diagnosis/admission before
-any renewed CO fit. Unused time authorizes no new geometry, competitor/root/basis
-ladder, exterior/pole repeat, changed fitting prescription or automatic retry.
+**STOP the endpoint calculation branch.** The later explicitly approved
+local-only synthetic review/repair is recorded below; no CO fitting is released.
+Unused time authorizes no new geometry, competitor/root/basis ladder or
+exterior/pole repeat.
 
 The separate [local Gaussian pilot](https://data.qscat.org/co-local-gaussian-fit-stop-20261122/assessment.ce64c7934917.md)
 stopped INCONCLUSIVE at its synthetic inverse before reading CO training or
@@ -116,6 +116,25 @@ is released. Accepted curves, endpoint prescriptions, eight-development/two-
 validation roles, 114 S holdouts and equilibrium outgoing exclusion are unchanged.
 Global neutral continuation and unique branch identity remain unqualified. Both
 archived old CSFs remain in place; no deletion, cleanup or merge is released.
+
+## Goal checkpoint — 23 November 2026: synthetic inverse gate repair
+
+After the previous compute window expired, the user explicitly approved a new
+**08:51:59–09:21:59 UTC local-only diagnosis window**, then the minimal gate
+repair within that same clock. The [diagnosis/repair result](https://data.qscat.org/co-gaussian-gate-repair-20261123/assessment.3f661f70b1a1.md)
+reproduces the original synthetic stall: rejected continuum matches masked
+admissible resonances before candidate ranking. The unchanged-gate repair in
+`ElectronicPair.pole` passes red/green mock controls and all fourteen fast tracker
+regressions, including recovery from the original synthetic seed. No native job
+or CO training/validation read occurred. The original failure remains archived.
+
+This closes the immediate candidate-admission blocker, not the CO fitting gate.
+The one-angle versus midpoint Jacobian discrepancy remains deliberately unchanged;
+forward electronic resolution is also unqualified for the proposed CO fit.
+**Next proposed deliverable, not released:** a bounded synthetic midpoint-gradient
+and resolution admission before any renewed CO fit. No fitted CO candidate exists,
+accepted curves/validation roles remain unchanged, and the endpoint-character
+decision remains INCONCLUSIVE. No automatic follow-on from remaining time.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
