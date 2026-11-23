@@ -28,6 +28,7 @@ __all__ = [
     "pole_vector",
     "solve_pole_params",
     "track_curve",
+    "well_pole_gradient",
     "well_potential",
 ]
 
@@ -70,6 +71,7 @@ MAX_STEP = _MAX_STEP
 class Pole:
     energy: complex
     residual: float
+    angle_energies: tuple[complex, complex] | None = None
 
     @property
     def gamma(self) -> float:
@@ -125,15 +127,25 @@ class ElectronicPair:
         an electronic-shift energy relative to `v0(R)`, not an absolute one.
         """
         Ha, Hb = self.hamiltonians(v_fn)
+        values_a, values_b = eigen(Ha)[0], eigen(Hb)[0]
         try:
             energies, residuals, indices = match_angle_stable(
-                eigen(Ha)[0], eigen(Hb)[0], window, rel_tol=0.0, atol=resid_tol
+                values_a, values_b, window, rel_tol=0.0, atol=resid_tol
             )
         except ValueError:
             return None
+        re_lo, re_hi, im_lo, im_hi = window
+        candidates_b = values_b[
+            (values_b.real >= re_lo)
+            & (values_b.real <= re_hi)
+            & (values_b.imag >= im_lo)
+            & (values_b.imag <= im_hi)
+        ]
         admitted = []
         for E, resid, index in zip(energies, residuals, indices, strict=True):
-            p = Pole(complex(E), float(resid))
+            ea = complex(values_a[index])
+            eb = complex(candidates_b[int(np.argmin(abs(candidates_b - ea)))])
+            p = Pole(complex(E), float(resid), (ea, eb))
             bound = p.energy.real < 0.0 and abs(p.energy.imag) < _BOUND_IM_TOL
             if not bound:
                 if p.gamma <= 0.0 or p.residual >= gate_frac * p.gamma:
@@ -145,10 +157,16 @@ class ElectronicPair:
         return min(admitted, key=lambda item: item[:2])[2] if admitted else None
 
 
-def pole_vector(H: npt.NDArray[np.complex128], E: complex) -> npt.NDArray[np.complex128]:
-    """Right eigenvector of the eigenvalue of `H` nearest `E`, c-normalised (psi^T psi = 1)."""
+def pole_vector(
+    H: npt.NDArray[np.complex128], E: complex, *, match_tolerance: float | None = None
+) -> npt.NDArray[np.complex128]:
+    """Nearest right eigenvector, c-normalized; optionally require an actual energy match."""
+    if match_tolerance is not None and (not np.isfinite(match_tolerance) or match_tolerance <= 0):
+        raise ValueError("Positive finite eigenvalue match tolerance required")
     vals, vecs = eigen(H)
     j = int(np.argmin(np.abs(vals - E)))
+    if match_tolerance is not None and abs(vals[j] - E) > match_tolerance:
+        raise ValueError("Matched eigenvalue provenance does not belong to this Hamiltonian")
     psi = np.asarray(vecs[:, j], dtype=np.complex128)
     norm = c_product(psi, psi)
     if abs(norm) < 1e-12:
@@ -156,9 +174,11 @@ def pole_vector(H: npt.NDArray[np.complex128], E: complex) -> npt.NDArray[np.com
     return psi / np.sqrt(norm)
 
 
-def pole_sensitivity(H: npt.NDArray[np.complex128], E: complex) -> npt.NDArray[np.complex128]:
+def pole_sensitivity(
+    H: npt.NDArray[np.complex128], E: complex, *, match_tolerance: float | None = None
+) -> npt.NDArray[np.complex128]:
     """`dE/dV_i = psi_i^2` for complex-symmetric `H` (Hellmann-Feynman under the c-product)."""
-    psi = pole_vector(H, E)
+    psi = pole_vector(H, E, match_tolerance=match_tolerance)
     return psi * psi
 
 
@@ -177,6 +197,40 @@ def well_potential(ell: int, lam: float, alpha: float, extra: VFn | None) -> VFn
         return np.asarray(out, dtype=np.complex128)
 
     return v
+
+
+def well_pole_gradient(
+    pair: ElectronicPair,
+    ell: int,
+    parameters: WellParams,
+    pole: Pole,
+    *,
+    extra: VFn | None = None,
+) -> tuple[complex, complex]:
+    """Midpoint derivatives in lambda/alpha, on fixed grids with parameter-independent extra."""
+    energies = pole.angle_energies
+    if (
+        not isinstance(energies, tuple)
+        or len(energies) != 2
+        or not np.isfinite([*energies, pole.energy, pole.residual]).all()
+    ):
+        raise ValueError("Finite matched angle-pair provenance required for a midpoint gradient")
+    allowance = 64 * np.finfo(float).eps * max(1.0, *(abs(e) for e in energies))
+    if (
+        abs(sum(energies) / 2 - pole.energy) > allowance
+        or abs(abs(energies[0] - energies[1]) - pole.residual) > allowance
+    ):
+        raise ValueError("Matched angle-pair provenance disagrees with midpoint or residual")
+    matrices = pair.hamiltonians(well_potential(ell, parameters.lam, parameters.alpha, extra))
+    dlam = dalpha = 0j
+    for grid, H, energy in zip((pair.grid_a, pair.grid_b), matrices, energies, strict=True):
+        tolerance = max(1e-12, 64 * np.finfo(float).eps * float(np.linalg.norm(H, np.inf)))
+        sensitivity = pole_sensitivity(H, energy, match_tolerance=tolerance)
+        r = grid.points
+        gaussian = np.exp(-parameters.alpha * r**2)
+        dlam += complex(np.sum(sensitivity * (-gaussian))) / 2
+        dalpha += complex(np.sum(sensitivity * (parameters.lam * r**2 * gaussian))) / 2
+    return dlam, dalpha
 
 
 def _is_bound_target(target: complex) -> bool:
@@ -228,7 +282,6 @@ def solve_pole_params(
     """
     bound = _is_bound_target(target)
     lam, alpha = seed.lam, seed.alpha
-    r = pair.grid_a.points
     # The seed is deliberately far from the target, so the FIRST
     # search uses the default (or caller-supplied) window, not one recentred
     # on the (possibly distant) target -- a narrow window about the target
@@ -265,11 +318,7 @@ def solve_pole_params(
         # for bridging, is expected to once the pole's own class catches up).
         if (abs(f.real) < tol) if bound else (abs(f) < tol):
             return WellParams(lam, alpha), pole
-        Ha, _ = pair.hamiltonians(well_potential(ell, lam, alpha, extra))
-        s = pole_sensitivity(Ha, pole.energy)
-        g = np.exp(-alpha * r**2)
-        dlam = complex(np.sum(s * (-g)))
-        dalpha = complex(np.sum(s * (lam * r**2 * g)))
+        dlam, dalpha = well_pole_gradient(pair, ell, WellParams(lam, alpha), pole, extra=extra)
         # CLASSIFICATION BRIDGING. A true bound state has Gamma == 0
         # identically over a whole neighbourhood of (lam, alpha) -- not just
         # approximately -- so the Im-energy row of the full 2x2 Jacobian is

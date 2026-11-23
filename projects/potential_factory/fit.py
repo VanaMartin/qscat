@@ -38,8 +38,8 @@ from projects.potential_factory.tracker import (
     Pole,
     WellParams,
     Window,
-    pole_sensitivity,
     track_curve,
+    well_pole_gradient,
     well_potential,
 )
 
@@ -657,13 +657,14 @@ def _joint_polish(
     guard's own comment in `evaluate`.
 
     The Jacobian is ANALYTIC: Hellmann-Feynman under the
-    c-product gives `dE/dV_i = psi_i^2` (`pole_sensitivity`), hence per node
+    c-product gives each angle's `dE/dV_i = psi_i^2`, hence per node
     `dE/dlam = sum_i s_i (-e^{-alpha r_i^2})` and `dE/dalpha = sum_i s_i
     (lam r_i^2 e^{-alpha r_i^2})` -- the SAME two derivatives
-    `solve_pole_params` builds its Newton step from -- chained through
+    `solve_pole_params` builds its Newton step from, averaged over the actual
+    matched angle pair by `well_pole_gradient` -- chained through
     `_smooth_grad`, the derivative of `lam(R_j)`/`alpha(R_j)` with respect
-    to `_smooth_reparam`'s coordinates. It costs ONE extra dense
-    eigendecomposition per node per Jacobian, against `(n_params + 1)` full
+    to `_smooth_reparam`'s coordinates. It costs two extra dense
+    eigendecompositions per node per Jacobian, against `(n_params + 1)` full
     pole searches (two eigendecompositions each) for the numeric
     alternative, which is what makes the raised `max_nfev` affordable. A
     node with no pole (see above) has a genuinely zero Jacobian row, since
@@ -771,7 +772,6 @@ def _joint_polish(
         lam_s, alpha_s = cache["lam_s"], cache["alpha_s"]
         assert isinstance(poles, list) and isinstance(wells, np.ndarray)
         assert isinstance(lam_s, SmoothR | TailR) and isinstance(alpha_s, SmoothR | TailR)
-        r_pts = pair.grid_a.points
         n_res = int(resonant_mask.sum())
         out = np.zeros((R_nodes.size + n_res, x.size))
         k = -1
@@ -783,14 +783,12 @@ def _joint_polish(
             Rj = float(R_nodes[j])
             lam_j, alpha_j = float(wells[j, 0]), float(wells[j, 1])
             extra = extra_of_R(Rj) if extra_of_R is not None else None
-            Ha, _ = pair.hamiltonians(well_potential(ell, lam_j, alpha_j, extra))
             try:
-                s = pole_sensitivity(Ha, pole.energy)
+                dE_dlam, dE_dalpha = well_pole_gradient(
+                    pair, ell, WellParams(lam_j, alpha_j), pole, extra=extra
+                )
             except ValueError:
                 continue  # c-product self-orthogonal: no usable sensitivity here
-            g = np.exp(-alpha_j * r_pts**2)
-            dE_dlam = complex(np.sum(s * (-g)))
-            dE_dalpha = complex(np.sum(s * (lam_j * r_pts**2 * g)))
             row = np.concatenate(
                 [dE_dlam * _smooth_grad(lam_s, Rj), dE_dalpha * _smooth_grad(alpha_s, Rj)]
             )
