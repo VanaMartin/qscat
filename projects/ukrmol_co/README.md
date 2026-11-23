@@ -102,6 +102,9 @@ CO_LOCAL_REPRESENTATION_CAPSULE="$WORK/delivery-capsule.tar.gz" \
   comparison. See [current status and immutable candidate](CONTINUATION.md#goal-checkpoint--23-november-2026-midpoint-gradient-and-resolution)
   and [evaluation method](../../docs/physics/co-local-gaussian-model.md#evaluating-an-external-candidate).
   It does not replace the accepted curves or qualify physical scattering accuracy.
+- The separate local neutral-box sentinel rejects its declared 1 meV inward-wall
+  sensitivity budget despite resolved grid controls. That is not an error bound
+  against a larger domain or rejection of the fixed-R fit; no 2-D solve followed.
 - The 52 QZ/5Z neutral points pass relative-basis/interpolation checks only over
   **1.9–2.5 bohr**. All four restricted RHF attempts at 3/4 bohr failed external
   stability before CCSD(T); there is no accepted dissociation continuation.

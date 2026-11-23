@@ -209,12 +209,22 @@ confirms that native full-S validation needs an explicit channel/background mode
 neither the scalar pole nor the existing NRM constructors supplies that map.
 Recomputing the pole-only determinant phase would add no independent validation.
 No new calculation or protected-data read occurred; pre-existing doorway/literature
-work was left untouched. **One next proposed deliverable, pending scope approval:**
-a fixed-family real-nuclear-domain ground-state sensitivity sentinel using the
-unchanged local neutral input, before any finite-box 2-D model study. This would
-be model-internal feasibility, not physical scattering qualification. A coupled
-boundary design is a different explicit scope choice. No automatic job, refit,
-geometry, model/grid/solver ladder, cleanup or merge follows from remaining time.
+work was left untouched. The user then explicitly selected the model-internal
+nuclear-domain sentinel. Its [completed fixed-family result](https://data.qscat.org/co-local-nuclear-domain-v2-20261123/assessment.e455299dd44f.md)
+passes analytic/grid/norm controls but **rejects the declared 1 meV inward-wall
+insensitivity screen**. The specified trims shift the lowest box level by up to
+1.292 meV; this is not an error bound against an unknown larger domain and does
+not reject the fixed-R interaction. The original point-count setup stop and its
+single technical guard correction are retained; the actual memory/time limits,
+grid family and scientific gates were unchanged. No 2-D solve was run.
+
+**STOP this sentinel. One next proposed decision, not released:** choose an
+explicitly wall-dependent finite-box 2-D diagnostic or define the broader-domain
+input needed before a physical nuclear claim. Neither permits extrapolation of
+the current coefficients, a relaxed wall gate, new native geometry or opening S
+holdouts by default. A coupled-boundary design remains a different explicit
+scope choice. The overall 23:16:49 UTC ceiling has not restarted. No automatic
+job, refit, model/grid/solver ladder, cleanup or merge follows from remaining time.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

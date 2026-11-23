@@ -74,3 +74,23 @@ visible, and do not tune the frozen coefficients to the validation geometries.
 Once scored, those data are not unused prospective tests for a later retuned model.
 Channel/background information, off-shell coupling and nuclear/scattering
 validation remain separate requirements before physical predictions.
+
+## A real-R fit domain is not a nuclear boundary condition
+
+A fitted interval does not automatically define a boundary-insensitive nuclear
+Hamiltonian. For `H_N=-(1/2mu)d²/dR²+V0(R)` on a real Dirichlet box, shrinking
+the interval changes the problem, not just its discretization. Resolve grid/order
+error separately before interpreting wall sensitivity. The ordinary Hermitian
+norm applies to this neutral problem; an electronic Gamow-state c-product is
+not its probability norm.
+
+Inward wall moves can falsify a stated sensitivity budget, but their energy
+shifts are not an upper bound on the original box's error against an unknown
+larger domain. Conversely, a failed wall screen does not reject a fixed-R pole
+fit. An explicitly wall-dependent finite-box diagnostic is a distinct claim from
+a physical molecular vibrational level or an outgoing nuclear resonance.
+
+Do not extrapolate the coefficients or bypass the complex-nuclear-R rejection to
+make a global or nuclear-ECS solver run. Broader-domain input and a qualified
+continuation need a separate decision; more resolution cannot remove a change
+in the prescribed boundary conditions.
