@@ -11,7 +11,7 @@ import numpy as np
 import numpy.typing as npt
 from qscat.core.grids import electronic_grid
 from qscat.dvr import FemDvrEcsGrid, eigen, kinetic
-from qscat.ecs import find_resonance_pole
+from qscat.ecs import match_angle_stable
 from qscat.exceptions import ConvergenceError
 from qscat.linalg import c_product
 
@@ -52,8 +52,8 @@ _BOUND_IM_TOL = 1e-6
 _BRIDGE_WINDOW: Window = (-2.0, 0.8, -0.6, 1e-6)
 
 # `_BRIDGE_WINDOW`'s union search has no tie-break toward the pole
-# being TRACKED -- `find_resonance_pole` returns the global residual-argmin
-# over the whole window, so a second, more angle-stable state anywhere in
+# being TRACKED -- the pole gate ranks admitted states over the whole
+# window, so a second, more angle-stable state anywhere in
 # (-2.0, 0.8) (e.g. another bound state deeper in the well) could be silently
 # selected instead of the state Newton is actually walking. `_MAX_STEP` is
 # the continuity guard's radius (also the recentred candidate window's
@@ -117,7 +117,7 @@ class ElectronicPair:
         gate_frac: float = 0.05,
         e_floor: float = 0.006,
     ) -> Pole | None:
-        """The angle-stable pole in `window`, or None if no candidate passes the gate.
+        """The most angle-stable admitted pole, or None if no candidate passes.
 
         `window` is ABSOLUTE: pass `v_fn` on whatever energy scale your window
         is on. The factory's own callers use the bare well (`v_int +
@@ -126,20 +126,23 @@ class ElectronicPair:
         """
         Ha, Hb = self.hamiltonians(v_fn)
         try:
-            E, resid = find_resonance_pole(eigen(Ha)[0], eigen(Hb)[0], window)
+            energies, residuals, indices = match_angle_stable(
+                eigen(Ha)[0], eigen(Hb)[0], window, rel_tol=0.0, atol=resid_tol
+            )
         except ValueError:
             return None
-        p = Pole(complex(E), float(resid))
-        if p.residual >= resid_tol:
-            return None
-        bound = p.energy.real < 0.0 and abs(p.energy.imag) < _BOUND_IM_TOL
-        if bound:
-            return p
-        if p.gamma <= 0.0 or p.residual >= gate_frac * p.gamma:
-            return None
-        if p.energy.real < e_floor:
-            return None
-        return p
+        admitted = []
+        for E, resid, index in zip(energies, residuals, indices, strict=True):
+            p = Pole(complex(E), float(resid))
+            bound = p.energy.real < 0.0 and abs(p.energy.imag) < _BOUND_IM_TOL
+            if not bound:
+                if p.gamma <= 0.0 or p.residual >= gate_frac * p.gamma:
+                    continue
+                if p.energy.real < e_floor:
+                    continue
+            admitted.append((p.residual, int(index), p))
+        # Ranking an inadmissible continuum match first can hide a genuine pole.
+        return min(admitted, key=lambda item: item[:2])[2] if admitted else None
 
 
 def pole_vector(H: npt.NDArray[np.complex128], E: complex) -> npt.NDArray[np.complex128]:
@@ -321,8 +324,8 @@ def solve_pole_params(
                     improved = abs(cand.energy - target) < abs(f)
                 # CONTINUITY GUARD. `_BRIDGE_WINDOW` (and, in
                 # principle, any window) can contain more than one gated
-                # pole -- `find_resonance_pole` returns the global residual-
-                # argmin over the whole window, with no preference for the
+                # pole -- admission still ranks by residual over the whole
+                # window, with no preference for the
                 # state actually being tracked. Without this guard a second,
                 # more angle-stable state elsewhere in the window (e.g. a
                 # deeper bound state) could be silently substituted for the

@@ -54,6 +54,53 @@ def test_gate_rejects_the_spike_fake_pole(pair):
     assert pair.pole(v, DEFAULT_RES_WINDOW) is None
 
 
+@pytest.mark.parametrize(
+    "invalid_a,invalid_b",
+    [
+        (0.001 - 0.001j, 0.001 - 0.00101j),  # Below the energy floor.
+        (0.03 - 0.00001j, 0.03002 - 0.00001j),  # Relative-width residual fails.
+        (0.03 + 0j, 0.030000001 + 0j),  # No positive resonance width.
+    ],
+)
+def test_rejecting_best_match_does_not_mask_admissible_pole(monkeypatch, invalid_a, invalid_b):
+    from projects.potential_factory import tracker
+
+    spectra = iter([np.array([invalid_a, 0.08 - 0.01j]), np.array([invalid_b, 0.0801 - 0.01j])])
+    synthetic_pair = object.__new__(ElectronicPair)
+    monkeypatch.setattr(synthetic_pair, "hamiltonians", lambda _: (np.eye(2), np.eye(2)))
+    monkeypatch.setattr(tracker, "eigen", lambda _: (next(spectra), np.eye(2)))
+    pole = synthetic_pair.pole(lambda r: r, (-0.1, 0.8, -0.6, 1e-6))
+    assert pole is not None
+    assert pole.energy == pytest.approx(0.08005 - 0.01j, rel=0, abs=1e-14)
+    assert pole.residual == pytest.approx(0.0001, rel=0, abs=1e-14)
+
+
+def test_newton_recovers_synthetic_p_well_on_recentered_window():
+    synthetic_pair = ElectronicPair(angles=(30.0, 38.0), r_max=24.0, order=7, n_complex=8)
+    target = synthetic_pair.pole(well_potential(1, 2.5, 0.5, None), DEFAULT_RES_WINDOW)
+    assert target is not None
+    solution, pole = solve_pole_params(
+        synthetic_pair, 1, target.energy, WellParams(2.4, 0.48), max_iter=30, tol=1e-8
+    )
+    assert abs(pole.energy - target.energy) <= 1e-8
+    assert abs(solution.lam - 2.5) <= 1e-4
+    assert abs(solution.alpha - 0.5) <= 1e-4
+
+
+def test_pole_ranks_admitted_candidates_by_residual(monkeypatch):
+    from projects.potential_factory import tracker
+
+    spectra = iter(
+        [np.array([0.04 - 0.01j, 0.08 - 0.01j]), np.array([0.0402 - 0.01j, 0.0801 - 0.01j])]
+    )
+    synthetic_pair = object.__new__(ElectronicPair)
+    monkeypatch.setattr(synthetic_pair, "hamiltonians", lambda _: (np.eye(2), np.eye(2)))
+    monkeypatch.setattr(tracker, "eigen", lambda _: (next(spectra), np.eye(2)))
+    pole = synthetic_pair.pole(lambda r: r, DEFAULT_RES_WINDOW)
+    assert pole is not None
+    assert pole.energy == pytest.approx(0.08005 - 0.01j, rel=0, abs=1e-14)
+
+
 def test_bound_state_is_accepted_through_bound_window(pair):
     from projects.potential_factory.tracker import DEFAULT_BOUND_WINDOW
 
