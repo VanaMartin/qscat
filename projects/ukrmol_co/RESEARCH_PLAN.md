@@ -5,7 +5,7 @@
 | Goal | Data product | Reuse now | Missing output / completion test |
 |---|---|---|---|
 | **Neutral potential** | Own ground-state samples `{R, E0, method, state, zero, uncertainty}` → fitted `V0(R)` | Prepared homogeneous 5Z frozen-core RHF/CCSD(T) well and accepted molecular-zero local polynomial, 1.9–2.5 bohr; QZ kept separate | First local data/representation milestone complete; no global extrapolation, physical `De`, dissociation or factory-model export. Reproduction and original launch failure are in the [catalogue](experiments.md). |
-| **Resonant potential** | Own threshold-relative `{R, Er, Gamma, estimator, model, identity, uncertainty}` → resonant effective-potential fit | Ten CAS11/cc-pVDZ/nine-A2/2048 paired geometries; eight development/two prospective validation rows, original failed scores preserved | Both frozen C2 tests pass, including public replay. Scoped local representation delivered alongside neutral; stop compute. No uniform/electronic/global accuracy or unique N+1 continuation claim. |
+| **Resonant potential** | Own threshold-relative `{R, Er, Gamma, estimator, model, identity, uncertainty}` → resonant effective-potential fit | Ten CAS11/cc-pVDZ/nine-A2/2048 paired geometries; eight development/two prospective validation rows, original failed scores preserved | Original scoped C2 representation delivered. A separate frozen local Gaussian interaction now passes its declared two-geometry 50 meV/5% fidelity, not the lower point's stricter 5 meV comparison; see [current handoff](CONTINUATION.md). Stop this fit branch; no uniform/electronic/global/scattering or unique N+1 continuation claim. |
 
 These are two inputs to a fitted potential, not a requirement to obtain somebody
 else's potential. Local finite-model data, fit quality, electronic convergence
@@ -134,9 +134,10 @@ resonance or an atom-to-fixed-molecular-reference offset. The
 [atomic protocol](../../docs/physics/co-atomic-energy-references.md) governs those
 later comparisons; they are not entrance gates to a molecular-zero local fit.
 
-The current `ResonanceTarget`/fit API couples local data to `ea`, `R_inf` and
-asymptotic setup. Store the local table first. A later local-fit interface must
-explicitly defer unavailable global constraints, never invent constants.
+The global `ResonanceTarget`/fit API couples data to `ea`, `R_inf` and asymptotic
+setup. The separate [finite-domain Gaussian interface](../../docs/physics/co-local-gaussian-model.md)
+explicitly defers those unavailable global constraints; it does not invent
+constants or export a qualified global factory model.
 
 ## Beyond the local interval: crossing coverage
 

@@ -97,6 +97,11 @@ CO_LOCAL_REPRESENTATION_CAPSULE="$WORK/delivery-capsule.tar.gz" \
 
 ## Current scientific outcome
 
+- A separate finite-real-R Gaussian interaction now passes its frozen two-geometry
+  50 meV/5% fidelity check, but not the lower geometry's stricter 5 meV position
+  comparison. See [current status and immutable candidate](CONTINUATION.md#goal-checkpoint--23-november-2026-midpoint-gradient-and-resolution)
+  and [evaluation method](../../docs/physics/co-local-gaussian-model.md#evaluating-an-external-candidate).
+  It does not replace the accepted curves or qualify physical scattering accuracy.
 - The 52 QZ/5Z neutral points pass relative-basis/interpolation checks only over
   **1.9–2.5 bohr**. All four restricted RHF attempts at 3/4 bohr failed external
   stability before CCSD(T); there is no accepted dissociation continuation.

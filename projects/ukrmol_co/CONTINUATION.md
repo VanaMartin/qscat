@@ -10,11 +10,16 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the scoped two-geometry pilot and later complete-state
+**Current local-fit decision:** the separately frozen
+[Gaussian interaction and validation](#goal-checkpoint--23-november-2026-midpoint-gradient-and-resolution)
+are complete at declared local fidelity, with the stricter lower-point position
+rejection retained. This branch is stopped; physical production remains unqualified.
+
+**Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
 the cross-state arithmetic qualify, but the frozen endpoint-character decision
 is INCONCLUSIVE. The 22 November checkpoint below records the terminal scope,
-not permission to enlarge the endpoint/fit limits. The own R=2.8
+not permission to enlarge the endpoint limits. The own R=2.8
 primary-CAS11 resonance pair and R=3.0 localized bound-candidate pair qualify.
 The [compatible bound-pair result](https://data.qscat.org/co-crossing-r3000-b2-bound-result-20261117/assessment.038491642ccd.md)
 passes all nine B2 witnesses, same-R counterpart gates and remote/local/fresh-public
@@ -179,16 +184,29 @@ The user explicitly approved widening only lambda's numerical upper bound to
 reuse three saved states, acquire the five missing inverses, and pass sampled
 parameter-range and final-candidate independent numerical checks. A new
 [development-calibrated candidate](https://data.qscat.org/co-development-gaussian-pilot-v2-20261123/candidate.8eb28a0e3054.json)
-now exists for real R=1.9–2.5 bohr. It passes the predeclared development fidelity
-gates but remains **unvalidated**, not a physical/global/scattering model or a
-replacement for accepted curve coefficients. The original cap failure is retained.
+was frozen for real R=1.9–2.5 bohr after passing the development fidelity gates.
+That immutable development artifact retains its historical **unvalidated** status;
+the separate qualification below does not change its coefficients or make it a
+physical/global/scattering model. The original cap failure is retained.
 
-**One next admission, pending user approval:** score only the two designated
-prospective validation geometries against these exact frozen coefficients and
-model/grid, without refitting for either outcome. All 114 S holdouts and the
-reserved equilibrium outgoing pole remain protected. No native job, new geometry
-or model/grid/solver ladder. The 23:16:49 UTC ceiling does not restart. Accepted
-curves and endpoint-character INCONCLUSIVE remain unchanged.
+The user explicitly approved scoring only the two prospective validation
+geometries. The [frozen validation outcome](https://data.qscat.org/co-gaussian-frozen-validation-v2-20261123/assessment.4e03789bfa91.md)
+passes the new interaction's predeclared 50 meV / max(5% full width, 1 meV) gates,
+but **fails the separate 5 meV position comparison at the lower geometry**. The
+original tighter local curve still passes its unchanged gates. No refit occurred;
+the [qualified candidate package](https://data.qscat.org/co-gaussian-frozen-validation-v2-20261123/qualified-candidate.b970d62fc8f2.json)
+contains the exact original six coefficients and an explicit qualification sidecar.
+The expired per-unit prelaunch guard and its fresh bounded replacement are retained;
+the overall 23:16:49 UTC ceiling never restarted. All numeric children ended.
+
+**STOP the scoped fit/validation branch.** This delivers finite-model local
+interaction fidelity, not uniform/electronic/global/scattering production accuracy.
+All 114 S holdouts and the reserved equilibrium outgoing pole remain protected;
+accepted curves and endpoint-character INCONCLUSIVE are unchanged. **One next
+proposed deliverable, not released:** a goal-directed embedding/scattering-validation
+decision card identifying the independent observable and missing channel/background
+information, without opening protected data. No automatic job, refit, geometry,
+model/grid/solver ladder, cleanup or merge follows from remaining availability.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

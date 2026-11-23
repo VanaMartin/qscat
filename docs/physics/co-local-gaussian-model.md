@@ -40,3 +40,37 @@ parameter-box escape is a failed numerical prescription, not proof that this
 Gaussian family lacks a solution. Preserve that failure and separately justify
 any new parameter range; it must not relax pole fidelity, resolution or validation
 gates. This scaling identity supplies no physical or off-shell validation.
+
+## Evaluating an external candidate
+
+Candidate coefficients and qualification sidecars are immutable experiment data,
+not registry constants. Find their current status and full checksums in the
+[experiment catalogue](../../projects/ukrmol_co/experiments.md). Authenticate an
+explicitly downloaded candidate before using it; an archived development status
+is historical and must be read with its separate validation qualification.
+
+```python
+import json
+from pathlib import Path
+
+import numpy as np
+from numpy.polynomial.chebyshev import chebval
+
+from projects.ukrmol_co.local_gaussian_model import local_gaussian_interaction
+
+candidate = json.loads(Path("/external/qualified-candidate.json").read_text())
+R = np.array([1.9, 2.2, 2.5])[None, :]   # real nuclear coordinate, bohr
+r = np.array([0.1, 1.0, 5.0])[:, None]  # electronic coordinate, bohr
+U = local_gaussian_interaction(candidate["coefficients"], r, R)
+V0 = chebval((R - 2.2) / 0.3, candidate["neutral_coefficients_Ha"])
+surface = V0 + U                       # Hartree, original molecular reference
+# The ell=1 radial electronic Hamiltonian adds 1/r**2 separately, once.
+```
+
+This evaluates a finite real-R surface, not a global factory model. A validation
+pass at a declared fidelity budget does not imply the tighter interpolation
+accuracy of the original accepted curves. Keep stricter rejected predictions
+visible, and do not tune the frozen coefficients to the validation geometries.
+Once scored, those data are not unused prospective tests for a later retuned model.
+Channel/background information, off-shell coupling and nuclear/scattering
+validation remain separate requirements before physical predictions.
