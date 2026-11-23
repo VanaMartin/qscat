@@ -28,3 +28,15 @@ At least three electronic resolutions and two ECS angles must establish the
 forward-pole numerical error separately from model residuals. Any fit is a new
 finite-model candidate, never a refit of the accepted curve coefficients or a
 production/global QSCAT model.
+
+## Dimensionless scale and parameter bounds
+
+For the mass-one fixed-R radial problem, `s=sqrt(alpha) r` gives
+`H=alpha[-(1/2)d²/ds² + ell(ell+1)/(2s²) - (lambda/alpha)exp(-s²)]`.
+Thus pole energies scale as `z=alpha epsilon(lambda/alpha)`. The width-to-position
+ratio constrains the dimensionless depth, while the energy scale fixes alpha.
+Positivity alone does not imply a particular upper bound on lambda. A declared
+parameter-box escape is a failed numerical prescription, not proof that this
+Gaussian family lacks a solution. Preserve that failure and separately justify
+any new parameter range; it must not relax pole fidelity, resolution or validation
+gates. This scaling identity supplies no physical or off-shell validation.

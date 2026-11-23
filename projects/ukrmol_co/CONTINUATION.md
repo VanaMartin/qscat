@@ -166,12 +166,23 @@ The failed original family stays rejected. This closes the tested synthetic
 boundary mechanism, not resolution over a CO parameter domain or actual 2-D
 scattering/nuclear convergence.
 
-**One next admission, pending user approval:** access only the eight designated
-CO development targets for a bounded parameter-domain resolution/local Gaussian
-pilot. Both validation geometries, all 114 S holdouts and the reserved equilibrium
-outgoing pole remain protected; no automatic fit, validation scoring, new geometry,
-native job or production-deck change. The 23:16:49 UTC overall ceiling does not
-restart. Accepted local curves and endpoint-character INCONCLUSIVE remain unchanged.
+The user then explicitly approved the development-only pilot. Its
+[first numerical attempt](https://data.qscat.org/co-development-gaussian-pilot-20261123/assessment.8ded5d2ae07d.md)
+stops at the unchanged lambda ≤20 Ha parameter cap: two development nodes pass;
+the third returns lambda 20.58 Ha and remains an unaccepted partial. Independent
+outgoing checks confirm all three saved numerical states; this is a parameter-box
+limit, not a Newton failure or a rejection of the Gaussian family. Five remaining
+nodes and the six-coefficient smooth fit were not attempted. No validation data
+were read; the original exit1 and partials remain archived.
+
+**One next admission, pending user approval:** widen only lambda's numerical upper
+bound to 30 Ha, reuse the saved partials and finish only the five missing
+development inverses, then qualify the actual parameter-range resolution before
+a smooth fit. Keep alpha's bound and all numerical/fidelity gates unchanged.
+Both validation geometries, all 114 S holdouts and the reserved equilibrium pole
+remain protected. No native job, new geometry, model/grid/solver ladder or automatic
+validation scoring. The 23:16:49 UTC ceiling does not restart. Accepted local
+curves and endpoint-character INCONCLUSIVE remain unchanged.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

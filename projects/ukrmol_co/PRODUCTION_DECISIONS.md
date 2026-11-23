@@ -123,9 +123,12 @@ convergence. It is stopped; an independent synthetic boundary comparator is the
 next bounded proposal in the handoff, not a grid extension. That comparator now
 supports the finite-endpoint explanation independently. A complex-momentum tail
 adapter/replacement sentinel now passes its separately frozen one-point controls.
-CO parameter-domain resolution remains a fit gate; the handoff's development-only
-data/pilot admission is pending user approval, not automatic;
-no CO data access, fitted candidate or automatic fitting retry follows.
+The user subsequently approved eight-development-only access. That pilot stops
+at its unchanged lambda upper bound; independent saved-partial checks support a
+parameter-box limit, not a Gaussian-family rejection. The handoff's proposal to
+widen only that numerical bound is pending explicit approval. Parameter-domain
+resolution remains a fit gate; no smooth fitted candidate, validation access or
+automatic retry follows.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
