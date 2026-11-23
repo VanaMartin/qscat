@@ -129,12 +129,28 @@ regressions, including recovery from the original synthetic seed. No native job
 or CO training/validation read occurred. The original failure remains archived.
 
 This closes the immediate candidate-admission blocker, not the CO fitting gate.
-The one-angle versus midpoint Jacobian discrepancy remains deliberately unchanged;
-forward electronic resolution is also unqualified for the proposed CO fit.
-**Next proposed deliverable, not released:** a bounded synthetic midpoint-gradient
-and resolution admission before any renewed CO fit. No fitted CO candidate exists,
+That checkpoint left the midpoint Jacobian and forward resolution open; the later
+bounded result below supersedes only those implementation-status statements.
+No fitted CO candidate exists,
 accepted curves/validation roles remain unchanged, and the endpoint-character
 decision remains INCONCLUSIVE. No automatic follow-on from remaining time.
+
+## Goal checkpoint — 23 November 2026: midpoint gradient and resolution
+
+The user renewed **8–12 hours**; the conservative allocation is
+**15:16:49–23:16:49 UTC**, retaining local-only, one-process/1 GiB limits.
+The [midpoint-gradient result](https://data.qscat.org/co-midpoint-gradient-resolution-20261123/assessment.a02f51c86c52.md)
+passes estimator-consistency, original synthetic inverse recovery and 23 targeted
+regressions. This is implementation evidence, not CO sweep or physical progress.
+
+The frozen synthetic order family is **REJECTED** for precision use: final
+order drift is tiny but angle-A/B position/full-width spreads remain 11.2/27.1 meV,
+well above the unchanged 0.1 meV numerical gate. No extra grid member or CO fit
+follows. Keep the repaired midpoint implementation; stop that numerical family.
+**One next bounded deliverable:** independently test the finite-endpoint explanation
+with a synthetic radial outgoing-boundary comparator, analytic controls and a
+separate frozen card. No molecular targets or native calculation are needed.
+The renewed availability does not open protected data or a grid/solver ladder.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

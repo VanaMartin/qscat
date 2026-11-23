@@ -117,7 +117,11 @@ ended; this calculation branch is stopped. No automatic competitor/geometry or
 model ladder follows. The separate local Gaussian inverse pilot stopped before
 CO data access. The later explicitly approved local-only synthetic diagnosis
 and minimal candidate-admission repair pass their controls; see the handoff.
-Midpoint-gradient consistency and forward resolution remain separate fit gates;
+The later midpoint-gradient repair passes its synthetic consistency controls,
+but the fixed forward-resolution prescription fails angle spread despite order
+convergence. It is stopped; an independent synthetic boundary comparator is the
+next bounded proposal in the handoff, not a grid extension. Forward resolution
+remains a fit gate;
 no CO data access, fitted candidate or automatic fitting retry follows.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
