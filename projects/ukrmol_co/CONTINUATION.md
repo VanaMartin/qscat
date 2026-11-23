@@ -158,9 +158,20 @@ matching reproduces both old literal angle energies and resolves the outgoing
 synthetic pole. The old midpoint's position/width bias is +5.67/−13.40 meV.
 No new ECS grid or molecular target was used. The existing real-channel tail
 tuner does not account for complex-momentum decay or growth before the pivot.
-**Next bounded deliverable:** a project-level complex-momentum adapter and one
-independent-oracle-checked replacement synthetic prescription; the failed original
-family stays rejected. This does not release a CO fit or production-deck change.
+The [complex-momentum replacement sentinel](https://data.qscat.org/co-complex-momentum-tail-20261123/assessment.fdd19bec38ca.md)
+now passes its frozen tail family, independent outgoing/finite-boundary comparisons,
+angle spread, order and tail-h checks. All 44 targeted regressions pass; no CO data
+were read. The project-level adapter leaves QSCAT/default production grids unchanged.
+The failed original family stays rejected. This closes the tested synthetic
+boundary mechanism, not resolution over a CO parameter domain or actual 2-D
+scattering/nuclear convergence.
+
+**One next admission, pending user approval:** access only the eight designated
+CO development targets for a bounded parameter-domain resolution/local Gaussian
+pilot. Both validation geometries, all 114 S holdouts and the reserved equilibrium
+outgoing pole remain protected; no automatic fit, validation scoring, new geometry,
+native job or production-deck change. The 23:16:49 UTC overall ceiling does not
+restart. Accepted local curves and endpoint-character INCONCLUSIVE remain unchanged.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

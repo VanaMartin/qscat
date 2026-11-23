@@ -122,8 +122,9 @@ but the fixed forward-resolution prescription fails angle spread despite order
 convergence. It is stopped; an independent synthetic boundary comparator is the
 next bounded proposal in the handoff, not a grid extension. That comparator now
 supports the finite-endpoint explanation independently. A complex-momentum tail
-adapter/replacement sentinel is separately bounded in the handoff. Forward resolution
-remains a fit gate;
+adapter/replacement sentinel now passes its separately frozen one-point controls.
+CO parameter-domain resolution remains a fit gate; the handoff's development-only
+data/pilot admission is pending user approval, not automatic;
 no CO data access, fitted candidate or automatic fitting retry follows.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
