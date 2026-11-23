@@ -88,15 +88,27 @@ preserves authorization, interruptions, original failures and the passing actual
 saved-P control. The [R=3.0 B1 release](https://data.qscat.org/co-b1-vector-recovery-release-20261122/decision.c097446c276d.md)
 and [fresh-public authentication](https://data.qscat.org/co-b1-recovery-window-checkpoint-20261122/release-public-authentication.e038119a88d0.json)
 cover one missing full-vector rebuild/eigensolve of the unchanged retained model.
-Its finite owner is active at the recorded observation, with four physical
-cores/32 GiB, total-host CPU below 50%, original disk guards and a 105-minute
-native cap. This is not a terminal result or a new qualified geometry.
+The [R3 complete-state result](https://data.qscat.org/co-b1-vector-recovery-r3000-result-20261123/assessment.85d6bdeaf197.md)
+now passes native gates, independent raw-record reconstruction and the actual
+complete QQ/QP/PQ/PP physical self norm on the qualified 18-bohr domain; its
+[fresh-public verification](https://data.qscat.org/co-b1-vector-recovery-r2800-release-20261123/R3-public-authentication.ec0153be9bd5.json)
+includes the full raw-vector archive. This clears the conditional R2 admission,
+not an endpoint identity or electronic-accuracy gate.
 
-**Next bounded deliverable:** preserve the original terminal/raw full vectors;
-after native PASS, evaluate the complete physical R3 QQ/PQ/QP/PP self norm on
-the qualified 18-bohr domain. The passing partial-P norm is not a complete-state
-substitute. Only a passing full self norm plus remaining time/resource admission
-permits a separately frozen R=2.8 B1 recovery; none is scheduled automatically.
+The [R=2.8 B1 missing-only release](https://data.qscat.org/co-b1-vector-recovery-r2800-release-20261123/decision.ec45c9e8fb12.md)
+is now active at its recorded observation, under the same four-core/32 GiB,
+below-50% total-host CPU, original disk and 105-minute native limits. Its original
+pre-transfer manifest-metadata failure is retained separately. The
+[48 saved R2 target roots](https://data.qscat.org/co-r2800-target-consumer-20261123/assessment.bf93efbd7fad.md)
+also convert with unchanged phases/C and pass 384 independent signed comparisons;
+no target solve was repeated.
+
+**Next bounded deliverable:** preserve the R2 terminal/raw full vectors, then
+evaluate its complete physical self norm and the frozen forward/reverse
+[endpoint B1 comparison](https://data.qscat.org/co-complete-endpoint-comparison-release-20261123/decision.c3017a6ab925.md).
+No cross-state score has been read. Only the fixed one-dimensional B1 spans are
+compared; missing qualified competitors preclude unique assignment at any score.
+The partial-P and native coefficient norms are not physical-norm substitutes.
 No SCF, target/integral/CONGEN, B2, exterior/pole or new-geometry repeat is released.
 
 The separate [local Gaussian pilot](https://data.qscat.org/co-local-gaussian-fit-stop-20261122/assessment.ce64c7934917.md)
