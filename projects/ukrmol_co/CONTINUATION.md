@@ -131,7 +131,7 @@ or CO training/validation read occurred. The original failure remains archived.
 This closes the immediate candidate-admission blocker, not the CO fitting gate.
 That checkpoint left the midpoint Jacobian and forward resolution open; the later
 bounded result below supersedes only those implementation-status statements.
-No fitted CO candidate exists,
+At that checkpoint no fitted CO candidate existed;
 accepted curves/validation roles remain unchanged, and the endpoint-character
 decision remains INCONCLUSIVE. No automatic follow-on from remaining time.
 
@@ -147,9 +147,8 @@ The frozen synthetic order family is **REJECTED** for precision use: final
 order drift is tiny but angle-A/B position/full-width spreads remain 11.2/27.1 meV,
 well above the unchanged 0.1 meV numerical gate. No extra grid member or CO fit
 follows. Keep the repaired midpoint implementation; stop that numerical family.
-**One next bounded deliverable:** independently test the finite-endpoint explanation
-with a synthetic radial outgoing-boundary comparator, analytic controls and a
-separate frozen card. No molecular targets or native calculation are needed.
+The separately frozen next reassessment was the synthetic radial comparator
+below; no molecular targets or native calculation were needed for that stage.
 The renewed availability does not open protected data or a grid/solver ladder.
 
 The separately bounded [radial outgoing comparator](https://data.qscat.org/co-synthetic-outgoing-oracle-20261123/assessment.66f65a01feb2.md)
@@ -175,13 +174,20 @@ limit, not a Newton failure or a rejection of the Gaussian family. Five remainin
 nodes and the six-coefficient smooth fit were not attempted. No validation data
 were read; the original exit1 and partials remain archived.
 
-**One next admission, pending user approval:** widen only lambda's numerical upper
-bound to 30 Ha, reuse the saved partials and finish only the five missing
-development inverses, then qualify the actual parameter-range resolution before
-a smooth fit. Keep alpha's bound and all numerical/fidelity gates unchanged.
-Both validation geometries, all 114 S holdouts and the reserved equilibrium pole
-remain protected. No native job, new geometry, model/grid/solver ladder or automatic
-validation scoring. The 23:16:49 UTC ceiling does not restart. Accepted local
+The user explicitly approved widening only lambda's numerical upper bound to
+30 Ha. The [missing-only continuation and six-coefficient fit](https://data.qscat.org/co-development-gaussian-pilot-v2-20261123/assessment.dce6cf6b8486.md)
+reuse three saved states, acquire the five missing inverses, and pass sampled
+parameter-range and final-candidate independent numerical checks. A new
+[development-calibrated candidate](https://data.qscat.org/co-development-gaussian-pilot-v2-20261123/candidate.8eb28a0e3054.json)
+now exists for real R=1.9–2.5 bohr. It passes the predeclared development fidelity
+gates but remains **unvalidated**, not a physical/global/scattering model or a
+replacement for accepted curve coefficients. The original cap failure is retained.
+
+**One next admission, pending user approval:** score only the two designated
+prospective validation geometries against these exact frozen coefficients and
+model/grid, without refitting for either outcome. All 114 S holdouts and the
+reserved equilibrium outgoing pole remain protected. No native job, new geometry
+or model/grid/solver ladder. The 23:16:49 UTC ceiling does not restart. Accepted
 curves and endpoint-character INCONCLUSIVE remain unchanged.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients

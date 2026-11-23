@@ -32,6 +32,7 @@ continuous resonance-to-bound-anion branch remain unqualified.
 | Optional precision-preserving residual kernel | [native extension](../../native/qscat-extended/README.md), NumPy differential oracle |
 | Neutral well and atomic references | `neutral.py`, `atomic_references.py`; [atomic protocol](../../docs/physics/co-atomic-energy-references.md) |
 | Saved local neutral/resonance evaluator | `local_representation.py`; [usage below](#using-the-local-representations), [conventions](../../docs/physics/co-effective-resonance-target.md#saved-local-evaluator-not-a-factory-model) |
+| Finite-domain Gaussian interaction shape | `local_gaussian_model.py`; [method and scope](../../docs/physics/co-local-gaussian-model.md), [candidate status/evidence](CONTINUATION.md#goal-checkpoint--23-november-2026-midpoint-gradient-and-resolution) |
 | Independent saved-only reconstruction | `verify_*.py`, per-study readers and public artifact manifests |
 
 Experimental modules stay in `projects/`: none of this promotes an electronically

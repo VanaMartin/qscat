@@ -20,6 +20,7 @@ by separately frozen cards, not this standing table:
 |---|---|---|
 | Local neutral | Prepared 5Z frozen-core RHF/CCSD(T), 1.9–2.5 bohr, and accepted molecular-zero degree-6 local representation; QZ kept separate | No global factory export, `De`, dissociation or independently validated electronic accuracy. The global EMO zero must not replace the declared local zero. |
 | Local resonance | CAS11/cc-pVDZ, 40-component orbital objective, nine-A2/48 retained targets, 2048 roots; ten qualified pairs, eight development/two prospective C2 PASSes | Scoped local representation delivered without refit; original cubic/PCHIP accuracy rejections preserved. No uniform/electronic/global accuracy or unique N+1 continuation claim. |
+| Local Gaussian interaction | Six quadratic-log shape coefficients calibrated to the eight development poles, with independent outgoing/grid checks | New finite real-R candidate, development-calibrated but not yet prospectively validated. No physical/global/off-shell or actual 2-D scattering certificate; accepted curves unchanged. |
 
 Separate stretched CAS12 DZ/TZ poles remain accepted finite results, not points
 of the proposed CAS11 curve. The nine accepted MR endpoints (two atoms/seven CO,
@@ -125,10 +126,11 @@ supports the finite-endpoint explanation independently. A complex-momentum tail
 adapter/replacement sentinel now passes its separately frozen one-point controls.
 The user subsequently approved eight-development-only access. That pilot stops
 at its unchanged lambda upper bound; independent saved-partial checks support a
-parameter-box limit, not a Gaussian-family rejection. The handoff's proposal to
-widen only that numerical bound is pending explicit approval. Parameter-domain
-resolution remains a fit gate; no smooth fitted candidate, validation access or
-automatic retry follows.
+parameter-box limit, not a Gaussian-family rejection. The user then explicitly
+approved widening only that numerical bound. Missing-only continuation, sampled
+parameter-range resolution and the six-coefficient development fit now pass.
+The candidate remains unvalidated; the handoff's two-geometry validation-only
+admission is pending approval. No automatic validation access or refit follows.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
