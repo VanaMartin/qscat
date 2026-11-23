@@ -152,6 +152,16 @@ with a synthetic radial outgoing-boundary comparator, analytic controls and a
 separate frozen card. No molecular targets or native calculation are needed.
 The renewed availability does not open protected data or a grid/solver ladder.
 
+The separately bounded [radial outgoing comparator](https://data.qscat.org/co-synthetic-outgoing-oracle-20261123/assessment.66f65a01feb2.md)
+now supports the finite-endpoint explanation: independent ODE/free-boundary
+matching reproduces both old literal angle energies and resolves the outgoing
+synthetic pole. The old midpoint's position/width bias is +5.67/−13.40 meV.
+No new ECS grid or molecular target was used. The existing real-channel tail
+tuner does not account for complex-momentum decay or growth before the pivot.
+**Next bounded deliverable:** a project-level complex-momentum adapter and one
+independent-oracle-checked replacement synthetic prescription; the failed original
+family stays rejected. This does not release a CO fit or production-deck change.
+
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
 **Historical decision at this checkpoint: selected native mapping, generated

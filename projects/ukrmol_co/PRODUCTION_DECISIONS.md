@@ -120,7 +120,9 @@ and minimal candidate-admission repair pass their controls; see the handoff.
 The later midpoint-gradient repair passes its synthetic consistency controls,
 but the fixed forward-resolution prescription fails angle spread despite order
 convergence. It is stopped; an independent synthetic boundary comparator is the
-next bounded proposal in the handoff, not a grid extension. Forward resolution
+next bounded proposal in the handoff, not a grid extension. That comparator now
+supports the finite-endpoint explanation independently. A complex-momentum tail
+adapter/replacement sentinel is separately bounded in the handoff. Forward resolution
 remains a fit gate;
 no CO data access, fitted candidate or automatic fitting retry follows.
 Accepted endpoint prescriptions and delivered curves
