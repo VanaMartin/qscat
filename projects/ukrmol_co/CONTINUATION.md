@@ -10,10 +10,11 @@ External-author data and a separate doorway Hamiltonian are not prerequisites.
 The older reference-first/blanket fit-sweep stops are superseded at this local
 scope; no failed physical diagnostic is promoted to a pass.
 
-**Current decision: the scoped finite-model two-geometry pilot is complete;
-only the later explicitly approved missing-vector recovery is active.** The
-22 November checkpoint below supersedes the earlier recovery stop, not the
-endpoint/fit limits. The own R=2.8
+**Current decision: the scoped two-geometry pilot and later complete-state
+comparison are finished; acquisition is stopped.** Both complete self norms and
+the cross-state arithmetic qualify, but the frozen endpoint-character decision
+is INCONCLUSIVE. The 22 November checkpoint below records the terminal scope,
+not permission to enlarge the endpoint/fit limits. The own R=2.8
 primary-CAS11 resonance pair and R=3.0 localized bound-candidate pair qualify.
 The [compatible bound-pair result](https://data.qscat.org/co-crossing-r3000-b2-bound-result-20261117/assessment.038491642ccd.md)
 passes all nine B2 witnesses, same-R counterpart gates and remote/local/fresh-public
@@ -82,34 +83,31 @@ historical context, not a current queue. Unrelated dirty work remains outside th
 ## Goal checkpoint — 22 November 2026: missing-vector recovery
 
 The user explicitly renewed **16 hours, ending 23 November at 04:19:46 UTC**;
-the clock does not restart on resumption. The
-[bounded checkpoint](https://data.qscat.org/co-b1-recovery-window-checkpoint-20261122/checkpoint.a909b1f644bb.md)
-preserves authorization, interruptions, original failures and the passing actual
-saved-P control. The [R=3.0 B1 release](https://data.qscat.org/co-b1-vector-recovery-release-20261122/decision.c097446c276d.md)
-and [fresh-public authentication](https://data.qscat.org/co-b1-recovery-window-checkpoint-20261122/release-public-authentication.e038119a88d0.json)
-cover one missing full-vector rebuild/eigensolve of the unchanged retained model.
-The [R3 complete-state result](https://data.qscat.org/co-b1-vector-recovery-r3000-result-20261123/assessment.85d6bdeaf197.md)
-now passes native gates, independent raw-record reconstruction and the actual
-complete QQ/QP/PQ/PP physical self norm on the qualified 18-bohr domain; its
-[fresh-public verification](https://data.qscat.org/co-b1-vector-recovery-r2800-release-20261123/R3-public-authentication.ec0153be9bd5.json)
-includes the full raw-vector archive. This clears the conditional R2 admission,
-not an endpoint identity or electronic-accuracy gate.
+the clock never restarted. The [bounded admission](https://data.qscat.org/co-b1-recovery-window-checkpoint-20261122/checkpoint.a909b1f644bb.md)
+and original interruptions/failures remain archived. The approved missing-only
+[R3 recovery/self result](https://data.qscat.org/co-b1-vector-recovery-r3000-result-20261123/assessment.85d6bdeaf197.md)
+and [R2 recovery](https://data.qscat.org/co-b1-vector-recovery-r2800-result-20261123/assessment.4c26cb0fe811.md)
+both finish successfully with unchanged accepted states and electronic prescriptions.
+Full raw vectors are retained; no native or target solve was repeated after a
+consumer/observer failure. The observation-only SSH timeout does not replace
+the successful R2 native exit. Neither owned native container remains running.
 
-The [R=2.8 B1 missing-only release](https://data.qscat.org/co-b1-vector-recovery-r2800-release-20261123/decision.ec45c9e8fb12.md)
-is now active at its recorded observation, under the same four-core/32 GiB,
-below-50% total-host CPU, original disk and 105-minute native limits. Its original
-pre-transfer manifest-metadata failure is retained separately. The
-[48 saved R2 target roots](https://data.qscat.org/co-r2800-target-consumer-20261123/assessment.bf93efbd7fad.md)
-also convert with unchanged phases/C and pass 384 independent signed comparisons;
-no target solve was repeated.
+The [complete physical endpoint result](https://data.qscat.org/co-complete-endpoint-comparison-result-20261123/assessment.d330b0b7dcfb.md)
+qualifies both actual QQ/QP/PQ/PP self norms and forward/reverse cross contractions
+on the common 18-bohr domain. Its [fresh-public/terminal verification](https://data.qscat.org/co-complete-endpoint-comparison-receipt-20261123/verification.279eecd0a079.md)
+preserves independent saved arithmetic and confirms closure. The frozen character
+decision is **INCONCLUSIVE**,
+not a numerical failure or a unique-assignment pass. The score meets neither
+predeclared support nor rejection rule; thresholds are unchanged. Only fixed
+one-dimensional B1 spans were compared, without qualified physical competitors
+or a B2/Pi-pair subspace. No unique continuation, crossing or fit extension follows.
+The missing-coefficient/physical-adapter blocker is closed, not the global
+neutral/resonance or electronic-accuracy question.
 
-**Next bounded deliverable:** preserve the R2 terminal/raw full vectors, then
-evaluate its complete physical self norm and the frozen forward/reverse
-[endpoint B1 comparison](https://data.qscat.org/co-complete-endpoint-comparison-release-20261123/decision.c3017a6ab925.md).
-No cross-state score has been read. Only the fixed one-dimensional B1 spans are
-compared; missing qualified competitors preclude unique assignment at any score.
-The partial-P and native coefficient norms are not physical-norm substitutes.
-No SCF, target/integral/CONGEN, B2, exterior/pole or new-geometry repeat is released.
+**STOP this calculation branch. One proposed next deliverable, not released:**
+review a new bounded synthetic-only inverse-fitter diagnosis/admission before
+any renewed CO fit. Unused time authorizes no new geometry, competitor/root/basis
+ladder, exterior/pole repeat, changed fitting prescription or automatic retry.
 
 The separate [local Gaussian pilot](https://data.qscat.org/co-local-gaussian-fit-stop-20261122/assessment.ce64c7934917.md)
 stopped INCONCLUSIVE at its synthetic inverse before reading CO training or
@@ -121,7 +119,8 @@ archived old CSFs remain in place; no deletion, cleanup or merge is released.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
-**Current decision: selected native mapping, generated coherent kernel, common-ball
+**Historical decision at this checkpoint: selected native mapping, generated
+coherent kernel, common-ball
 cross-frame orbital blocks and the saved raw-target consumer qualify. Physical
 endpoint comparison remains blocked by complete physical interior coefficients
 and end-to-end native conversion/self norms.**

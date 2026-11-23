@@ -110,12 +110,13 @@ conversion. That admission stopped at the input/authorization blocker; no
 native recovery or fresh window followed from remaining time alone. The user's
 later explicit missing-only recovery approval and renewed 16-hour window are
 bounded by the [22 November checkpoint](CONTINUATION.md#goal-checkpoint--22-november-2026-missing-vector-recovery).
-R3 B1 recovery and the complete physical R3 self norm now pass, including raw/public
-replay. The separately frozen R2 B1 recovery is active at its recorded observation;
-its complete physical self norm still gates the frozen endpoint comparison.
-The separate local
-Gaussian inverse pilot stopped before CO data access; no fitted candidate or
-automatic retry follows. Accepted endpoint prescriptions and delivered curves
+Both B1 recoveries and complete physical self norms now pass. The qualified
+forward/reverse 18-bohr comparison has an INCONCLUSIVE frozen endpoint-character
+decision, not a numerical failure or unique branch assignment. Both native owners
+ended; this calculation branch is stopped. No automatic competitor/geometry or
+model ladder follows. The separate local Gaussian inverse pilot stopped before
+CO data access; no fitted candidate or automatic retry follows.
+Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
 and explicit removal approval remain missing. Both originals are retained.
