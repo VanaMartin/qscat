@@ -136,6 +136,9 @@ candidate passes its declared 50 meV/5% fidelity and fails the separate lower-po
 tighter acceptance occurred. The scoped local-fit branch is stopped. All 114 S
 holdouts and the reserved equilibrium pole remain unread; physical/scattering
 qualification and any further data access require a separate admission.
+The later source-only review identifies the missing channel/background map and
+offers a separately scoped real-nuclear-domain feasibility sentinel; it releases
+no full-S, nuclear or coupled-boundary calculation. See the current handoff.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

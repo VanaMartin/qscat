@@ -202,11 +202,19 @@ the overall 23:16:49 UTC ceiling never restarted. All numeric children ended.
 **STOP the scoped fit/validation branch.** This delivers finite-model local
 interaction fidelity, not uniform/electronic/global/scattering production accuracy.
 All 114 S holdouts and the reserved equilibrium outgoing pole remain protected;
-accepted curves and endpoint-character INCONCLUSIVE are unchanged. **One next
-proposed deliverable, not released:** a goal-directed embedding/scattering-validation
-decision card identifying the independent observable and missing channel/background
-information, without opening protected data. No automatic job, refit, geometry,
-model/grid/solver ladder, cleanup or merge follows from remaining availability.
+accepted curves and endpoint-character INCONCLUSIVE are unchanged.
+
+The later [read-only next-observable review](https://data.qscat.org/co-postfit-next-observable-review-20261123/assessment.63d10356a648.md)
+confirms that native full-S validation needs an explicit channel/background model;
+neither the scalar pole nor the existing NRM constructors supplies that map.
+Recomputing the pole-only determinant phase would add no independent validation.
+No new calculation or protected-data read occurred; pre-existing doorway/literature
+work was left untouched. **One next proposed deliverable, pending scope approval:**
+a fixed-family real-nuclear-domain ground-state sensitivity sentinel using the
+unchanged local neutral input, before any finite-box 2-D model study. This would
+be model-internal feasibility, not physical scattering qualification. A coupled
+boundary design is a different explicit scope choice. No automatic job, refit,
+geometry, model/grid/solver ladder, cleanup or merge follows from remaining time.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
