@@ -31,6 +31,18 @@ Native root/residual checks, independent energies, properties, channel ordering,
 boundary qualification and multi-geometry identity remain separate gates.
 Replay alone adds no resonance geometry and authorizes no scattering calculation.
 
+## Mounted source must actually be selected
+
+For `python -m`, the current directory can precede `PYTHONPATH`. A frozen image
+and read-only source mount therefore do not prove which module ran: an image's
+bundled checkout can shadow the mounted package. Set the container working
+directory explicitly to the intended source root. Before scientific execution,
+verify parent and child module paths and source digests, and exercise the exact
+CLI argument route without a quantum call. A script-path import smoke test alone
+does not cover a later module invocation with different search-path precedence.
+Check the scientific producer's reported source digest as well as its original
+exit; source-resolution failure supplies no physical rejection or missing data.
+
 ## Native audit output is per invocation
 
 The retained `scattering_telemetry.c` interposer deliberately opens

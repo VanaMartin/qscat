@@ -64,6 +64,12 @@ midpoints kept separate. Its representation checks pass; no electronic accuracy
 or asymptotic claim follows. Tables, coefficients, exact analysis and controls
 are external records in the catalogue, not constants promoted to `qscat`.
 
+The later [right-side feasibility sentinel](CONTINUATION.md#goal-checkpoint--24-november-2026-neutral-reference-stability-rejection)
+rejects external RHF stability at R=2.55 bohr and stops before CCSD(T). This adds
+no accepted neutral row and does not revoke the delivered local well. Reassess
+the neutral reference before extending the supported domain; do not extrapolate,
+relax stability or silently replace its spin/core/basis prescription.
+
 The nine accepted all-electron aug-cc-pCVTZ CASSCF/SC-NEVPT2 endpoints are a
 **separate** dataset: two atoms and seven molecular points, including R=3 and 4.
 They preserve a finite bridge, not qualified dissociation. Their local-well

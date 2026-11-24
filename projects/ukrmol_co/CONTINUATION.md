@@ -28,9 +28,11 @@ stands, but these inward shifts neither bound its larger-domain error nor
 establish physical CO accuracy. The next dependency is compatible supported
 **V0 and U beyond 2.5 bohr**; no acquisition or extrapolation is released.
 The [right-input design](#goal-checkpoint--24-november-2026-right-input-design)
-led to one explicitly approved neutral-only sentinel, but its
-[launch stopped before SCF](#goal-checkpoint--24-november-2026-neutral-launch-source-stop).
-The row remains missing. No native resonance work or automatic retry is released.
+led to one explicitly approved neutral-only sentinel. Its first launcher stop
+is resolved, but the [corrected-source calculation](#goal-checkpoint--24-november-2026-neutral-reference-stability-rejection)
+**rejects the unchanged RHF prescription at R=2.55** on external stability.
+CCSD(T) was not called and the neutral row remains missing. Reassess the neutral
+reference route before new native resonance work; no method/geometry ladder is released.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -420,12 +422,47 @@ the archive SHA256 is in the [catalogue](experiments.md).
 The first-failure rule stops this attempt; no retry or allocation
 clock has restarted. Existing curves, failures and protected exclusions stand.
 
-**One next proposed deliverable, requiring a separate reopening:** corrected-
+**Historical next proposal, subsequently reopened explicitly:** corrected-
 source preflight and the same still-missing single neutral sentinel. Explicitly
 set the container working directory to the mounted source and verify actual
 parent/child module paths, digests and the exact CLI's 5Z admission before SCF.
 Keep the scientific prescription and four-core/24-GiB caps unchanged. A fresh
 35-minute window is proposed, not started; no native/QC/fit successor is included.
+
+## Goal checkpoint — 24 November 2026: neutral reference stability rejection
+
+The user explicitly renewed several hours for corrected-source continuation;
+the conservative overall window is **17:23:59–19:23:59 UTC**. Scope remained one
+R=2.55 neutral sentinel, four physical cores/24 GiB and a 30-minute child cap.
+The source-directory correction passes generated shadowing, actual parent/child
+path/digest and exact CLI controls. Scientific source is unchanged; the original
+launcher exit 2 remains retained, not overwritten.
+
+The [published and authenticated sentinel](https://data.qscat.org/co-neutral-r2550-sourcefixed-20261124/assessment.b6ff8fbb99f2.md)
+converges the intended 5Z RHF calculation and passes internal stability but
+**fails external RHF-to-UHF stability**. The unchanged acceptance gate stops
+before CCSD/triples/lambda: **no accepted correlated neutral row exists**. The
+negative printed Hessian eigenvalue is a stability witness, not an energy error
+or a proof that physical singlet CO is absent. Independent saved-only verification
+confirms the flags, two-stage sequence, intended source, original exit 1 and
+terminal no-OOM state. All workers ended; no successful quantum stage was repeated.
+The [immutable archive](https://data.qscat.org/co-neutral-r2550-sourcefixed-20261124/owned-evidence.tar.9cfa61f3aa53.gz)
+retains source/preflight controls, original failure lineage, RHF checkpoint,
+stability log, independent verification and measured costs; SHA256 is in the
+[catalogue](experiments.md).
+
+**STOP this unchanged neutral continuation at R=2.55.** Do not weaken stability,
+switch to UHF, add closer geometries or splice MR endpoints automatically. The
+separate all-electron MR protocol already has a failed local-well physical gate;
+its historical missing overlap point alone would not repair the method/core/
+basis change or qualify a join. Existing local curves/finite-box qualification,
+right-wall rejection, strict-fit failure, validation roles and protected data stand.
+
+**One next proposed non-compute deliverable:** a neutral-reference route-selection
+card specifying spin/core/basis, common-domain overlap and physical-error budgets,
+actual implementation support and at most one separately costed discriminating
+new-data proposal. More available time does not release a new method or quantum
+benchmark. Supported V0 and U beyond 2.5 remain unqualified.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

@@ -187,6 +187,14 @@ preflight gap and terminal evidence are retained. No SCF/CCSD, neutral row,
 checkpoint or physical rejection resulted. Stop this attempt; a corrected-source
 preflight and the still-missing single calculation need a separate bounded
 reopening, not an automatic retry or a relaxed scientific/resource gate.
+The user then explicitly renewed several hours for that corrected-source
+continuation. Parent/child path/digest and CLI controls now pass, and the intended
+5Z calculation converges RHF but **rejects external RHF-to-UHF stability at
+R=2.55**. It stops before CCSD/triples/lambda, with original exit 1 retained and
+no accepted correlated row. This is a reference-applicability rejection, not the
+old launcher failure or absence of a physical state. Stop unchanged continuation
+at that point and reassess the neutral-reference route; no UHF substitution,
+geometry/basis ladder, MR splice or new native acquisition follows from spare time.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
