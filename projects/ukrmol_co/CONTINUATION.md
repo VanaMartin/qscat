@@ -16,9 +16,10 @@ are complete at declared local fidelity, with the stricter lower-point position
 rejection retained. This branch is stopped; physical production remains unqualified.
 
 **Current finite-box decision:** the [24 November diagnostic](#goal-checkpoint--24-november-2026-wall-dependent-finite-box-diagnostic)
-finds an identified partial candidate, but final qualification is **BLOCKED** by
-an auxiliary reference-eigensolver failure in the required tail control. All
-workers ended; no physical CO, wall-insensitivity or fully qualified pole claim.
+now passes its declared **sampled wall-dependent model qualification**, after a
+separately validated target-reference replacement completes the missing controls.
+All workers ended. This is not physical CO, global nuclear or wall-insensitivity
+qualification, nor a uniform omitted-basis error bound.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -265,15 +266,25 @@ retains the same tolerances and multiplicity, with **23 tests passing on both
 Mac and Linux**; the original preflight failure is retained. No scientific gate,
 solver setting, grid, model or allocation ceiling changed. All workers stopped.
 
-**STOP this diagnostic. One bounded next proposed deliverable, not a calculation
-release:** derive and test an oracle-checked target-reference specification,
-distinguishing the one electronic reference vector used by the driver from its
-eight 2-D candidate pairs. A partial converged pair does not automatically replace
-the frozen four-pair reference gate. No solver/grid ladder, successful peer repeat,
-new native geometry or broader-domain acquisition follows from spare time. The
-accepted fit/curves, consumed validation roles, original failures and endpoint-
+The user then requested continuation without routine questions. The
+[newly frozen single-target reference result](https://data.qscat.org/co-finite-box-target-reference-20261124/assessment.c39d56628ec8.md)
+passes both a synthetic control
+and a dense all-eigenpair comparison on the actual stopped 959-point grid, while
+retaining the independent outgoing-pole oracle, original accuracy/identity gates
+and eight-pair coupled search. It does not adopt an unknown partial from the
+failed four-pair calculation. This validated replacement completes exactly the
+eight missing spectra on Sadaharu, reusing all 20 successful spectra and the ODE
+oracle: **all sampled main and additional tail/extent/real-h gates now pass**.
+The original failed prescriptions remain archived as failures. No `qscat`
+promotion or new physical accuracy claim follows.
+
+**STOP at the delivered wall-dependent finite-box milestone.** One bounded next
+proposed non-compute deliverable is a read-only broader-domain input/claim-gap
+plan before physical nuclear predictions. No successful peer repeat, new native
+geometry, extrapolation or broader-domain acquisition follows from spare time.
+The accepted fit/curves, consumed validation roles, original failures and endpoint-
 character INCONCLUSIVE remain unchanged. All 114 S holdouts and the reserved
-equilibrium outgoing pole remain unread; no refit or extrapolation.
+equilibrium outgoing pole remain unread; no refit or new allocation clock.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

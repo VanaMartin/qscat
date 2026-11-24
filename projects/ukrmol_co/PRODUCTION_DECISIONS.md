@@ -143,15 +143,22 @@ selected that sentinel; analytic/discretization controls pass but the declared
 fit or bound its error on a larger domain. No 2-D solve or broader-domain/native
 acquisition follows; see the current handoff for the stopped scope and next choice.
 The later explicitly selected wall-dependent finite-box study identifies a
-candidate and passes its sampled main basis/order/angle checks, but remains
+candidate and passes its sampled main basis/order/angle checks, but initially stops
 **BLOCKED** at the required tail control's auxiliary reference-eigensolver gate.
-It does not deliver a fully qualified 2-D pole or physical scattering validation.
+That initial result does not deliver a qualified pole or physical validation.
 The explicitly requested Sadaharu continuation verifies the runtime and reproduces
 that same gate failure with low memory use, reusing all completed spectra. A
 test-only spectrum-ordering correction passes 23 targeted tests on Mac and Linux;
-scientific gates/settings are unchanged. All workers ended; the handoff proposes
-an oracle-checked reference specification, not another numerical release or change
-to the failed wall-insensitivity screen.
+scientific gates/settings are unchanged. At that checkpoint all workers ended,
+with an oracle-checked reference specification proposed rather than a numerical
+release or change to the failed wall-insensitivity screen.
+The subsequent explicitly frozen target-reference replacement passes synthetic,
+actual-grid dense and independent outgoing-oracle controls, then completes the
+eight missing spectra on Sadaharu without repeating successful peers. The
+wall-dependent finite-box pole now passes its declared sampled qualification;
+the original four-pair failures remain failed. This is not physical CO, global
+nuclear, wall-insensitivity or uniform omitted-basis accuracy. All workers ended;
+no automatic acquisition, refit or extension follows.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
