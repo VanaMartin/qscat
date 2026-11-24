@@ -21,10 +21,12 @@ separately validated target-reference replacement completes the missing controls
 All workers ended. This is not physical CO, global nuclear or wall-insensitivity
 qualification, nor a uniform omitted-basis error bound.
 
-**Current next dependency:** the [read-only claim-gap review](#goal-checkpoint--24-november-2026-broader-domain-claim-gap)
-finds that the actual coupled pole's nuclear-wall sensitivity has not been
-measured. The neutral ground-level wall rejection is not that observable. No
-broader-domain input campaign or new compute allocation is released.
+**Current wall decision:** the [actual coupled-pole first pair](#goal-checkpoint--24-november-2026-one-sided-coupled-pole-wall-decision)
+rejects **right-wall insensitivity at 1 meV**; the specified left trim passes.
+Stop before the optional second pair. The original finite-box qualification
+stands, but these inward shifts neither bound its larger-domain error nor
+establish physical CO accuracy. The next dependency is compatible supported
+**V0 and U beyond 2.5 bohr**; no acquisition or extrapolation is released.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -306,16 +308,62 @@ continuation. Extending this model needs supported **both V0 and U**, not just
 a longer neutral curve. Fragment alignment is required for fragment-relative
 claims, not automatically for every localized threshold-relative observable.
 
-**One bounded next proposed deliverable, not released:** an actual 2-D one-sided
+**Historical proposal at this checkpoint:** an actual 2-D one-sided
 wall-sensitivity diagnostic using only the frozen interaction inside 1.9–2.5 bohr,
 after threshold/exposure and common-space state-identity preflight. It reuses the
 qualified original-box result; no automatic new ab-initio geometry or outward
 extension. It would diagnose side sensitivity, not prove an unknown larger-domain
 error bound or repair the neutral rejection. A fresh explicit compute window and
-bounded card are the current execution blocker; earlier Sadaharu availability
-does not renew the expired window.
+bounded card were required; the later user-approved first pair is completed below.
 All accepted curves, consumed validation roles, failures and S/pole exclusions
 remain unchanged. The read-only review is stopped; no clock has restarted.
+
+## Goal checkpoint — 24 November 2026: one-sided coupled-pole wall decision
+
+The user explicitly selected **11:33:47–12:33:47 UTC**, one CPU/thread and 1 GiB,
+for at most four inward model boxes inside 1.9–2.5 bohr. Earlier clocks did not
+restart. The first left-only/right-only pair is complete on Sadaharu; all workers
+ended. The [published, authenticated paired result](https://data.qscat.org/co-one-sided-wall-pair-20261124/assessment.6984b6f5bcc2.md)
+**rejects right-wall insensitivity at the declared 1 meV screen.**
+The left trim passes; its raw shifts are below the 0.1 meV numerical budget,
+not precisely resolved physical effects. Original-box numerical qualification
+is unchanged. These are actual coupled-pole shifts, not the neutral-level screen
+and not error bounds against an unknown larger domain.
+
+Both boxes pass their frozen sampled basis/order/angle/real-h/tail-resolution/
+tail-extent and common-space identity controls. The initial common-field array
+guard stop is retained. A validated streamed accumulation of the same quadrature
+reuses all 19 saved spectra and computes only the missing 37; all 56 saved-array
+checks pass. There were no original-box or ODE repeats, native jobs, refits or
+protected reads. The combined targeted suite passes 29 tests on Mac and Linux;
+the helper remains project-level Python, not a `qscat` promotion or physical-
+validation claim.
+
+The [immutable archive](https://data.qscat.org/co-one-sided-wall-pair-20261124/owned-evidence.tar.4e8cac0411e4.gz)
+retains the complete capability/source lineage, original guard stop, missing-only
+recovery and terminal evidence; its SHA256 is in the [catalogue](experiments.md).
+The [fresh-public receipt](https://data.qscat.org/co-one-sided-wall-pair-receipt-20261124/public-authentication.9488daca7a3e.json)
+verifies all six artifacts and 487 archive members. The
+[receipt manifest](https://data.qscat.org/co-one-sided-wall-pair-receipt-20261124/manifest.46b657ca5578.json)
+also retains the original upload timeout and exact-payload publication recovery;
+no scientific calculation was repeated.
+
+**STOP before optional second trims and before broader-domain calculations.**
+The first pair already selects the right-side input priority, but does not select
+an extension distance. Qualified compatible **V0 and U beyond 2.5 bohr**, with
+state/protocol/joining uncertainties, remain missing. Existing MR neutral points
+and R=2.8/3.0 resonance/bound endpoints cannot simply be spliced or declared unique
+continuation. Unused allocation time does not authorize new ab-initio geometries,
+native jobs, refitting or extrapolation. Original failures, eight-development/
+two-consumed-validation roles, 114 S holdouts and the reserved R=2.1323 outgoing
+pole remain unchanged and protected.
+
+**One bounded next proposed deliverable:** a source/metadata-only right-side
+compatible-input acquisition/design card. It should identify reusable inputs,
+the smallest genuinely missing neutral/electronic witnesses, protocol and state
+joining gates, prospective validation and conditional resource caps. It releases
+no data acquisition or quantum work; execution needs separate explicit domain,
+data and resource authorization.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

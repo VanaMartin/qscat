@@ -161,9 +161,18 @@ nuclear, wall-insensitivity or uniform omitted-basis accuracy. All workers ended
 no automatic acquisition, refit or extension follows.
 The later source-only claim-gap review finds that neutral-level wall sensitivity
 does not measure the coupled pole's wall dependence or select new input locations.
-It proposes an in-domain one-sided 2-D wall diagnostic, not a broader-R acquisition
-or a CC/MR splice. The compute allocation is expired; a fresh bounded release is
-required. See the current handoff; all physical/global limitations remain.
+It proposed an in-domain one-sided 2-D wall diagnostic, not a broader-R acquisition
+or a CC/MR splice. The user then explicitly selected a fresh one-hour allocation.
+The qualified first pair **rejects right-wall insensitivity at 1 meV**; the specified
+left trim passes, with shifts below the 0.1 meV numerical budget. The original
+finite-box qualification is unchanged. Stop before optional second trims: inward
+shifts neither bound larger-domain error nor determine a needed extension distance.
+Prioritize a separately designed supported-input collar toward R>2.5, requiring
+compatible qualified **both V0 and U** and state/protocol/joining gates. No MR/CC
+splice, unique endpoint continuation, new acquisition, refit or extrapolation is
+released. All workers ended; the initial common-field guard stop and missing-only
+streamed recovery remain retained. See the current handoff and immutable catalogue;
+all physical/global limitations and protected exclusions remain.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
