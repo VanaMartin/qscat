@@ -3,8 +3,26 @@
 import numpy as np
 import pytest
 import scipy.sparse as sp
+from scipy.optimize import linear_sum_assignment
 
 from projects.potential_factory.nuclear_projection import projected_hamiltonian
+
+
+def _assert_same_spectrum(actual, expected):
+    actual, expected = np.asarray(actual), np.asarray(expected)
+    assert actual.shape == expected.shape
+    rows, columns = linear_sum_assignment(abs(actual[:, None] - expected[None, :]))
+    np.testing.assert_allclose(actual[rows], expected[columns], rtol=1e-12, atol=1e-12)
+
+
+def test_spectrum_comparison_ignores_equal_real_part_order():
+    values = np.array([3.1 + 0.95j, 3.1 - 0.95j, 2.6 - 0.95j, 2.6 + 0.95j])
+    _assert_same_spectrum(values, values[[1, 0, 3, 2]])
+
+
+def test_spectrum_comparison_rejects_incorrect_multiplicity():
+    with pytest.raises(AssertionError):
+        _assert_same_spectrum([1, 1, 2], [1, 2, 2])
 
 
 def test_separable_spectrum_is_pairwise_sum():
@@ -14,12 +32,7 @@ def test_separable_spectrum_is_pairwise_sum():
     U = np.broadcast_to(np.array([0.1, -0.3])[:, None], (2, 3))
     H = projected_hamiltonian(radial, eps, basis, U)
     expected = (np.linalg.eigvals(radial + np.diag([0.1, -0.3]))[:, None] + eps).ravel()
-    np.testing.assert_allclose(
-        np.sort_complex(np.linalg.eigvals(H.toarray())),
-        np.sort_complex(expected),
-        rtol=1e-12,
-        atol=1e-12,
-    )
+    _assert_same_spectrum(np.linalg.eigvals(H.toarray()), expected)
 
 
 @pytest.mark.parametrize("count", [1, 2, 4])
@@ -38,12 +51,7 @@ def test_matches_dense_full_dvr_projection(count):
     np.testing.assert_allclose(H, expected, rtol=1e-12, atol=1e-12)
     np.testing.assert_allclose(H, H.T, rtol=1e-12, atol=1e-12)
     if count == 4:
-        np.testing.assert_allclose(
-            np.sort_complex(np.linalg.eigvals(H)),
-            np.sort_complex(np.linalg.eigvals(full)),
-            rtol=1e-12,
-            atol=1e-12,
-        )
+        _assert_same_spectrum(np.linalg.eigvals(H), np.linalg.eigvals(full))
 
 
 @pytest.mark.parametrize("which", ["weights", "complex_basis", "shape", "nan"])
