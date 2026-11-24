@@ -142,6 +142,12 @@ selected that sentinel; analytic/discretization controls pass but the declared
 1 meV inward-wall sensitivity screen rejects. This does not reject the fixed-R
 fit or bound its error on a larger domain. No 2-D solve or broader-domain/native
 acquisition follows; see the current handoff for the stopped scope and next choice.
+The later explicitly selected wall-dependent finite-box study identifies a
+candidate and passes its sampled main basis/order/angle checks, but remains
+**BLOCKED** at the required tail control's auxiliary reference-eigensolver gate.
+It does not deliver a fully qualified 2-D pole or physical scattering validation.
+All workers ended; the handoff proposes only a source/saved-output diagnosis,
+not another numerical release or change to the failed wall-insensitivity screen.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

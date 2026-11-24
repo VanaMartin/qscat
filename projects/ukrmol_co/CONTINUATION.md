@@ -15,6 +15,11 @@ scope; no failed physical diagnostic is promoted to a pass.
 are complete at declared local fidelity, with the stricter lower-point position
 rejection retained. This branch is stopped; physical production remains unqualified.
 
+**Current finite-box decision:** the [24 November diagnostic](#goal-checkpoint--24-november-2026-wall-dependent-finite-box-diagnostic)
+finds an identified partial candidate, but final qualification is **BLOCKED** by
+an auxiliary reference-eigensolver failure in the required tail control. All
+workers ended; no physical CO, wall-insensitivity or fully qualified pole claim.
+
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
 the cross-state arithmetic qualify, but the frozen endpoint-character decision
@@ -218,13 +223,45 @@ not reject the fixed-R interaction. The original point-count setup stop and its
 single technical guard correction are retained; the actual memory/time limits,
 grid family and scientific gates were unchanged. No 2-D solve was run.
 
-**STOP this sentinel. One next proposed decision, not released:** choose an
+**Historical stop of this sentinel. The next proposed decision at that time:** choose an
 explicitly wall-dependent finite-box 2-D diagnostic or define the broader-domain
 input needed before a physical nuclear claim. Neither permits extrapolation of
 the current coefficients, a relaxed wall gate, new native geometry or opening S
 holdouts by default. A coupled-boundary design remains a different explicit
 scope choice. The overall 23:16:49 UTC ceiling has not restarted. No automatic
 job, refit, model/grid/solver ladder, cleanup or merge follows from remaining time.
+
+## Goal checkpoint — 24 November 2026: wall-dependent finite-box diagnostic
+
+The user explicitly selected a fresh one-hour local-only study, **08:02:21–09:02:21
+UTC**, one scientific process/thread and 1 GiB. The older windows did not restart.
+This is an imposed real nuclear Dirichlet box on **[1.9,2.5] bohr**, electronic
+ECS only—not physical scattering or a repair of the failed wall screen.
+
+The [published and authenticated result](https://data.qscat.org/co-finite-box-projected-pole-20261124/assessment.07b98f382e74.md)
+passes threshold/exposure preflight and identifies one candidate across the fixed
+4/8/12-state, order-9/11/13, 30°/32° main family. Its sampled final nuclear-basis
+changes pass the declared 0.1 meV position/full-width gates. However, the required
+tail-control family stops when the auxiliary fixed-R electronic-reference ARPACK
+solve converges only one of four requested pairs. **Qualification remains BLOCKED**;
+no settings were changed to turn that gate into a pass. Twenty unique 2-D spectra
+and independent saved-array checks are retained, not a fully qualified pole.
+
+Two preceding bookkeeping failures (JSON integer serialization and unequal-tail
+mask indexing), exact sources/exits and missing-only recoveries remain archived.
+Successful spectra and the independent radial oracle were reused, not repeated.
+The tested [project-level assembler](../../docs/physics/finite-box-nuclear-projection.md)
+is Python toy code, not a `qscat` promotion; its targeted suite passes 21 tests.
+Measured final worker peak was about 255 MB; all scientific children ended.
+
+**STOP this diagnostic. One bounded next proposed deliverable, not a calculation
+release:** saved-output/source-only diagnosis of the auxiliary reference-solver
+requirement at the failed tail refinement. A partial converged pair does not
+automatically replace the frozen four-pair gate. No solver/grid ladder, successful
+peer repeat, new native geometry or broader-domain acquisition follows from spare
+time. The accepted fit/curves, consumed validation roles, original failures and
+endpoint-character INCONCLUSIVE remain unchanged. All 114 S holdouts and the
+reserved equilibrium outgoing pole remain unread; no refit or extrapolation.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
