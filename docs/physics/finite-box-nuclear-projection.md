@@ -49,3 +49,20 @@ No nuclear ECS-angle test applies to an imposed real closed box. Do not bypass
 the two-coordinate outgoing checks of `qscat.core.exact_resonance_states` by
 passing an identical nuclear partner. This toy does not promote a new `qscat`
 API; optimization requires profiling and promotion requires independent review.
+
+## An oracle-identified electronic reference is a single-target problem
+
+A product reference may need one electronic vector at an independently known
+outgoing pole, rather than an unlabelled set of nearby continuum eigenpairs.
+Requesting one shift-invert pair is appropriate only with explicit identification:
+agreement with that pole in position and full width, a small eigen-residual,
+nonvanishing c-self-norm and localization. It does not replace the multi-pair
+search used to distinguish candidates in the coupled problem.
+
+Before replacing a stopped multi-pair reference prescription, test the targeted
+pair against a dense all-eigenpair solve on the stopped grid: require a unique
+nearest dense pole, energy agreement and bilinear vector overlap. The dense
+comparison shares discretization; an independent radial outgoing oracle supplies
+the separate boundary/energy check. Keep the original failure and unchanged
+physical accuracy gates. Convergence of one unexported partial ARPACK pair alone
+cannot justify this replacement.
