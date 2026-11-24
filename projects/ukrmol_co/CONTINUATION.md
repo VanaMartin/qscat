@@ -254,14 +254,26 @@ The tested [project-level assembler](../../docs/physics/finite-box-nuclear-proje
 is Python toy code, not a `qscat` promotion; its targeted suite passes 21 tests.
 Measured final worker peak was about 255 MB; all scientific children ended.
 
+The user then explicitly requested continuation with Sadaharu available. The
+[bounded Linux continuation](https://data.qscat.org/co-finite-box-remote-missing-20261124/assessment.bc91102bff84.md)
+verifies the existing image and reproduces the **same four-pair reference ARPACK
+failure** at about 112 MB peak RSS, with all 20 spectra reused and zero new 2-D
+solves. Hardware capacity is not the evidenced remedy. Its first preflight also
+exposed a portable-test comparison bug: equal-real-part complex eigenvalues
+must be matched bijectively, not by sorted position. The test-only correction
+retains the same tolerances and multiplicity, with **23 tests passing on both
+Mac and Linux**; the original preflight failure is retained. No scientific gate,
+solver setting, grid, model or allocation ceiling changed. All workers stopped.
+
 **STOP this diagnostic. One bounded next proposed deliverable, not a calculation
-release:** saved-output/source-only diagnosis of the auxiliary reference-solver
-requirement at the failed tail refinement. A partial converged pair does not
-automatically replace the frozen four-pair gate. No solver/grid ladder, successful
-peer repeat, new native geometry or broader-domain acquisition follows from spare
-time. The accepted fit/curves, consumed validation roles, original failures and
-endpoint-character INCONCLUSIVE remain unchanged. All 114 S holdouts and the
-reserved equilibrium outgoing pole remain unread; no refit or extrapolation.
+release:** derive and test an oracle-checked target-reference specification,
+distinguishing the one electronic reference vector used by the driver from its
+eight 2-D candidate pairs. A partial converged pair does not automatically replace
+the frozen four-pair reference gate. No solver/grid ladder, successful peer repeat,
+new native geometry or broader-domain acquisition follows from spare time. The
+accepted fit/curves, consumed validation roles, original failures and endpoint-
+character INCONCLUSIVE remain unchanged. All 114 S holdouts and the reserved
+equilibrium outgoing pole remain unread; no refit or extrapolation.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

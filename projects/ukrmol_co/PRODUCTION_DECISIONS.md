@@ -146,8 +146,12 @@ The later explicitly selected wall-dependent finite-box study identifies a
 candidate and passes its sampled main basis/order/angle checks, but remains
 **BLOCKED** at the required tail control's auxiliary reference-eigensolver gate.
 It does not deliver a fully qualified 2-D pole or physical scattering validation.
-All workers ended; the handoff proposes only a source/saved-output diagnosis,
-not another numerical release or change to the failed wall-insensitivity screen.
+The explicitly requested Sadaharu continuation verifies the runtime and reproduces
+that same gate failure with low memory use, reusing all completed spectra. A
+test-only spectrum-ordering correction passes 23 targeted tests on Mac and Linux;
+scientific gates/settings are unchanged. All workers ended; the handoff proposes
+an oracle-checked reference specification, not another numerical release or change
+to the failed wall-insensitivity screen.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

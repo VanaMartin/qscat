@@ -31,6 +31,12 @@ complex transpose and couplings. A complete orthogonal nuclear basis must be
 isospectral to that full finite-DVR matrix. These tests establish assembly, not
 convergence of a truncated basis or an ECS contour.
 
+Compare eigenvalue spectra as unordered multisets with a one-to-one assignment,
+not by lexicographically sorting complex numbers. Equal-real-part pairs can swap
+order after last-bit perturbations across LAPACK implementations. Keep the same
+error tolerances and check multiplicity; independent nearest-neighbor matches
+alone can incorrectly reuse one reference eigenvalue twice.
+
 For any later pole study, expose **channel** momenta relative to `eps_n`, not
 `sqrt(2 E)` relative to a fixed-nuclei electronic zero. Open outgoing and closed
 decaying branches need explicit continuous sheet choices. A small eigen-residual
