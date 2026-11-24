@@ -96,3 +96,18 @@ and their threshold-relative energies are invariant. Matched fragment energies
 and appropriate asymptotic/boundary physics become necessary for dissociation,
 absolute attachment thresholds or outgoing fragment observables. Conversely,
 finite-box convergence alone validates none of those physical quantities.
+
+### Common-space identity witness
+
+`projected_real_region_gram(left, right, radial_stop=...)` evaluates each
+projected field as `(P_r @ V) @ (P_R @ B).T` using the existing FEM-DVR cardinal
+interpolator. It integrates over the nuclear-domain intersection and a strictly
+unscaled electronic rectangle, using Gauss quadrature on the union of element
+boundaries. Sufficient quadrature order integrates products of the finite-element
+polynomials independently of their different nodes and Dirichlet endpoints.
+
+The returned 2x2 **Hermitian** Gram matrix gives a normalized local overlap
+`abs(G01)**2/(G00*G11)`. This bounded real-region shape witness is not a global
+Gamow-state normalization, probability or replacement for bilinear ECS algebra.
+Analytic polynomial norm/phase controls on unequal boxes and ECS tails, an odd-
+field orthogonality control and invalid-input tests qualify its intended use.
