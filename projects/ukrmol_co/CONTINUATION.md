@@ -21,6 +21,11 @@ separately validated target-reference replacement completes the missing controls
 All workers ended. This is not physical CO, global nuclear or wall-insensitivity
 qualification, nor a uniform omitted-basis error bound.
 
+**Current next dependency:** the [read-only claim-gap review](#goal-checkpoint--24-november-2026-broader-domain-claim-gap)
+finds that the actual coupled pole's nuclear-wall sensitivity has not been
+measured. The neutral ground-level wall rejection is not that observable. No
+broader-domain input campaign or new compute allocation is released.
+
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
 the cross-state arithmetic qualify, but the frozen endpoint-character decision
@@ -278,13 +283,39 @@ oracle: **all sampled main and additional tail/extent/real-h gates now pass**.
 The original failed prescriptions remain archived as failures. No `qscat`
 promotion or new physical accuracy claim follows.
 
-**STOP at the delivered wall-dependent finite-box milestone.** One bounded next
-proposed non-compute deliverable is a read-only broader-domain input/claim-gap
-plan before physical nuclear predictions. No successful peer repeat, new native
-geometry, extrapolation or broader-domain acquisition follows from spare time.
+**STOP at the delivered wall-dependent finite-box milestone.** The next proposed
+read-only broader-domain input/claim-gap plan is completed below. No successful
+peer repeat, new native geometry, extrapolation or broader-domain acquisition
+follows from spare time.
 The accepted fit/curves, consumed validation roles, original failures and endpoint-
 character INCONCLUSIVE remain unchanged. All 114 S holdouts and the reserved
 equilibrium outgoing pole remain unread; no refit or new allocation clock.
+
+## Goal checkpoint — 24 November 2026: broader-domain claim gap
+
+The [published source-only decision](https://data.qscat.org/co-broader-domain-claim-gap-20261124/assessment.99a13c5c9910.md)
+distinguishes the completed finite-box pole from physical nuclear/global claims.
+The compute window expired at **09:02:21 UTC**; this continuation launched no
+scientific calculation, refit, native job or protected-data read.
+
+The failed inward-wall screen belongs to the **neutral ground level**, not the
+coupled 2-D pole. It selects neither a required outer boundary nor the side that
+needs new input. Broader-R MR neutral points and resonance/bound endpoints exist,
+but cannot be spliced into the homogeneous local fit or declared unique branch
+continuation. Extending this model needs supported **both V0 and U**, not just
+a longer neutral curve. Fragment alignment is required for fragment-relative
+claims, not automatically for every localized threshold-relative observable.
+
+**One bounded next proposed deliverable, not released:** an actual 2-D one-sided
+wall-sensitivity diagnostic using only the frozen interaction inside 1.9–2.5 bohr,
+after threshold/exposure and common-space state-identity preflight. It reuses the
+qualified original-box result; no automatic new ab-initio geometry or outward
+extension. It would diagnose side sensitivity, not prove an unknown larger-domain
+error bound or repair the neutral rejection. A fresh explicit compute window and
+bounded card are the current execution blocker; earlier Sadaharu availability
+does not renew the expired window.
+All accepted curves, consumed validation roles, failures and S/pole exclusions
+remain unchanged. The read-only review is stopped; no clock has restarted.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

@@ -159,6 +159,11 @@ wall-dependent finite-box pole now passes its declared sampled qualification;
 the original four-pair failures remain failed. This is not physical CO, global
 nuclear, wall-insensitivity or uniform omitted-basis accuracy. All workers ended;
 no automatic acquisition, refit or extension follows.
+The later source-only claim-gap review finds that neutral-level wall sensitivity
+does not measure the coupled pole's wall dependence or select new input locations.
+It proposes an in-domain one-sided 2-D wall diagnostic, not a broader-R acquisition
+or a CC/MR splice. The compute allocation is expired; a fresh bounded release is
+required. See the current handoff; all physical/global limitations remain.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

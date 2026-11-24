@@ -66,3 +66,33 @@ comparison shares discretization; an independent radial outgoing oracle supplies
 the separate boundary/energy check. Keep the original failure and unchanged
 physical accuracy gates. Convergence of one unexported partial ARPACK pair alone
 cannot justify this replacement.
+
+## Leaving the imposed nuclear box is an observable-specific decision
+
+A neutral ground-level wall test does not measure the wall sensitivity of a
+coupled electronic–nuclear pole. Its nuclear distribution and channel couplings
+can differ. Test the actual pole, retaining its identity, before using a neutral
+sentinel to choose where new surface input is needed. Move one nuclear wall at a
+time to attribute sensitivity; simultaneous trims cannot isolate the two sides.
+Inward shifts remain sensitivity measurements, not bounds against an unknown
+larger domain, even when they fall below a declared screen.
+
+Changing nuclear walls also changes the neutral channel thresholds. Recheck
+electronic exposure and tail sizing with those thresholds and continuously
+assigned channel sheets. An unexposed candidate or an unvalidated cross-grid
+state comparison is a capability/identity blocker, not a measured wall shift.
+Never compare coefficient vectors from different nuclear grids by a bare dot
+product; use a validated common-space representation.
+
+Extending the interaction requires supported inputs for both `V0(R)` and
+`U(r,R)`, not just a longer neutral curve. Preserve the delivered finite-domain
+candidate. Separate electronic protocols, resonance/bound branch assignment,
+joining error and physical validation from nuclear discretization convergence.
+
+A fragment zero is not required merely to report a localized transition or a
+collision energy relative to a qualified neutral level. Under `V0 -> V0 + C`,
+the neutral thresholds and total coupled poles both shift by `C`; full widths
+and their threshold-relative energies are invariant. Matched fragment energies
+and appropriate asymptotic/boundary physics become necessary for dissociation,
+absolute attachment thresholds or outgoing fragment observables. Conversely,
+finite-box convergence alone validates none of those physical quantities.
