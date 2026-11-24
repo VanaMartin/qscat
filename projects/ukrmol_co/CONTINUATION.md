@@ -27,6 +27,9 @@ Stop before the optional second pair. The original finite-box qualification
 stands, but these inward shifts neither bound its larger-domain error nor
 establish physical CO accuracy. The next dependency is compatible supported
 **V0 and U beyond 2.5 bohr**; no acquisition or extrapolation is released.
+The [right-input design](#goal-checkpoint--24-november-2026-right-input-design)
+now proposes one separately authorized neutral-only feasibility sentinel before
+any new native resonance work; the previous compute allocation has expired.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -358,12 +361,43 @@ native jobs, refitting or extrapolation. Original failures, eight-development/
 two-consumed-validation roles, 114 S holdouts and the reserved R=2.1323 outgoing
 pole remain unchanged and protected.
 
-**One bounded next proposed deliverable:** a source/metadata-only right-side
-compatible-input acquisition/design card. It should identify reusable inputs,
-the smallest genuinely missing neutral/electronic witnesses, protocol and state
-joining gates, prospective validation and conditional resource caps. It releases
+**Next deliverable proposed at that checkpoint, now completed below:** a source/
+metadata-only right-side compatible-input acquisition/design card. It should
+identify reusable inputs, the smallest genuinely missing neutral/electronic
+witnesses, protocol and state joining gates, prospective validation and conditional
+resource caps. It releases
 no data acquisition or quantum work; execution needs separate explicit domain,
 data and resource authorization.
+
+## Goal checkpoint — 24 November 2026: right-input design
+
+The [published and authenticated right-input design](https://data.qscat.org/co-right-input-design-20261124/assessment.df54f9fe920c.md)
+completes the requested read-only continuation. No scientific worker,
+new geometry, fit, extrapolation, native job or protected-data read occurred.
+The 12:33:47 UTC compute ceiling expired and did not restart.
+
+**One next proposed admission, not released:** a neutral-only feasibility sentinel
+at **R=2.55 bohr**, retaining the existing homogeneous 5Z frozen-core RHF/CCSD(T)
+protocol and stopping on instability, failed convergence or resource limits.
+The proposed fresh allocation is **35 minutes, four physical CPU threads and
+24 GiB**, not the former one-thread/1-GiB wall-study allowance. Resource/runtime/
+owner capability must qualify before launch. A pass supplies one finite-method
+neutral development row, not an extended surface or physical prediction; it
+permits only preparation of a separate same-R CAS11 QC admission.
+
+The design separates geometry-specific electronic acquisition from checkpoint
+initialization and preserves the accepted endpoint/curve protocols. A C2 join
+using the same quadratic log shapes would force their original continuation;
+new supported collar versions need separately justified degrees of freedom,
+prospective tests and propagated input/joining uncertainty. Neither smoothness
+nor the original fixed-R fidelity budget proves a 1-meV nuclear-domain result.
+The 2.55 choice is a feasibility probe, not an inferred sufficient outer boundary.
+The [source/metadata archive](https://data.qscat.org/co-right-input-design-20261124/owned-evidence.tar.84cc688b49bc.gz)
+and full SHA256 are recorded in the [catalogue](experiments.md).
+
+**STOP at new-geometry/resource authorization.** No quantum successor follows
+from this completed card or unused historical time. All existing failures,
+consumed validation roles and S/equilibrium-pole protections remain unchanged.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

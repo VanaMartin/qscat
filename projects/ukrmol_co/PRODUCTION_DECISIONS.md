@@ -173,6 +173,13 @@ splice, unique endpoint continuation, new acquisition, refit or extrapolation is
 released. All workers ended; the initial common-field guard stop and missing-only
 streamed recovery remain retained. See the current handoff and immutable catalogue;
 all physical/global limitations and protected exclusions remain.
+The subsequent source/metadata-only right-input design proposes one neutral-only
+R=2.55 feasibility sentinel before new native electronic work. It requires fresh
+explicit geometry/resource authorization (proposed four CPU threads/24 GiB,
+35 minutes); the expired 1-GiB wall-study allocation is not suitable or renewed.
+A pass would supply one finite-method neutral row, not a collar or a downstream
+release. New interaction versions need non-extrapolative joining freedom and
+prospective uncertainty/validation gates; the delivered evaluator stays frozen.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
