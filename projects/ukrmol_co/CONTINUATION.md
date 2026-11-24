@@ -28,8 +28,9 @@ stands, but these inward shifts neither bound its larger-domain error nor
 establish physical CO accuracy. The next dependency is compatible supported
 **V0 and U beyond 2.5 bohr**; no acquisition or extrapolation is released.
 The [right-input design](#goal-checkpoint--24-november-2026-right-input-design)
-now proposes one separately authorized neutral-only feasibility sentinel before
-any new native resonance work; the previous compute allocation has expired.
+led to one explicitly approved neutral-only sentinel, but its
+[launch stopped before SCF](#goal-checkpoint--24-november-2026-neutral-launch-source-stop).
+The row remains missing. No native resonance work or automatic retry is released.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -376,8 +377,9 @@ completes the requested read-only continuation. No scientific worker,
 new geometry, fit, extrapolation, native job or protected-data read occurred.
 The 12:33:47 UTC compute ceiling expired and did not restart.
 
-**One next proposed admission, not released:** a neutral-only feasibility sentinel
-at **R=2.55 bohr**, retaining the existing homogeneous 5Z frozen-core RHF/CCSD(T)
+**Admission proposed at that checkpoint, later explicitly approved:** a neutral-
+only feasibility sentinel at **R=2.55 bohr**, retaining the existing homogeneous
+5Z frozen-core RHF/CCSD(T)
 protocol and stopping on instability, failed convergence or resource limits.
 The proposed fresh allocation is **35 minutes, four physical CPU threads and
 24 GiB**, not the former one-thread/1-GiB wall-study allowance. Resource/runtime/
@@ -395,9 +397,35 @@ The 2.55 choice is a feasibility probe, not an inferred sufficient outer boundar
 The [source/metadata archive](https://data.qscat.org/co-right-input-design-20261124/owned-evidence.tar.84cc688b49bc.gz)
 and full SHA256 are recorded in the [catalogue](experiments.md).
 
-**STOP at new-geometry/resource authorization.** No quantum successor follows
-from this completed card or unused historical time. All existing failures,
-consumed validation roles and S/equilibrium-pole protections remain unchanged.
+The user subsequently approved this admission; its source-resolution stop is
+recorded below. No downstream quantum successor follows from the card or unused
+historical time. All existing failures, consumed validation roles and S/equilibrium-
+pole protections remain unchanged.
+
+## Goal checkpoint — 24 November 2026: neutral launch source stop
+
+The user explicitly approved one R=2.55 neutral-only sentinel with **four physical
+cores/24 GiB, 14:50:24–15:25:24 UTC**, retaining the five-minute preflight limit
+and first-failure stop. Runtime versions, resources and generated acceptance/
+owner controls passed. The actual `python -m` launch selected the image's older
+bundled module from its default `/opt/qmodeling` working directory, ahead of the
+mounted source in `PYTHONPATH`. That old CLI rejected the 5Z option at argument
+parsing (original container exit 2).
+
+**BLOCKED before quantum work, not an RHF/5Z rejection.** No run directory, SCF,
+CCSD, energy row or checkpoint was created; all owned containers ended without
+OOM. The [published and authenticated stop](https://data.qscat.org/co-neutral-r2550-stop-20261124/assessment.10c82c6e3915.md)
+retains original frozen source/command, preflight gap, exit and terminal evidence;
+the archive SHA256 is in the [catalogue](experiments.md).
+The first-failure rule stops this attempt; no retry or allocation
+clock has restarted. Existing curves, failures and protected exclusions stand.
+
+**One next proposed deliverable, requiring a separate reopening:** corrected-
+source preflight and the same still-missing single neutral sentinel. Explicitly
+set the container working directory to the mounted source and verify actual
+parent/child module paths, digests and the exact CLI's 5Z admission before SCF.
+Keep the scientific prescription and four-core/24-GiB caps unchanged. A fresh
+35-minute window is proposed, not started; no native/QC/fit successor is included.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

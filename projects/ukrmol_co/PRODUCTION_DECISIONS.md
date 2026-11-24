@@ -180,6 +180,13 @@ explicit geometry/resource authorization (proposed four CPU threads/24 GiB,
 A pass would supply one finite-method neutral row, not a collar or a downstream
 release. New interaction versions need non-extrapolative joining freedom and
 prospective uncertainty/validation gates; the delivered evaluator stays frozen.
+The user explicitly approved that neutral-only admission. Its first launch
+stopped at argument parsing: the image's default working directory selected an
+older bundled module ahead of the mounted 5Z-capable source. Original exit 2,
+preflight gap and terminal evidence are retained. No SCF/CCSD, neutral row,
+checkpoint or physical rejection resulted. Stop this attempt; a corrected-source
+preflight and the still-missing single calculation need a separate bounded
+reopening, not an automatic retry or a relaxed scientific/resource gate.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
