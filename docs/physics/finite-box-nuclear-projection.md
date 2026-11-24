@@ -111,3 +111,6 @@ The returned 2x2 **Hermitian** Gram matrix gives a normalized local overlap
 Gamow-state normalization, probability or replacement for bilinear ECS algebra.
 Analytic polynomial norm/phase controls on unequal boxes and ECS tails, an odd-
 field orthogonality control and invalid-input tests qualify its intended use.
+Radial-row chunks bound the temporary field arrays without changing quadrature
+nodes, weights or the integration domain. A streamed-versus-unchunked differential
+control checks that the memory strategy preserves the same inner products.

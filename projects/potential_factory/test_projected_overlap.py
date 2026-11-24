@@ -5,6 +5,7 @@ import pytest
 from numpy.polynomial import Polynomial
 from qscat.dvr import ElementSpec, FemDvrEcsGrid, GridSpec
 
+from projects.potential_factory import projected_overlap
 from projects.potential_factory.projected_overlap import projected_real_region_gram
 
 
@@ -53,6 +54,14 @@ def test_odd_nuclear_field_is_orthogonal_on_common_symmetric_interval():
     fields, _, _ = _fields(odd=True)
     G = projected_real_region_gram(*fields, radial_stop=2.5)
     assert abs(G[0, 1]) ** 2 / (G[0, 0].real * G[1, 1].real) < 1e-18
+
+
+def test_streamed_and_unchunked_quadrature_agree(monkeypatch):
+    fields, _, _ = _fields()
+    expected = projected_real_region_gram(*fields, radial_stop=2.5)
+    monkeypatch.setattr(projected_overlap, "_FIELD_POINT_BUDGET", 300)
+    actual = projected_real_region_gram(*fields, radial_stop=2.5)
+    np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
 
 
 @pytest.mark.parametrize("which", ["shape", "quadrature", "complex_nuclear"])
