@@ -37,8 +37,11 @@ The [25 November route selection](#goal-checkpoint--25-november-2026-neutral-ref
 now prioritizes a verified benchmark/convention map before any diagnostic-only
 correlation admission. The RHF rejection remains unchanged; it is not a measured
 CCSD(T) error or authority to substitute an MR curve.
-Primary benchmark verification is now blocked on the [SI source file](#primary-benchmark-file-blocker--25-november-2026),
-not Sadaharu availability; no quantum diagnostic is released.
+The user supplied both primary PDFs, resolving the historical SI file blocker.
+The [saved common-domain comparison](#goal-checkpoint--25-november-2026-saved-neutral-common-domain-benchmark)
+now identifies a pre-existing neutral shape discrepancy; defer the proposed
+2.55 diagnostic while reassessing the neutral protocol and physical target.
+No quantum diagnostic or curve replacement is released.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -506,6 +509,10 @@ new qualified neutral row is claimed.
 
 ### Primary benchmark file blocker — 25 November 2026
 
+**Historical access stop, now resolved:** the user subsequently supplied the
+main article and SI locally. Their identities, page mapping and the resulting
+saved-neutral comparison are retained in the next checkpoint's external record.
+
 The [published access record](https://data.qscat.org/co-neutral-benchmark-access-20261125/assessment.7b07244aebf0.md)
 confirms SI DOI **10.1021/acs.jctc.4c01082.s001** and the primary filename
 **ct4c01082_si_001.pdf** through Crossref. The ordinary publisher request returns
@@ -513,12 +520,33 @@ HTTP 403. Sadaharu is reachable, but bounded cache-name checks found no matching
 copy in the locations inspected; this is not a whole-host absence claim. No
 proxy/bypass, quantum/container job or protected payload read occurred.
 
-**Required next input:** an authorized copy of that PDF, or an exact accessible
-local/Sadaharu path to an existing copy. Then verify its pages, columns, rows and
+**Required next input at that stop:** an authorized copy of that PDF, or an exact
+accessible local/Sadaharu path to an existing copy. Then verify its pages, columns, rows and
 physical-reference conventions/uncertainty; the document alone does not certify
 an error bound or release a calculation. No precision values are taken from
 search snippets. The [catalogue](experiments.md) retains the authenticated scope,
 access ledger and checksum; prior scientific decisions remain unchanged.
+
+## Goal checkpoint — 25 November 2026: saved-neutral common-domain benchmark
+
+The [published and authenticated comparison](https://data.qscat.org/co-neutral-common-domain-benchmark-20261125/assessment.3d1fa9b67e4c.md)
+completes the explicitly approved saved-data analysis, using accepted raw
+neutral totals at exact shared SI geometries, not fitted values or interpolated
+literature data. QZ and 5Z remain separate. It identifies an offset-independent
+shape discrepancy already inside the supported domain; no physical uncertainty
+enclosure or certified 1 meV verdict follows. The original RHF stability rejection,
+accepted local coefficients and all protected/consumed-data roles are unchanged.
+
+**Decision: defer the proposed 2.55 correlated diagnostic.** No new quantum/native
+job, checkpoint payload read, refit, empirical correction or MR/CC splice occurred.
+**One next proposed non-compute deliverable:** a bounded neutral-protocol decision
+card for the existing 2.45→2.50 interval, specifying the physical shape accuracy
+needed and a supported matched comparison that can distinguish basis/core/
+Hamiltonian/correlation contributions. This is not permission for new energies,
+a method ladder or a replacement curve.
+The [immutable reader/input/table capsule](https://data.qscat.org/co-neutral-common-domain-benchmark-20261125/owned-evidence.tar.4468c5b28c94.gz)
+retains raw-log replay, primary identities/locators and uncertainty limitations;
+the full SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
