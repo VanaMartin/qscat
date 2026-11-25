@@ -118,3 +118,29 @@ and diagnostic-schema ineligibility. They do not validate PySCF's electronic
 physics, the installed image/basis parser, molecular convergence, numerical
 uncertainty or physical accuracy. No molecular smoke test is implied. Reusable
 source must be committed/pushed before any separately admitted physical use.
+
+## Two-geometry owner
+
+`projects.ukrmol_co.neutral_core_owner` is the standard-library host owner for
+the two fixed pairs. It authenticates a frozen external `source-manifest.json`
+against an explicit digest, including its own executed source. The manifest
+names a Git commit, hashes of all required mounted modules, the pinned existing
+image and receipt/deadline timestamps for an allocation no longer than two hours.
+Filled manifests, commands and execution records belong outside the checkout.
+
+The owner checks host topology, available RAM/disk, sampled load on the selected
+cores and siblings, and image/workload metadata before each pair. It starts
+read-only, network-disabled containers sequentially, pins four physical CPUs
+and 24 GiB with no swap, and enforces the remaining absolute deadline and a
+20-GiB cumulative allocated-disk ceiling. The inner runner retains its tighter
+phase caps. Active stages are recorded at most two minutes apart. Container IDs
+are created in the fresh owned directory; failure/signal cleanup targets only
+those IDs, never an unrelated container or a pre-existing name collision.
+
+Both command and container exits, OOM state, source integrity and the completed
+diagnostic schema are checked before starting the second geometry. Any failure
+stops the sequence, retaining successful partials and the original failure.
+No changed method/basis, retry, third geometry or nuclear calculation follows.
+The explicit `--execute-reviewed` flag does not replace user/resource authority.
+An owner completion still certifies only the specified finite diagnostic gates,
+not a physical uncertainty bound or production curve eligibility.
