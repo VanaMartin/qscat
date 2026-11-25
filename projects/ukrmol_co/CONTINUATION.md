@@ -45,9 +45,10 @@ The subsequent [protocol decision](#goal-checkpoint--25-november-2026-matched-ne
 selects a conditional same-basis core contrast at existing geometries, not a
 new geometry. No quantum diagnostic or curve replacement is released.
 The [separate runner is now synthetically qualified](#goal-checkpoint--25-november-2026-diagnostic-core-runner),
-with the accepted worker unchanged. Its [installed-image preflight](#goal-checkpoint--25-november-2026-runtime-preflight-reporting-stop)
-reaches partial checks but stops at the external reporter's NumPy-integer JSON
-encoding error; overall exit 1 is retained, not a runtime PASS or quantum release.
+with the accepted worker unchanged. The original installed-image reporter failure
+is retained; the explicitly approved [corrected preflight](#goal-checkpoint--25-november-2026-corrected-runtime-preflight)
+now passes runtime-only checks on Sadaharu. No electronic calculation or quantum
+release follows automatically.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -595,6 +596,9 @@ its SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 25 November 2026: runtime preflight reporting stop
 
+**Historical stop, now resolved by the separately approved corrected attempt
+below.** The original exit 1 and its evidence remain unchanged.
+
 The [published stop record](https://data.qscat.org/co-neutral-core-runtime-preflight-20261125/assessment.281586d24cd9.md)
 retains the selected no-SCF/no-CC installed-image preflight, which reaches the final report
 writer after source/basis/dimension/generated-mask/limit checks, then fails on a
@@ -611,6 +615,26 @@ remain unchanged; the four-total calculation still requires fresh authority.
 The [authenticated source/runtime/failure capsule](https://data.qscat.org/co-neutral-core-runtime-preflight-20261125/owned-evidence.tar.c954c5d6cd53.gz)
 preserves exact helpers, original stderr/exits, container/host identities and
 terminal evidence; its SHA256 is in the [catalogue](experiments.md).
+
+## Goal checkpoint — 25 November 2026: corrected runtime preflight
+
+The [published and authenticated corrected preflight](https://data.qscat.org/co-neutral-core-runtime-preflight-fixed-20261125/assessment.f3db49a2822b.md)
+completes the user's explicitly approved metadata-only repair/rerun on Sadaharu.
+Explicit integer conversion resolves the external reporter failure;
+generated JSON regressions pass locally and in the actual image, and the complete
+structured runtime report now passes source/basis/dimension/generated-mask and
+terminal checks. No real SCF/CC, orbital/energy payload, protected read or curve
+change occurred. The committed worker and original failed attempt are unchanged.
+
+**This preflight unit is complete.** One next proposed action is the matched
+four-total diagnostic at the existing geometries under its separately frozen
+bounded owner and fresh explicit data/resource admission. Runtime metadata
+readiness is not RHF stability, correlated convergence/precision, resource-cost
+adequacy or physical accuracy. No quantum allocation is active; keep R=2.55
+deferred and all accepted/protected-data roles unchanged.
+The [immutable repair/regression/runtime capsule](https://data.qscat.org/co-neutral-core-runtime-preflight-fixed-20261125/owned-evidence.tar.9abd27b45a93.gz)
+retains the complete numeric JSON, original-failure linkage and terminal evidence;
+its SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

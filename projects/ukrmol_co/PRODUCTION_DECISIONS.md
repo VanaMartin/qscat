@@ -225,6 +225,11 @@ helper's NumPy-integer JSON writer, with original exit 1 retained. Partial
 source/basis/metadata checks are not an overall PASS. No SCF/CC or quantum
 successor ran; reporter repair and a separately admitted metadata retry are the
 next proposal, not a changed scientific gate or runner failure.
+The user subsequently explicitly approved the reporter repair and metadata-only
+rerun. That corrected attempt passes on Sadaharu, with the original failure
+preserved and scientific/accepted source unchanged. No SCF/CC or energy result
+was acquired. The four-total diagnostic still needs a bounded owner and fresh
+data/resource authority; runtime readiness is not physical qualification.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
