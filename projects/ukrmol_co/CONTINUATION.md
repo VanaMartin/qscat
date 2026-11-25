@@ -626,15 +626,31 @@ structured runtime report now passes source/basis/dimension/generated-mask and
 terminal checks. No real SCF/CC, orbital/energy payload, protected read or curve
 change occurred. The committed worker and original failed attempt are unchanged.
 
-**This preflight unit is complete.** One next proposed action is the matched
-four-total diagnostic at the existing geometries under its separately frozen
+**Historical completed preflight; the subsequent admission is below.** The next
+proposed action was the matched four-total diagnostic at the existing geometries under its separately frozen
 bounded owner and fresh explicit data/resource admission. Runtime metadata
 readiness is not RHF stability, correlated convergence/precision, resource-cost
-adequacy or physical accuracy. No quantum allocation is active; keep R=2.55
+adequacy or physical accuracy. No quantum allocation was active at that checkpoint; keep R=2.55
 deferred and all accepted/protected-data roles unchanged.
 The [immutable repair/regression/runtime capsule](https://data.qscat.org/co-neutral-core-runtime-preflight-fixed-20261125/owned-evidence.tar.9abd27b45a93.gz)
 retains the complete numeric JSON, original-failure linkage and terminal evidence;
 its SHA256 is in the [catalogue](experiments.md).
+
+## Goal checkpoint — 25 November 2026: matched core/basis diagnostic admitted
+
+The user's continuation explicitly selects the
+[frozen four-total diagnostic](https://data.qscat.org/co-neutral-core-pair-admission-20261125/scope.dfbb8bbf78c2.md).
+Its authenticated [input/source capsule](https://data.qscat.org/co-neutral-core-pair-admission-20261125/input.tar.e21f8ad967e0.gz)
+is catalogued; the tested owner is committed/pushed before use. The existing
+sequential Sadaharu launch awaits terminal evidence; do not launch another owner,
+restart its clock or infer completion. The absolute deadline remains unchanged.
+
+**One bounded next deliverable:** verify the returned original exits, stability,
+convergence, source and resource records, then publish the terminal assessment.
+Only a complete two-geometry result supports B/C arithmetic; otherwise retain
+partials and report no complete contrast. No retry, R=2.55 reopening, refit or
+curve replacement follows. Diagnostic results cannot certify physical/nuclear
+accuracy, and accepted coefficients and protected-data roles remain unchanged.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

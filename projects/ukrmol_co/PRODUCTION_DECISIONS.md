@@ -230,6 +230,10 @@ rerun. That corrected attempt passes on Sadaharu, with the original failure
 preserved and scientific/accepted source unchanged. No SCF/CC or energy result
 was acquired. The four-total diagnostic still needs a bounded owner and fresh
 data/resource authority; runtime readiness is not physical qualification.
+The subsequent explicit continuation admits the
+[frozen two-geometry four-total diagnostic](https://data.qscat.org/co-neutral-core-pair-admission-20261125/scope.dfbb8bbf78c2.md)
+under its tested committed owner. Terminal evidence and B/C contrasts are pending;
+no completion, physical repair, automatic retry or curve adoption is inferred.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
