@@ -195,6 +195,14 @@ no accepted correlated row. This is a reference-applicability rejection, not the
 old launcher failure or absence of a physical state. Stop unchanged continuation
 at that point and reassess the neutral-reference route; no UHF substitution,
 geometry/basis ladder, MR splice or new native acquisition follows from spare time.
+The subsequent read-only route selection prioritizes a verified physical
+benchmark/convention map before considering one diagnostic-only restricted
+correlation result. RHF instability alone does not quantify the unrun CCSD(T)
+error. Standard PySCF 2.11.0 SC-NEVPT2 does not supply the proposed same-core
+frozen toggle, and existing all-electron MR is not a drop-in replacement. The
+conditional diagnostic must remain distinct from accepted V0 data; benchmark
+rows/uncertainty, runner support and fresh authority are prerequisites, not a
+gate relaxation. No quantum or model/curve replacement is released.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

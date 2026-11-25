@@ -33,6 +33,10 @@ is resolved, but the [corrected-source calculation](#goal-checkpoint--24-novembe
 **rejects the unchanged RHF prescription at R=2.55** on external stability.
 CCSD(T) was not called and the neutral row remains missing. Reassess the neutral
 reference route before new native resonance work; no method/geometry ladder is released.
+The [25 November route selection](#goal-checkpoint--25-november-2026-neutral-reference-route-selection)
+now prioritizes a verified benchmark/convention map before any diagnostic-only
+correlation admission. The RHF rejection remains unchanged; it is not a measured
+CCSD(T) error or authority to substitute an MR curve.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -458,11 +462,45 @@ its historical missing overlap point alone would not repair the method/core/
 basis change or qualify a join. Existing local curves/finite-box qualification,
 right-wall rejection, strict-fit failure, validation roles and protected data stand.
 
-**One next proposed non-compute deliverable:** a neutral-reference route-selection
+**Next non-compute deliverable proposed at that checkpoint, completed below:**
+a neutral-reference route-selection
 card specifying spin/core/basis, common-domain overlap and physical-error budgets,
 actual implementation support and at most one separately costed discriminating
 new-data proposal. More available time does not release a new method or quantum
 benchmark. Supported V0 and U beyond 2.5 remain unqualified.
+
+## Goal checkpoint — 25 November 2026: neutral-reference route selection
+
+The [published and authenticated route decision](https://data.qscat.org/co-neutral-reference-route-design-20261125/assessment.719246ee1395.md)
+completes the requested read-only continuation after the compute window expired.
+No quantum/container job, numerical scientific analysis, fit, checkpoint
+payload read or protected-data access occurred. Original stability and physical
+failures, accepted curves and validation roles remain unchanged.
+
+**Selected order: benchmark first, not an automatic MR replacement.** The RHF
+orbital-stability flag does not measure the uncomputed correlated energy error.
+Versioned PySCF 2.11.0 source rejects a frozen setting on the underlying CASSCF
+object in its standard SC-NEVPT2 kernel; inactive cores are not a same-core
+dynamic-correlation toggle. Existing all-electron MR endpoints therefore do not
+provide a drop-in frozen-core comparator or a justified splice.
+
+One conditional future proposal is a **diagnostic-only restricted CCSD(T)**
+result at the already visited 2.55 geometry, assessed through an independently
+verified 2.50→2.55 neutral increment. It would preserve the failed stability flag
+and remain ineligible for the delivered curve. The accepted neutral worker is
+not modified or bypassed, and no diagnostic or new admission is released.
+
+**Immediate next bounded non-compute deliverable:** verify the primary numeric
+benchmark and its BO/adiabatic/core/basis/relativistic conventions and uncertainty.
+Primary article HTML was read, but article/SI PDF requests returned non-PDF data;
+no retry/bypass or precision use of search snippets occurred. An uncertainty map,
+exact benchmark rows, diagnostic runner and fresh explicit authority are still
+missing. If those prerequisites cannot support a discriminating comparison,
+stop rather than acquire another unscored energy or start a new engine project.
+The [immutable source/primary-HTML/provenance capsule](https://data.qscat.org/co-neutral-reference-route-design-20261125/owned-evidence.tar.f57d4834aef4.gz)
+retains implementation findings, access limits and the conditional card; its
+SHA256 is in the [catalogue](experiments.md). No precision benchmark table or
+new qualified neutral row is claimed.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
