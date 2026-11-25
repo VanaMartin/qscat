@@ -216,6 +216,10 @@ diagnostic at existing geometries rather than another R=2.55 result. A separatel
 tested diagnostic runner and fresh data/resource admission are prerequisites;
 the accepted worker remains unchanged. The card itself releases no calculation
 and does not convert component bookkeeping into a physical error enclosure.
+The separate diagnostic runner now passes synthetic orchestration and inert
+process controls, with accepted source unchanged. This adds no electronic data
+or installed-image/molecular validation. Runtime-only preflight is proposed;
+no container/quantum job or new allocation is released by implementation alone.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

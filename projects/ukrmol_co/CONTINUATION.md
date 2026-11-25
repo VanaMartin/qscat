@@ -44,6 +44,8 @@ now identifies a pre-existing neutral shape discrepancy; defer the proposed
 The subsequent [protocol decision](#goal-checkpoint--25-november-2026-matched-neutral-protocol-decision)
 selects a conditional same-basis core contrast at existing geometries, not a
 new geometry. No quantum diagnostic or curve replacement is released.
+The [separate runner is now synthetically qualified](#goal-checkpoint--25-november-2026-diagnostic-core-runner),
+with the accepted worker unchanged; installed-image preflight remains missing.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -568,6 +570,26 @@ neither implementation nor quantum work was executed by this design unit.
 The [immutable source/component/design capsule](https://data.qscat.org/co-neutral-protocol-decision-20261125/owned-evidence.tar.274a490d4c3c.gz)
 retains the exact matched contrasts, stock API/basis findings and conditional
 outcome/resource card; its SHA256 is in the [catalogue](experiments.md).
+
+## Goal checkpoint — 25 November 2026: diagnostic core runner
+
+The [published synthetic qualification](https://data.qscat.org/co-neutral-core-runner-20261125/assessment.13e1c90f990f.md)
+records the requested diagnostic-only matched FC/AE pair runner, implemented and
+committed/pushed, with generated-backend and inert-process controls. The accepted
+`neutral.py` and shared profiler remain byte-identical. Tests cover reference
+reuse, masks/counts, numerical-failure propagation, partial retention, source/basis
+identity, distinct ineligible schema and bounded child-group cleanup. No real
+PySCF call, molecular/container job, protected read or curve change occurred.
+
+**Stop at synthetic orchestration qualification.** No installed-runtime or
+molecular accuracy/resource qualification follows. **One next proposed bounded
+deliverable:** authenticate the existing image/source and perform a no-SCF/no-CC
+runtime preflight, including actual basis/masks/dimensions and owner readiness.
+No provisioning or quantum successor is released; the four-total calculation
+still needs fresh explicit data/resource authority. Keep R=2.55 deferred.
+The [immutable committed-source/test capsule](https://data.qscat.org/co-neutral-core-runner-20261125/owned-evidence.tar.9b9f925adf7a.gz)
+retains original verification exits, generated test definitions and limitations;
+its SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
