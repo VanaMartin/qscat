@@ -220,6 +220,11 @@ The separate diagnostic runner now passes synthetic orchestration and inert
 process controls, with accepted source unchanged. This adds no electronic data
 or installed-image/molecular validation. Runtime-only preflight is proposed;
 no container/quantum job or new allocation is released by implementation alone.
+The explicitly selected runtime-only preflight later stops at the external
+helper's NumPy-integer JSON writer, with original exit 1 retained. Partial
+source/basis/metadata checks are not an overall PASS. No SCF/CC or quantum
+successor ran; reporter repair and a separately admitted metadata retry are the
+next proposal, not a changed scientific gate or runner failure.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

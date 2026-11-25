@@ -45,7 +45,9 @@ The subsequent [protocol decision](#goal-checkpoint--25-november-2026-matched-ne
 selects a conditional same-basis core contrast at existing geometries, not a
 new geometry. No quantum diagnostic or curve replacement is released.
 The [separate runner is now synthetically qualified](#goal-checkpoint--25-november-2026-diagnostic-core-runner),
-with the accepted worker unchanged; installed-image preflight remains missing.
+with the accepted worker unchanged. Its [installed-image preflight](#goal-checkpoint--25-november-2026-runtime-preflight-reporting-stop)
+reaches partial checks but stops at the external reporter's NumPy-integer JSON
+encoding error; overall exit 1 is retained, not a runtime PASS or quantum release.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -590,6 +592,25 @@ still needs fresh explicit data/resource authority. Keep R=2.55 deferred.
 The [immutable committed-source/test capsule](https://data.qscat.org/co-neutral-core-runner-20261125/owned-evidence.tar.9b9f925adf7a.gz)
 retains original verification exits, generated test definitions and limitations;
 its SHA256 is in the [catalogue](experiments.md).
+
+## Goal checkpoint — 25 November 2026: runtime preflight reporting stop
+
+The [published stop record](https://data.qscat.org/co-neutral-core-runtime-preflight-20261125/assessment.281586d24cd9.md)
+retains the selected no-SCF/no-CC installed-image preflight, which reaches the final report
+writer after source/basis/dimension/generated-mask/limit checks, then fails on a
+NumPy `int64` JSON encoding error in the external helper. Original exit 1 and
+partial evidence are retained; this is not an RHF/CC failure or overall PASS.
+The owned container ended without OOM; unrelated workloads are untouched. No
+orbital/energy calculation, protected payload read or runner/curve change occurred.
+
+**Stop; no automatic retry or quantum successor. One next bounded proposal:**
+explicit integer conversion in the external reporter plus a generated JSON
+regression, followed by a separately admitted corrected metadata-only preflight.
+The accepted worker, synthetic runner qualification and all scientific failures
+remain unchanged; the four-total calculation still requires fresh authority.
+The [authenticated source/runtime/failure capsule](https://data.qscat.org/co-neutral-core-runtime-preflight-20261125/owned-evidence.tar.c954c5d6cd53.gz)
+preserves exact helpers, original stderr/exits, container/host identities and
+terminal evidence; its SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
