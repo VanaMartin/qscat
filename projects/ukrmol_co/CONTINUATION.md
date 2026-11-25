@@ -638,6 +638,8 @@ its SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 25 November 2026: matched core/basis diagnostic admitted
 
+**Historical admission; the completed diagnostic disposition is below.**
+
 The user's continuation explicitly selects the
 [frozen four-total diagnostic](https://data.qscat.org/co-neutral-core-pair-admission-20261125/scope.dfbb8bbf78c2.md).
 Its authenticated [input/source capsule](https://data.qscat.org/co-neutral-core-pair-admission-20261125/input.tar.e21f8ad967e0.gz)
@@ -651,6 +653,23 @@ Only a complete two-geometry result supports B/C arithmetic; otherwise retain
 partials and report no complete contrast. No retry, R=2.55 reopening, refit or
 curve replacement follows. Diagnostic results cannot certify physical/nuclear
 accuracy, and accepted coefficients and protected-data roles remain unchanged.
+
+## Goal checkpoint — 25 November 2026: matched diagnostic complete
+
+The [terminal assessment](https://data.qscat.org/co-neutral-core-pair-result-20261125/assessment.cd4cf8580cd0.md)
+completes the selected four totals with all declared stability/convergence/source/
+resource gates passed, original exits zero and no OOM or owned running container.
+The same-basis core response is material on the frozen diagnostic scale; retain
+an all-electron/core-capable candidate, not a production replacement. The finite
+basis replacement is sub-material, not evidence of basis convergence. Closer raw
+agreement with the composite BO increment is not a physical/nuclear error bound.
+
+**Stop this acquisition unit. One next bounded proposal:** a saved-only neutral-
+method/uncertainty decision using the authenticated contrasts and existing
+benchmark evidence, with no new calculation. Physical uncertainty and supported
+both-V0-and-U domain extension remain unresolved. No retry, R=2.55 reopening,
+refit, curve adoption or protected-data access follows; all accepted roles and
+original failures remain unchanged. The terminal capsule is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 

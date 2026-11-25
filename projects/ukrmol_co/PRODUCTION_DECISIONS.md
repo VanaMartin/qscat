@@ -232,8 +232,14 @@ was acquired. The four-total diagnostic still needs a bounded owner and fresh
 data/resource authority; runtime readiness is not physical qualification.
 The subsequent explicit continuation admits the
 [frozen two-geometry four-total diagnostic](https://data.qscat.org/co-neutral-core-pair-admission-20261125/scope.dfbb8bbf78c2.md)
-under its tested committed owner. Terminal evidence and B/C contrasts are pending;
-no completion, physical repair, automatic retry or curve adoption is inferred.
+under its tested committed owner. The
+[completed diagnostic](https://data.qscat.org/co-neutral-core-pair-result-20261125/assessment.cd4cf8580cd0.md)
+passes its numerical/source/resource gates and finds a material same-basis core
+response. Retain an all-electron/core-capable candidate for separately designed
+assessment, not a curve replacement. Sub-material finite basis replacement and
+closer composite-BO agreement certify neither basis convergence nor physical
+accuracy. Acquisition stops; any next decision is saved-only, not a new compute
+release or R=2.55 reopening.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution
