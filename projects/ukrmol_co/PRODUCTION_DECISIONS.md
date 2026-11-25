@@ -211,6 +211,11 @@ target reassessment; neither the discrepancy nor the reference's printed digits
 supply a physical uncertainty enclosure or isolate a CC-truncation error. No new
 quantum admission, refit, literature correction, MR splice or curve replacement
 follows. See the current handoff and immutable catalogue for the completed scope.
+The later bounded protocol card selects a conditional matched FC/AE core/basis
+diagnostic at existing geometries rather than another R=2.55 result. A separately
+tested diagnostic runner and fresh data/resource admission are prerequisites;
+the accepted worker remains unchanged. The card itself releases no calculation
+and does not convert component bookkeeping into a physical error enclosure.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

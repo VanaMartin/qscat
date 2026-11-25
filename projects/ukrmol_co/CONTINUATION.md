@@ -41,7 +41,9 @@ The user supplied both primary PDFs, resolving the historical SI file blocker.
 The [saved common-domain comparison](#goal-checkpoint--25-november-2026-saved-neutral-common-domain-benchmark)
 now identifies a pre-existing neutral shape discrepancy; defer the proposed
 2.55 diagnostic while reassessing the neutral protocol and physical target.
-No quantum diagnostic or curve replacement is released.
+The subsequent [protocol decision](#goal-checkpoint--25-november-2026-matched-neutral-protocol-decision)
+selects a conditional same-basis core contrast at existing geometries, not a
+new geometry. No quantum diagnostic or curve replacement is released.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -547,6 +549,25 @@ a method ladder or a replacement curve.
 The [immutable reader/input/table capsule](https://data.qscat.org/co-neutral-common-domain-benchmark-20261125/owned-evidence.tar.4468c5b28c94.gz)
 retains raw-log replay, primary identities/locators and uncertainty limitations;
 the full SHA256 is in the [catalogue](experiments.md).
+
+## Goal checkpoint — 25 November 2026: matched neutral-protocol decision
+
+The [published and authenticated decision card](https://data.qscat.org/co-neutral-protocol-decision-20261125/assessment.7cb228596b86.md)
+is complete. Saved component bookkeeping separates
+the existing basis response; it does not estimate a CC-truncation error. The
+selected conditional diagnostic separates basis replacement from finite core
+correlation with paired FC/AE calculations in one stock core-capable basis at
+two existing geometries. It does not identify all missing physics or establish
+the required neutral-to-nuclear accuracy allocation. Keep R=2.55 deferred.
+
+**One next proposed deliverable:** implement and synthetically qualify the narrow
+diagnostic-only runner, within the card's implementation cap. The accepted
+`neutral.py` stays unchanged. The subsequent four-total electronic diagnostic
+requires fresh explicit data/resource authority and passing runtime preflight;
+neither implementation nor quantum work was executed by this design unit.
+The [immutable source/component/design capsule](https://data.qscat.org/co-neutral-protocol-decision-20261125/owned-evidence.tar.274a490d4c3c.gz)
+retains the exact matched contrasts, stock API/basis findings and conditional
+outcome/resource card; its SHA256 is in the [catalogue](experiments.md).
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
