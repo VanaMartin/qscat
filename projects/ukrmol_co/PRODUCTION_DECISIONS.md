@@ -203,6 +203,10 @@ frozen toggle, and existing all-electron MR is not a drop-in replacement. The
 conditional diagnostic must remain distinct from accepted V0 data; benchmark
 rows/uncertainty, runner support and fresh authority are prerequisites, not a
 gate relaxation. No quantum or model/curve replacement is released.
+Primary SI identity is now confirmed through its DOI registry, but document
+access returns HTTP 403 and bounded cache checks supply no copy. The current
+blocker is the authorized PDF/source path, not online compute capacity. No
+precision table, uncertainty bound or new quantum admission is inferred.
 Accepted endpoint prescriptions and delivered curves
 remain unchanged; no third geometry, successful-peer repeat or fit extension.
 The exact old two-CSF archive is freshly verified, but consumer/owner resolution

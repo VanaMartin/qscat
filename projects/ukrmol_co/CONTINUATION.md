@@ -37,6 +37,8 @@ The [25 November route selection](#goal-checkpoint--25-november-2026-neutral-ref
 now prioritizes a verified benchmark/convention map before any diagnostic-only
 correlation admission. The RHF rejection remains unchanged; it is not a measured
 CCSD(T) error or authority to substitute an MR curve.
+Primary benchmark verification is now blocked on the [SI source file](#primary-benchmark-file-blocker--25-november-2026),
+not Sadaharu availability; no quantum diagnostic is released.
 
 **Endpoint decision: the scoped two-geometry pilot and later complete-state
 comparison are finished; acquisition is stopped.** Both complete self norms and
@@ -501,6 +503,22 @@ The [immutable source/primary-HTML/provenance capsule](https://data.qscat.org/co
 retains implementation findings, access limits and the conditional card; its
 SHA256 is in the [catalogue](experiments.md). No precision benchmark table or
 new qualified neutral row is claimed.
+
+### Primary benchmark file blocker — 25 November 2026
+
+The [published access record](https://data.qscat.org/co-neutral-benchmark-access-20261125/assessment.7b07244aebf0.md)
+confirms SI DOI **10.1021/acs.jctc.4c01082.s001** and the primary filename
+**ct4c01082_si_001.pdf** through Crossref. The ordinary publisher request returns
+HTTP 403. Sadaharu is reachable, but bounded cache-name checks found no matching
+copy in the locations inspected; this is not a whole-host absence claim. No
+proxy/bypass, quantum/container job or protected payload read occurred.
+
+**Required next input:** an authorized copy of that PDF, or an exact accessible
+local/Sadaharu path to an existing copy. Then verify its pages, columns, rows and
+physical-reference conventions/uncertainty; the document alone does not certify
+an error bound or release a calculation. No precision values are taken from
+search snippets. The [catalogue](experiments.md) retains the authenticated scope,
+access ledger and checksum; prior scientific decisions remain unchanged.
 
 ## Goal checkpoint — 20 November 2026: one-body and contraction ingredients
 
